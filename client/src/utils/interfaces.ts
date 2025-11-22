@@ -23,7 +23,7 @@ export type ParsedVersion = [number, number, number];
 /**
  * Action to process a file.
  */
-export type Action = 'encrypt' | 'decrypt';
+export type Action = 'encode' | 'decode';
 
 /**
  * Validation result.

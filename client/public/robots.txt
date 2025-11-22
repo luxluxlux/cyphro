@@ -4,4 +4,4 @@ User-agent: *
 Disallow: /secure/
 Disallow: /download/
 
-Sitemap: https://cryptographer.com/sitemap.xml
+Sitemap: https://cyphro.io/sitemap.xml

@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import Button from '@mui/material/Button';
 import Link from '@mui/material/Link';
 import { useSnackbar } from 'components/Snackbar';
-import { APPLICATION_NAME, MAX_ALERT_FILENAME_LENGTH, STAGE, STAGE_DATA } from 'utils/constants';
+import { APP_NAME, MAX_ALERT_FILENAME_LENGTH, STAGE, STAGE_DATA } from 'utils/constants';
 import { ellipse, upload, validateFile } from 'utils/common';
 import { isMobile } from 'utils/device';
 import { WindowManagerContext, WINDOW } from 'components/WindowManager';
@@ -53,15 +53,15 @@ const Upload = () => {
     return (
         <>
             <Header
-                metaTitle={`${APPLICATION_NAME} — Protect Files with Password Online`}
-                metaDescription={`${APPLICATION_NAME} is a free web app that lets you protect files with a password and disguise them as another files directly in your browser. Simple, private, and open source.`}
-                metaKeywords="file, data, password, protect, secure, encrypt, decrypt, cipher, disguise, free, online, service, file password, pdf password, excel password, zip password, set password, protect file"
+                metaTitle={`${APP_NAME} — Protect Files with Password Online`}
+                metaDescription={`${APP_NAME} is a free web app that lets you protect files with a password and disguise them as another files directly in your browser. Simple, private, and open source.`}
+                metaKeywords="file, data, password, protect, secure, encrypt, decrypt, encode, decode, cipher, disguise, free, online, service, file password, pdf password, excel password, zip password"
                 ogDescription="Protect your files with a password and disguise them as another files directly in your browser. Simple, private, and open source."
             />
             <div className="upload">
                 <p className="upload__description">
-                    Welcome to <strong>{APPLICATION_NAME}</strong>! The easiest way to protect your
-                    file with a password or disguise it as another file.
+                    Welcome to <strong>{APP_NAME}</strong>! It&apos;s the easiest way to protect
+                    your file with a password or disguise it as another file.
                 </p>
                 <Link className="upload__about" component="button" onClick={handleAboutClick}>
                     How does it work?

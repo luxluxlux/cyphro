@@ -6,10 +6,10 @@ import Button from '@mui/material/Button';
 import TelegramIcon from '@mui/icons-material/Telegram';
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
-import { APPLICATION_NAME, STAGE, STAGE_DATA } from 'utils/constants';
+import { APP_NAME, STAGE, STAGE_DATA } from 'utils/constants';
 import { download, ellipse } from 'utils/common';
 
-const SHARED_TEXT = `I protect my files with a password using ${APPLICATION_NAME}. Protect your files too!`;
+const SHARED_TEXT = `I protect my files with a password using ${APP_NAME}. Protect your files too!`;
 
 /**
  * File download and share page.
@@ -63,12 +63,12 @@ const Download = () => {
     return (
         <>
             <Helmet>
-                <title>{APPLICATION_NAME} | Download</title>
+                <title>{APP_NAME} | Download</title>
                 <meta name="robots" content="noindex" />
             </Helmet>
             <div className="download">
                 <p className="download__description">
-                    Your file was successfully {location.state.action}ed as{' '}
+                    Your file was successfully {location.state.action}d as{' '}
                     <b title={location.state.fileName}>{ellipse(location.state.fileName, 40)}</b>{' '}
                     and downloaded. If not, use the button below.
                 </p>

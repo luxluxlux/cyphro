@@ -2,7 +2,7 @@
   "entryPoints": ["src"],
   "entryPointStrategy": "expand",
   "out": "docs",
-  "name": "Cryptographer Client API",
+  "name": "Cyphro Client",
   "includeVersion": true,
   "excludeExternals": true,
   "excludePrivate": true,

@@ -1,93 +1,93 @@
-# Cryptographer
+# Cyphro
 
-<!-- https://github.com/inttter/md-badges -->
-![React](https://img.shields.io/badge/React-%2320232a.svg?logo=react&logoColor=%2361DAFB)
-![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=fff)
-![HTML](https://img.shields.io/badge/HTML-%23E34F26.svg?logo=html5&logoColor=white)
-![Sass](https://img.shields.io/badge/Sass-C69?logo=sass&logoColor=fff)
-![Jest](https://img.shields.io/badge/Jest-C21325?logo=jest&logoColor=fff)
-![Flask](https://img.shields.io/badge/Flask-000?logo=flask&logoColor=fff)
-![Python](https://img.shields.io/badge/Python-3776AB?logo=python&logoColor=fff)
-![Docker](https://img.shields.io/badge/Docker-2496ED?logo=docker&logoColor=fff)
+![GitHub Stable](https://img.shields.io/badge/stable-1.0.0-blue)
+[![GitHub License](https://img.shields.io/github/license/luxluxlux/cyphro)](https://github.com/luxluxlux/cyphro/blob/main/LICENSE.md)
 
-**Cryptographer** is a free, open source web application for encrypting and decrypting files directly in your browser. It’s designed to securely transmit files over unprotected channels - such as the Internet - by ensuring that the file contents remain private and inaccessible without a password.
+**Cyphro** is a privacy-first, free, open-source web application that helps users protect personal files from scammers and unauthorized access. Files can be secured with a password or optionally disguised as another file type — all directly in the browser, without relying on external services.
 
-This is a non-commercial project focused on helping individuals protect their personal data from unauthorized access. The developers are not responsible for any misuse of the application in ways that violate the laws of any country.
+## Key Features
 
-##  Key features
+| Feature                      | Description                                                                                   |
+| ---------------------------- | --------------------------------------------------------------------------------------------- |
+| 🛡️ **Password protection**   | Protect a file with a password so that only users who know it can access its contents.        |
+| 🌐 **No installation**       | Runs entirely in the browser — no installation, plugins, or extensions required.              |
+| 🙈 **No registration**       | Use the app without creating an account or providing personal information.                    |
+| 💸 **Completely free**       | 100% free to use — no ads, no subscriptions, no usage limits.                                 |
+| 🧩 **Open source**           | Transparent and community-driven. Anyone can review, audit, or contribute to the source code. |
+| 🖥️ **Local data processing** | All operations happen locally in the browser. Files never leave the user's device.            |
 
-| Feature | Description |
-|---------|-------------|
-| 🛡️ **Password protection** | Protect any file with a strong password. Only those who know the password can access the content. |
-| 🌐 **No installation** | Runs entirely in your browser. No need to install any software or extensions. |
-| 🙈 **No registration** | Use the tool without creating an account or submitting any personal information. |
-| 💸 **Completely free** | 100% free to use — no hidden fees, no subscriptions, and no limitations. |
-| 🧩 **Open source** | Transparent and community-driven. View, audit, or contribute to the code on GitHub. |
-| 🖥️ **Local encryption** | All encryption and decryption are done locally in your browser. Your files stay on your device. |
+## How It Works
 
-## How does it work?
+The user selects a file, sets a password, and can optionally choose another file type as a disguise. The application processes the file locally and restricts access to its contents until the correct password is provided.
 
-Cryptographer uses **symmetric encryption** to secure your files. This means that the same password is required to both encrypt and decrypt the file. We assume the password is either:
+To restore access, the user opens the protected file in the application and enters the same password. The application does not store, inspect, or retain user files or passwords at any point.
 
-* Transferred securely (e.g., in person or via encrypted messenger), or
-* Not transferred at all (e.g., the user encrypts and decrypts their own files).
+All processing occurs exclusively on the user's device.
 
-All data processing occurs **entirely in the browser**. No encryption keys, passwords, or file contents are sent to or stored on any server. The encrypted output is provided as a downloadable file that can only be decrypted using Cryptographer.
+## Usage Policy
 
-## Is it secure?
+Before using this application, users must review the **Terms of Use** and **Privacy Policy** published on the official website. The application must be used in compliance with applicable local laws and regulations.
 
-Cryptographer uses modern, well-vetted cryptographic standards (such as **AES**, **PBKDF2**, and **SHA-512**) to encode your data. Given current and near-future computing power, decrypting a file without the correct password is practically infeasible.
+The developers do not provide commercial services through this instance. The source code is provided as open source and may be used, modified, or integrated by third parties in accordance with the [MIT license](https://github.com/luxluxlux/cyphro/blob/main/LICENSE.md).
 
-Security also depends on how well the password is protected and how secure the user's device is. Since everything happens locally, the safety of the encrypted data relies entirely on the user's environment.
+## Data and Responsibility
+
+The application does not download, store, or access user files or passwords. All file processing remains on the user's device.
+
+Users are solely responsible for how they use the application. The service must not be used to process illegal content or materials that violate applicable laws.
 
 ## Documentation
 
-- [Figma layouts](https://www.figma.com/proto/vJngV2H7MrnI0pt3XD4Bos/Cryptographer?t=iBSnFTpCMg47VyAc-0&scaling=contain&content-scaling=fixed&page-id=0%3A1&node-id=1140-161)
+- [Figma layouts](https://www.figma.com/proto/vJngV2H7MrnI0pt3XD4Bos/Cyphro?t=iBSnFTpCMg47VyAc-0&scaling=contain&content-scaling=fixed&page-id=0%3A1&node-id=1140-161)
 
 ## Launch
 
-### Running with Python interpreter
+### Python Interpreter
 
-**Requirements:**
-- Python
-- Node.js
+1. Install requirements:
+
+   - Python
+   - Node.js
 
 1. Navigate to the project directory.
 
-2. Install Python dependencies:
+1. Install server dependencies:
 
-```
-pip install -r server/requirements.txt
-```
+   ```
+   pip install -r server/requirements.txt
+   ```
 
-3. Install npm dependencies:
+1. Install client dependencies:
 
-```
-npm i --prefix client
-```
+   ```
+   npm i --prefix client
+   ```
 
-4. Build the client files:
+1. Build static files:
 
-```
-npm run --prefix client build
-```
+   ```
+   npm run --prefix client build
+   ```
 
-5. Run the application:
+1. Run the application:
 
-```
-python main.py
-```
+   ```
+   python main.py
+   ```
 
-### Running in a Docker container
+### Docker Container
 
-**Requirements:**
-- Ubuntu server
-- Nginx web server
+1. Install requirements:
 
-1. Follow steps 1-4 from the section above.
+   - Python
+   - Node.js
+   - Ubuntu server
+   - Nginx web server
 
-2. Run the startup script:
+1. Follow steps 2-5 from the section above.
 
-```
-sudo bash start.sh
-```
+1. Run the startup script:
+
+   ```
+   sudo bash start.sh
+   ```
