@@ -44,7 +44,7 @@ const HowItWorks = () => {
                 ogDescription="Learn how we protect your data. Encode and disguise a file with a password directly in your browser. No uploads, no tracking, 100% open source and transparent."
             />
             <div>
-                <h2>How does it work?</h2>
+                <h2>How Does It Work?</h2>
                 <p>
                     You select a file on your device, set a password, and the app processes it
                     directly in your browser, without uploading it to any server. You can optionally
@@ -52,7 +52,7 @@ const HowItWorks = () => {
                     can be stored or shared anywhere while remaining inaccessible until processed
                     again in {APP_NAME} with the same password.
                 </p>
-                <h2>How reliable is it?</h2>
+                <h2>How Reliable Is It?</h2>
                 <p>
                     {APP_NAME} protects your files using{' '}
                     <strong>strong, modern security methods</strong> designed to prevent
@@ -61,7 +61,7 @@ const HowItWorks = () => {
                     also depends on the security of your own system — including protection from
                     malware, unauthorized users, and potential data leaks.
                 </p>
-                <h2>Can I trust you?</h2>
+                <h2>Can I Trust You?</h2>
                 <p>Yes, and here&apos;s why:</p>
                 <div className="how-it-works__features">
                     <div>
@@ -96,15 +96,15 @@ const HowItWorks = () => {
                         — anyone can verify it works as stated.
                     </div>
                 </div>
-                <h2>What else should I know?</h2>
+                <h2>What Else Should I Know?</h2>
                 <p>
                     Before using the app, please read our{' '}
                     <Link component={'button'} onClick={handleClickTermsOfUse}>
-                        Terms of Use
+                        terms of use
                     </Link>{' '}
                     and{' '}
                     <Link component={'button'} onClick={handleClickPrivacyPolicy}>
-                        Privacy Policy
+                        privacy policy
                     </Link>
                     . Do not modify or compress files processed with the app, as this may make them
                     unrecoverable. This instance of the app is intended for personal, individual use

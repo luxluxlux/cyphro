@@ -19,7 +19,7 @@ const NotFound = () => (
             metaDescription={`The page you are looking for could not be found on ${APP_NAME}.`}
         />
         <div className="not-found">
-            <h2 className="not-found__title">Oops! 404 - Page not found</h2>
+            <h2 className="not-found__title">Oops! 404 - Page Not Found</h2>
             <p className="not-found__description">
                 The page packed up its bits and left. We&apos;re still trying to decode its last
                 message.

@@ -44,7 +44,7 @@ const About = () => {
                 ogDescription="Protecting and disguising files directly in your browser. Learn how we make file safety simple, private, and fully local — no installation or registration required."
             />
             <div>
-                <h2>About the project</h2>
+                <h2>About the Project</h2>
                 <p>
                     <strong>{APP_NAME}</strong> is a privacy-first, open-source web application
                     designed to provide fast and convenient file protection for everyday users. This
@@ -55,7 +55,7 @@ const About = () => {
                     accessible, helping individuals safeguard their files from fraudsters, scammers,
                     and unauthorized access.
                 </p>
-                <h3>Key features</h3>
+                <h3>Key Features</h3>
                 <div className="about__features">
                     <div>
                         🛡️ <strong>Password protection</strong>
@@ -104,16 +104,16 @@ const About = () => {
                 <p>
                     By using {APP_NAME}, you confirm that you have read and accepted the{' '}
                     <Link component={'button'} onClick={handleClickTermsOfUse}>
-                        Terms of Use
+                        terms of use
                     </Link>{' '}
                     and the{' '}
                     <Link component={'button'} onClick={handleClickPrivacyPolicy}>
-                        Privacy Policy
+                        privacy policy
                     </Link>
                     . The application must be used in full compliance with applicable laws and
                     regulations.
                 </p>
-                <h2>Open to collaboration</h2>
+                <h2>Open to Collaboration</h2>
                 <p>
                     {APP_NAME} is built on the belief that{' '}
                     <strong>

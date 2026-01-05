@@ -40,7 +40,7 @@ const PrivacyPolicy = () => (
                 about how your personal information is processed. If you do not agree with our
                 policies and practices, please do not use our Services.
             </p>
-            <h3>1. What information do we collect?</h3>
+            <h3>1. What Information Do We Collect?</h3>
             <p>
                 We automatically collect minimal technical information when you visit or use the
                 Services. This information does not reveal your specific identity (like your name or
@@ -52,12 +52,12 @@ const PrivacyPolicy = () => (
                 collect, store, or access any files or other content that you process through the
                 Services.
             </p>
-            <h3>2. How do we process your information?</h3>
+            <h3>2. How Do We Process Your Information?</h3>
             <p>
                 We process your information to provide, improve, and administer our Services, for
                 security and fraud prevention, and to comply with law.
             </p>
-            <h3>3. When and with whom do we share your personal information?</h3>
+            <h3>3. When and With Whom Do We Share Your Personal Information?</h3>
             <p>We may need to share your personal information in the following situations:</p>
             <ul>
                 <li>
@@ -83,12 +83,12 @@ const PrivacyPolicy = () => (
                     contractually required to process personal information only on our instructions.
                 </li>
             </ul>
-            <h3>4. Do we use cookies and other tracking technologies?</h3>
+            <h3>4. Do We Use Cookies and Other Tracking Technologies?</h3>
             <p>
                 We don&apos;t use cookies or similar tracking technologies. Any analytics used are
                 cookie-less and rely only on minimal technical data.
             </p>
-            <h3>5. Is your information transferred internationally?</h3>
+            <h3>5. Is Your Information Transferred Internationally?</h3>
             <p>
                 Our servers are located in {APP_COUNTRY}. Regardless of your location, please be
                 aware that limited technical information (e.g., IP address, device and browser
@@ -106,7 +106,7 @@ const PrivacyPolicy = () => (
                 all necessary measures to protect your information in accordance with this Privacy
                 Policy and applicable law.{' '}
             </p>
-            <h3>6. How long do we keep your information?</h3>
+            <h3>6. How Long Do We Keep Your Information?</h3>
             <p>
                 We will only keep your personal information for as long as it is necessary for the
                 purposes set out in this Privacy Policy, unless a longer retention period is
@@ -117,14 +117,14 @@ const PrivacyPolicy = () => (
                 such information. This typically includes only limited technical logs required for
                 security or operational purposes.
             </p>
-            <h3>7. Do we collect information from minors?</h3>
+            <h3>7. Do We Collect Information from Minors?</h3>
             <p>
                 We do not knowingly collect data from children under 18 years of age. By using the
                 Services, you represent that you are at least 18 or that you are the parent or
                 guardian of such a minor and consent to such minor dependent&apos;s use of the
                 Services.
             </p>
-            <h3>8. What are your privacy rights?</h3>
+            <h3>8. What Are Your Privacy Rights?</h3>
             <p>
                 <strong>Withdrawing your consent:</strong> If we are relying on your consent to
                 process your personal information, which may be express and/or implied consent
@@ -138,7 +138,7 @@ const PrivacyPolicy = () => (
                 of your personal information conducted in reliance on lawful processing grounds
                 other than consent.
             </p>
-            <h3>9. Controls for do-not-track features</h3>
+            <h3>9. Controls for Do-not-track Features</h3>
             <p>
                 Most web browsers and some mobile operating systems and mobile applications include
                 a Do-Not-Track (&quot;DNT&quot;) feature or setting you can activate to signal your
@@ -150,14 +150,14 @@ const PrivacyPolicy = () => (
                 we must follow in the future, we will inform you about that practice in a revised
                 version of this Privacy Policy.
             </p>
-            <h3>10. Do we make updates to this notice?</h3>
+            <h3>10. Do We Make Updates to This Notice?</h3>
             <p>
                 We may update this Privacy Policy from time to time. The updated version will be
                 indicated by an updated date at the top of this Privacy Policy. We encourage you to
                 review this Privacy Policy frequently to be informed of how we are protecting your
                 information.
             </p>
-            <h3>11. How can you review, update, or delete the data we collect from you?</h3>
+            <h3>11. How Can You Review, Update, or Delete the Data We Collect From You?</h3>
             <p>
                 Based on the applicable laws of your country, you may have the right to request
                 access to the personal information we collect from you, details about how we have
@@ -167,7 +167,7 @@ const PrivacyPolicy = () => (
                 delete your personal information, please contact us using the contact information
                 provided in the section &quot;How can you contact us?&quot; below.
             </p>
-            <h3>12. How can you contact us?</h3>
+            <h3>12. How Can You Contact Us?</h3>
             <p>
                 If you have questions or comments about this notice, you may contact us by email at{' '}
                 <Link href={`mailto:${APP_EMAIL}`}>{APP_EMAIL}</Link>.
