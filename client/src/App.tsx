@@ -3,8 +3,8 @@ import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { ThemeProvider, StyledEngineProvider } from '@mui/material/styles';
 import { getUserAgent } from 'utils/device';
 import {
-    APPLICATION_NAME,
-    APPLICATION_URL,
+    APP_NAME,
+    APP_URL,
     REACT_SNAP_PATHS,
     STAGE,
     STAGE_DATA,
@@ -23,7 +23,7 @@ import './App.scss';
 import '@fontsource/inter/400.css';
 import '@fontsource/inter/700.css';
 
-const OG_IMAGE = `${APPLICATION_URL}preview.png`;
+const OG_IMAGE = `${APP_URL}preview.png`;
 
 /**
  * The entry point component of the application.
@@ -32,11 +32,11 @@ const OG_IMAGE = `${APPLICATION_URL}preview.png`;
 const App = () => (
     <HelmetProvider>
         <Helmet>
-            <title>{APPLICATION_NAME}</title>
+            <title>{APP_NAME}</title>
             <meta name="theme-color" content="#070707" />
             <meta property="og:locale" content="en_US" />
             <meta property="og:type" content="website" />
-            <meta property="og:site_name" content={APPLICATION_NAME} />
+            <meta property="og:site_name" content={APP_NAME} />
             <meta property="og:image" content={OG_IMAGE} />
             <meta property="og:image:type" content="image/png" />
             <meta property="og:image:width" content="1200" />

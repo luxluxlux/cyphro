@@ -1,7 +1,7 @@
 import { useCallback, useContext, MouseEvent } from 'react';
 import { Helmet } from 'react-helmet-async';
 import Link from '@mui/material/Link';
-import { APPLICATION_NAME, GITHUB_URL, VERSION } from 'utils/constants';
+import { APP_EMAIL, APP_NAME, GITHUB_URL, VERSION } from 'utils/constants';
 import { WindowManagerContext, WINDOW, WINDOW_DATA } from 'components/WindowManager';
 import { Header } from 'components/Page';
 
@@ -12,31 +12,48 @@ import { Header } from 'components/Page';
 const About = () => {
     const windowContext = useContext(WindowManagerContext);
 
-    const handleClickAgreement = useCallback((event: MouseEvent<HTMLElement>) => {
-        // Prevent window from being closed
-        event.stopPropagation();
-        windowContext.open(WINDOW.LICENSE_AGREEMENT);
-    }, [windowContext.open]);
+    const handleClickTermsOfUse = useCallback(
+        (event: MouseEvent<HTMLElement>) => {
+            // Prevent window from being closed
+            event.stopPropagation();
+            windowContext.open(WINDOW.TERMS_OF_USE);
+        },
+        [windowContext.open]
+    );
+
+    const handleClickPrivacyPolicy = useCallback(
+        (event: MouseEvent<HTMLElement>) => {
+            // Prevent window from being closed
+            event.stopPropagation();
+            windowContext.open(WINDOW.PRIVACY_POLICY);
+        },
+        [windowContext.open]
+    );
 
     return (
         <>
             <Helmet>
-                <title>{APPLICATION_NAME} | About</title>
+                <title>{APP_NAME} | About</title>
             </Helmet>
             <Header
                 path={`?popup=${WINDOW_DATA[WINDOW.ABOUT].path}`}
-                metaTitle={`About ${APPLICATION_NAME} — Open Source File Encryption and Disguise Tool`}
-                metaDescription={`${APPLICATION_NAME} is an open source web app for encrypting and disguising files directly in your browser. Learn about how the project makes file protection simple, private, and secure — password-protect and disguise any file without installation or registration.`}
-                metaKeywords={`${APPLICATION_NAME}, about project, free, no registration, online, open source, encryption, file password, password protect, file disguise, license agreement, collaboration, contacts, author, github`}
-                ogTitle={`${APPLICATION_NAME} — About the Project`}
-                ogDescription="Encrypting and disguising files directly in your browser. Learn about how the project makes file protection simple, private, and secure — password-protect and disguise any file without installation or registration."
+                metaTitle={`About ${APP_NAME} — Open Source File Security and Disguise Tool`}
+                metaDescription={`${APP_NAME} is an open-source web app for protecting and disguising files directly in your browser. Learn how we make file safety simple, private, and fully local — no installation or registration required.`}
+                metaKeywords={`${APP_NAME}, about project, free, no registration, online, open source, encryption, enoding, file password, password protect, file disguise, collaboration, contacts, author`}
+                ogTitle={`${APP_NAME} — About the Project`}
+                ogDescription="Protecting and disguising files directly in your browser. Learn how we make file safety simple, private, and fully local — no installation or registration required."
             />
             <div>
                 <h2>About the project</h2>
                 <p>
-                    <strong>{APPLICATION_NAME}</strong> project is an open source solution for fast
-                    and convenient file protection with a password. Its main goal is to make file
-                    encryption as accessible, secure and easy to use as possible.
+                    <strong>{APP_NAME}</strong> is a privacy-first, open-source web application
+                    designed to provide fast and convenient file protection for everyday users. This
+                    public web instance is intended for personal use.
+                </p>
+                <p>
+                    The project&apos;s mission is to make personal data security simple and
+                    accessible, helping individuals safeguard their files from fraudsters, scammers,
+                    and unauthorized access.
                 </p>
                 <h3>Key features</h3>
                 <div className="about__features">
@@ -44,97 +61,87 @@ const About = () => {
                         🛡️ <strong>Password protection</strong>
                     </div>
                     <div>
-                        Protect any file with a strong password. Only those who know the password
-                        can access the content.
+                        Secure a file with a password so that only users who know it can access its
+                        contents.
                     </div>
                     <div>
                         🌐 <strong>No installation</strong>
                     </div>
                     <div>
-                        Runs entirely in your browser. No need to install any software or
-                        extensions.
+                        {APP_NAME} runs entirely in your browser — no downloads, plugins, or
+                        extensions needed.
                     </div>
                     <div>
                         🙈 <strong>No registration</strong>
                     </div>
                     <div>
-                        Use the tool without creating an account or submitting any personal
-                        information.
+                        Use the application freely without creating an account or providing any
+                        personal information.
                     </div>
                     <div>
                         💸 <strong>Completely free</strong>
                     </div>
                     <div>
-                        100% free to use - no hidden fees, no subscriptions, and no limitations.
+                        {APP_NAME} is 100% free to use — no ads, no subscriptions, and no usage
+                        limits.
                     </div>
                     <div>
                         🧩 <strong>Open source</strong>
                     </div>
                     <div>
-                        Transparent and community-driven. View, audit, or contribute to the code on
-                        GitHub.
+                        The project is transparent and community-driven. Anyone can view, audit, or
+                        contribute to the source code on GitHub.
                     </div>
                     <div>
-                        🖥️ <strong>Local encryption</strong>
+                        🖥️ <strong>Local data processing</strong>
                     </div>
                     <div>
-                        All encryption and decryption are done locally in your browser. Your files
-                        stay on your device.
+                        All operations take place directly on the user&apos;s device. Files are
+                        never uploaded, stored, or transmitted to a server.
                     </div>
                 </div>
-                <h2>License agreement</h2>
+                <h2>Terms of Use and Privacy Policy</h2>
                 <p>
-                    By using {APPLICATION_NAME}, you acknowledge that you have read, understood, and
-                    agree to be bound by the terms and conditions outlined in this{' '}
-                    <Link
-                        className="password__agreement-link"
-                        component={'button'}
-                        onClick={handleClickAgreement}
-                    >
-                        license agreement
+                    By using {APP_NAME}, you confirm that you have read and accepted the{' '}
+                    <Link component={'button'} onClick={handleClickTermsOfUse}>
+                        Terms of Use
+                    </Link>{' '}
+                    and the{' '}
+                    <Link component={'button'} onClick={handleClickPrivacyPolicy}>
+                        Privacy Policy
                     </Link>
-                    . This includes, but is not limited to, the limitations of liability, privacy
-                    principles, acceptable use policy, and disclaimers regarding encryption
-                    reliability and legal compliance.
+                    . The application must be used in full compliance with applicable laws and
+                    regulations.
                 </p>
-                <p>
-                    Your continued use of the application constitutes your full acceptance of these
-                    terms. If you do not agree with any part of the agreement, you must discontinue
-                    use of {APPLICATION_NAME} immediately.
-                </p>
-
                 <h2>Open to collaboration</h2>
                 <p>
-                    {APPLICATION_NAME} is not backed by a corporation or a team - it&apos;s a
-                    project developed by a single enthusiast who believes that{' '}
+                    {APP_NAME} is built on the belief that{' '}
                     <strong>
-                        digital security should be simple, private, and accessible to everyone
+                        digital security should be simple, private, and available to everyone
                     </strong>
-                    . Despite that, I use the pronoun &quot;we&quot; to reflect a vision for the
-                    future - the belief that, over time, the project will grow into something
-                    greater, supported by a community of contributors, users, and like-minded
-                    people.
+                    . As an open-source project, it welcomes community involvement — the use of
+                    &quot;we&quot; reflects a collaborative vision and an inclusive space for anyone
+                    who wishes to contribute.
                 </p>
                 <p>
-                    We&apos;re looking for enthusiasts who want to contribute out of passion,
-                    curiosity, or the desire to build something meaningful. Whether you&apos;re a
-                    developer, designer, security researcher, or just someone who believes in the
-                    mission - your input is welcome.
+                    Developers, designers, security researchers, and privacy-focused enthusiasts are
+                    encouraged to participate. Every contribution strengthens the project and helps
+                    it grow.
                 </p>
                 <p>
-                    At the same time, we&apos;re also open to{' '}
-                    <strong>collaboration with companies or organizations</strong> that see value in
-                    our product and want to support or integrate it into their solutions. If you
-                    represent a business interested in privacy-focused tools, we&apos;d be glad to
-                    talk.
+                    {APP_NAME} welcomes{' '}
+                    <strong>sponsorship and collaboration with companies and organizations</strong>{' '}
+                    interested in privacy-first solutions. Businesses are free to support the
+                    project or use the open-source code in accordance with its license.
                 </p>
+                <h2>Contact</h2>
                 <p>
-                    Contact the{' '}
+                    If you&apos;d like to contribute, share ideas, report an issue, or discuss
+                    collaboration, you can contact the project author directly via{' '}
                     <Link href={GITHUB_URL} target="_blank" rel="noopener">
-                        project
+                        GitHub
                     </Link>{' '}
-                    author - however you prefer. We&apos;re always open to conversation,
-                    contribution, and ideas.
+                    or by email at <Link href={`mailto:${APP_EMAIL}`}>{APP_EMAIL}</Link>.
                 </p>
                 <p>
                     <strong>Version {VERSION}</strong>

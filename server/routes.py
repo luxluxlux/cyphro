@@ -13,7 +13,7 @@ def index():
     prefix = 'mobile/' if ua.is_mobile else ''
 
     popup = request.args.get('popup')
-    if popup in ['how-it-works', 'faq', 'about', 'license-agreement']:
+    if popup in ['how-it-works', 'faq', 'about', 'terms-of-use', 'privacy-policy']:
         return render_template(f'{prefix}{popup}/index.html')
 
     return render_template(f'{prefix}index.html')

@@ -1,6 +1,6 @@
 import { memo } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { APPLICATION_URL } from 'utils/constants';
+import { APP_URL } from 'utils/constants';
 import { IHeaderProps } from './interfaces';
 
 /**
@@ -13,12 +13,12 @@ export const Header = ({ path = '', ...props }: IHeaderProps) => {
     const ogDescription = props.ogDescription ? props.ogDescription : props.metaDescription;
     return (
         <Helmet>
-            <link rel="canonical" href={APPLICATION_URL + path} />
+            <link rel="canonical" href={APP_URL + path} />
             <meta name="description" content={props.metaDescription} />
             {props.metaKeywords && <meta name="keywords" content={props.metaKeywords} />}
             <meta property="og:title" content={ogTitle} />
             <meta property="og:description" content={ogDescription} />
-            <meta property="og:url" content={APPLICATION_URL + path} />
+            <meta property="og:url" content={APP_URL + path} />
             <meta name="twitter:title" content={ogTitle} />
             <meta name="twitter:description" content={ogDescription} />
         </Helmet>

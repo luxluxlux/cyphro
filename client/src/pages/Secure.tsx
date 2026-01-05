@@ -21,7 +21,7 @@ import {
     STAGE_DATA,
     STAGE,
     FILE_EXTENSION,
-    APPLICATION_NAME,
+    APP_NAME,
 } from 'utils/constants';
 import {
     addExtension,
@@ -37,7 +37,7 @@ import { WindowManagerContext, WINDOW } from 'components/WindowManager';
 import Loading from 'windows/Loading';
 
 /**
- * Encryption settings page.
+ * Security settings page.
  * @returns The page for setting up password, disguising, etc.
  */
 const Secure = () => {
@@ -120,11 +120,15 @@ const Secure = () => {
         setPasswordIsVisible((isVisible) => !isVisible);
     }, []);
 
-    const handleClickAgreement = useCallback(() => {
-        windowContext.open(WINDOW.LICENSE_AGREEMENT);
+    const handleClickTermsOfUse = useCallback(() => {
+        windowContext.open(WINDOW.TERMS_OF_USE);
     }, [windowContext.open]);
 
-    const handleCrypt = useCallback(
+    const handleClickPrivacyPolicy = useCallback(() => {
+        windowContext.open(WINDOW.PRIVACY_POLICY);
+    }, [windowContext.open]);
+
+    const handleCode = useCallback(
         async (action: Action) => {
             const passwordValidation = validatePassword(password);
             if (passwordValidation !== true) {
@@ -144,7 +148,7 @@ const Secure = () => {
             const disguise = location.state.disguise;
             try {
                 const result = await Promise.allSettled([
-                    action === 'encrypt'
+                    action === 'encode'
                         ? encryptFile(file, password!, disguise)
                         : decryptFile(file, password!),
                     // Give the user some time to think about the universe
@@ -187,7 +191,7 @@ const Secure = () => {
                 enqueueSnackbar({
                     variant: 'error',
                     message:
-                        action === 'encrypt'
+                        action === 'encode'
                             ? 'Check if the file is damaged or replace it with another one.'
                             : 'Check that the password or key is correct and make sure the file is not damaged.',
                     title: `Failed to ${action} file`,
@@ -200,9 +204,9 @@ const Secure = () => {
         [location, enqueueSnackbar, windowContext.open, windowContext.close, password]
     );
 
-    const handleEncryptClick = useCallback(() => handleCrypt('encrypt'), [handleCrypt]);
+    const handleEncodeClick = useCallback(() => handleCode('encode'), [handleCode]);
 
-    const handleDecryptClick = useCallback(() => handleCrypt('decrypt'), [handleCrypt]);
+    const handleDecodeClick = useCallback(() => handleCode('decode'), [handleCode]);
 
     if (!location.state) {
         return (
@@ -219,7 +223,7 @@ const Secure = () => {
     return (
         <>
             <Helmet>
-                <title>{APPLICATION_NAME} | Secure</title>
+                <title>{APP_NAME} | Secure</title>
                 <meta name="robots" content="noindex" />
             </Helmet>
             <div className="secure">
@@ -312,29 +316,33 @@ const Secure = () => {
                     />
                 </div>
                 <div className="secure__agreement">
-                    <span>By continuing, you agree to </span>
+                    <span>By continuing, you agree to the </span>
                     {/* Avoid word wrap on narrow screens */}
                     <Link
                         className="secure__agreement-link"
                         component={'button'}
-                        onClick={handleClickAgreement}
+                        onClick={handleClickTermsOfUse}
                     >
-                        the license terms
+                        Terms of Use
+                    </Link>
+                    <span> and the </span>
+                    <Link
+                        className="secure__agreement-link"
+                        component={'button'}
+                        onClick={handleClickPrivacyPolicy}
+                    >
+                        Privacy Policy
                     </Link>
                     <span>.</span>
                 </div>
                 {/* TODO: Add hints for empty password or key */}
                 <div className="secure__actions">
-                    <Button variant="contained" disabled={!password} onClick={handleEncryptClick}>
-                        Encrypt
+                    <Button variant="contained" disabled={!password} onClick={handleEncodeClick}>
+                        Encode
                     </Button>
                     {!location.state.disguise && (
-                        <Button
-                            variant="outlined"
-                            disabled={!password}
-                            onClick={handleDecryptClick}
-                        >
-                            Decrypt
+                        <Button variant="outlined" disabled={!password} onClick={handleDecodeClick}>
+                            Decode
                         </Button>
                     )}
                 </div>
@@ -360,8 +368,8 @@ function validatePassword(password: string | null): ValidationResult {
 }
 
 function validateBlob(action: Action, blob: Blob): ValidationResult {
-    if (action === 'encrypt' && blob.size > MAX_FILES_SIZE_MB * 1024 * 1024) {
-        return `The encrypted file size exceeds the maximum allowed size of ${MAX_FILES_SIZE_MB}MB.`;
+    if (action === 'encode' && blob.size > MAX_FILES_SIZE_MB * 1024 * 1024) {
+        return `The encoded file size exceeds the maximum allowed size of ${MAX_FILES_SIZE_MB}MB.`;
     }
 
     return true;

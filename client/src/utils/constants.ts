@@ -5,18 +5,30 @@ import { IStep, Version } from './interfaces';
 /**
  * Name of the application.
  */
-export const APPLICATION_NAME = 'Cryptographer';
+export const APP_NAME = 'Cyphro';
 
 // TODO: Get it from the app params
 /**
  * URL of the application.
  */
-export const APPLICATION_URL = 'https://cryptographer.com/';
+export const APP_URL = 'https://cyphro.io/';
+
+// TODO: Get it from the app params
+/**
+ * Contact email address of the application.
+ */
+export const APP_EMAIL = 'cyphroapp@gmail.com';
+
+// TODO: Get it from the app params
+/**
+ * Application server country.
+ */
+export const APP_COUNTRY = 'the Netherlands';
 
 /**
  * Project URL on GitHub.
  */
-export const GITHUB_URL = 'https://github.com/luxluxlux/cryptographer';
+export const GITHUB_URL = 'https://github.com/luxluxlux/cyphro';
 
 /**
  * Version size in bytes.
@@ -78,9 +90,9 @@ export const FILE_EXTENSION_MAX_LENGTH = 2 ** (8 * FILE_EXTENSION_SIZE_SIZE_BYTE
 export const MAX_ALERT_FILENAME_LENGTH = 30;
 
 /**
- * Encrypted file extension.
+ * Encoded file extension.
  */
-export const FILE_EXTENSION = 'crg';
+export const FILE_EXTENSION = 'cph';
 
 /**
  * Data processing stages.

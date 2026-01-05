@@ -1,5 +1,5 @@
 {
-  "name": "cryptographer",
+  "name": "cyphro",
   "version": "1.0.0",
   "private": true,
   "dependencies": {
@@ -62,12 +62,14 @@
       "/how-it-works",
       "/faq",
       "/about",
-      "/license-agreement",
+      "/terms-of-use",
+      "/privacy-policy",
       "/mobile",
       "/mobile/how-it-works",
       "/mobile/faq",
       "/mobile/about",
-      "/mobile/license-agreement",
+      "/mobile/terms-of-use",
+      "/mobile/privacy-policy",
       "/404.html"
     ]
   },

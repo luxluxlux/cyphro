@@ -1,133 +1,119 @@
+import { useCallback, useContext, MouseEvent } from 'react';
 import { Helmet } from 'react-helmet-async';
 import Link from '@mui/material/Link';
-import { APPLICATION_NAME, GITHUB_URL } from 'utils/constants';
-import { WINDOW_DATA, WINDOW } from 'components/WindowManager';
+import { APP_NAME, GITHUB_URL } from 'utils/constants';
 import { Header } from 'components/Page';
+import { WINDOW_DATA, WINDOW, WindowManagerContext } from 'components/WindowManager';
 
 /**
  * How the application works, its reliability, and what to know.
  * @returns Window content.
  */
-const HowItWorks = () => (
-    <>
-        <Helmet>
-            <title>{APPLICATION_NAME} | How It Works</title>
-        </Helmet>
-        <Header
-            path={`?popup=${WINDOW_DATA[WINDOW.HOW_IT_WORKS].path}`}
-            metaTitle={`How ${APPLICATION_NAME} Works — Encrypt and Disguise a File in Your Browser`}
-            metaDescription={`Learn how ${APPLICATION_NAME} protects your data. Encrypt and disguise a file with a password directly in your browser. No uploads, no tracking, 100% open source and transparent.`}
-            metaKeywords={`how it works, ${APPLICATION_NAME}, safe, secure, online, encrypt file, disguise file, password protect, pdf password, excel password, zip password, secret key, data privacy, terms of use, file sharing`}
-            ogTitle={`${APPLICATION_NAME} — How It Works`}
-            ogDescription="Learn how we protect your data. Encrypt and disguise a file with a password directly in your browser. No uploads, no tracking, 100% open source and transparent."
-        />
-        <div>
-            <h2>How does it work?</h2>
-            <p>
-                You choose a file from your device and set a password. That password is used to
-                generate a cryptographic key, which encrypts the file directly in your browser - no
-                data is ever sent to a server.
-            </p>
-            <p>
-                During encryption, you can also{' '}
-                <strong>disguise the protected file as a different file type</strong> (for example,
-                making a PDF file look like an image). This adds an extra layer of obfuscation,
-                making the file less noticeable and less attractive to attackers.
-            </p>
-            <p>
-                The encrypted file can then be safely shared via email, social networks, or stored
-                on a disk or removable media. Its contents remain inaccessible until it&apos;s
-                decrypted in the Cryptographer app using the same password.
-            </p>
-            <h2>How reliable is it?</h2>
-            <p>
-                We encrypt your data using strong, modern cryptographic standards such as{' '}
-                <strong>AES</strong>, <strong>PBKDF2</strong>, and <strong>SHA-512</strong>, making
-                it virtually impossible for attackers to read, modify, or decrypt your files with
-                current or near-future computing power.
-            </p>
-            <p>
-                Since all encryption is performed locally in your browser, the security of your
-                encrypted files depends on the safety of your device - including how well it&apos;s
-                protected from malware, unauthorized access, or data leaks.
-            </p>
-            <h2>Can I trust you?</h2>
-            <p>Yes, and here&apos;s why:</p>
-            <h3>🙈 We never see your secrets</h3>
-            <p>
-                <strong>We don&apos;t collect or store</strong> your passwords, encryption keys,
-                file contents, or any other sensitive information.{' '}
-                <strong>All encryption and decryption happens entirely in your browser</strong> -
-                your data is never sent to our servers.
-            </p>
-            <h3>🧪 You can verify this yourself</h3>
-            <p>Want to be sure? Here&apos;s how to check using your browser:</p>
-            <ol>
-                <li>Open Developer Tools (F12).</li>
-                <li>
-                    Go to the <strong>Network tab.</strong>
-                </li>
-                <li>Watch the requests as you use the app.</li>
-                <li>
-                    You&apos;ll see that no passwords, encryption keys, or file contents are
-                    transmitted - only basic service data (like page requests).
-                </li>
-            </ol>
-            <h3>🔍 We avoid insecure storage</h3>
-            <p>
-                We don&apos;t store any sensitive information in cookies, localStorage, or
-                sessionStorage - because those can be exposed or misused by third parties.
-            </p>
-            <p>To check:</p>
-            <ol>
-                <li>Open Developer Tools (F12).</li>
-                <li>
-                    Go to the <strong>Application tab.</strong>
-                </li>
-                <li>
-                    Check under Storage &gt;{' '}
-                    <strong>Cookies / Local Storage / Session Storage</strong>.
-                </li>
-                <li>You&apos;ll see - nothing sensitive is stored.</li>
-            </ol>
-            <h3>🧩 Open source = Full transparency</h3>
-            <p>
-                Cryptographer is 100% open source. You can inspect{' '}
-                <Link href={GITHUB_URL} target="_blank" rel="noopener">
-                    the full source code on GitHub
-                </Link>{' '}
-                and confirm for yourself that we follow everything stated above.
-            </p>
-            <h2>What else should I know?</h2>
-            <h3>⚠️ Do not modify encrypted files</h3>
-            <p>
-                Any change, even minor, can corrupt the file and make it impossible to decrypt or
-                recover the original data.
-            </p>
-            <h3>⚠️ Do not use this service for sensitive materials</h3>
-            <p>
-                This service is designed to protect your <strong>personal data</strong> - such as
-                photos, videos, audio files, text documents, and more. It is{' '}
-                <strong>
-                    not intended for encrypting materials involving state, industrial, or commercial
-                    secrets, etc.
-                </strong>
-                , where stricter security and compliance standards may be required.
-            </p>
-            <h3>🚫 The use of this product for illegal purposes is strictly prohibited!</h3>
-            <p>
-                The authors of this service only provide tools for encrypting data in the browser.
-                We do not have access to the downloaded files and{' '}
-                <strong>are not responsible for their content</strong>.
-            </p>
-            <p>
-                Be aware that government agencies of any country have the necessary expertise,
-                technical capabilities, and computing power to potentially access any encrypted
-                data.
-            </p>
-        </div>
-    </>
-);
+const HowItWorks = () => {
+    const windowContext = useContext(WindowManagerContext);
+
+    const handleClickTermsOfUse = useCallback(
+        (event: MouseEvent<HTMLElement>) => {
+            // Prevent window from being closed
+            event.stopPropagation();
+            windowContext.open(WINDOW.TERMS_OF_USE);
+        },
+        [windowContext.open]
+    );
+
+    const handleClickPrivacyPolicy = useCallback(
+        (event: MouseEvent<HTMLElement>) => {
+            // Prevent window from being closed
+            event.stopPropagation();
+            windowContext.open(WINDOW.PRIVACY_POLICY);
+        },
+        [windowContext.open]
+    );
+
+    return (
+        <>
+            <Helmet>
+                <title>{APP_NAME} | How It Works</title>
+            </Helmet>
+            <Header
+                path={`?popup=${WINDOW_DATA[WINDOW.HOW_IT_WORKS].path}`}
+                metaTitle={`How ${APP_NAME} Works — Encode and Disguise a File in Your Browser`}
+                metaDescription={`Learn how ${APP_NAME} protects your data. Encode and disguise a file with a password directly in your browser. No uploads, no tracking, 100% open source and transparent.`}
+                metaKeywords={`how it works, ${APP_NAME}, safe, secure, online, encrypt file, encode file, disguise file, password protect, pdf password, excel password, zip password, secret key, data privacy, terms of use`}
+                ogTitle={`${APP_NAME} — How It Works`}
+                ogDescription="Learn how we protect your data. Encode and disguise a file with a password directly in your browser. No uploads, no tracking, 100% open source and transparent."
+            />
+            <div>
+                <h2>How does it work?</h2>
+                <p>
+                    You select a file on your device, set a password, and the app processes it
+                    directly in your browser, without uploading it to any server. You can optionally
+                    disguise the processed file to reduce unwanted attention, and once protected, it
+                    can be stored or shared anywhere while remaining inaccessible until processed
+                    again in {APP_NAME} with the same password.
+                </p>
+                <h2>How reliable is it?</h2>
+                <p>
+                    {APP_NAME} protects your files using{' '}
+                    <strong>strong, modern security methods</strong> designed to prevent
+                    unauthorized access or tampering. Because all file protection happens directly
+                    in your browser and never leaves your device, the safety of your protected files
+                    also depends on the security of your own system — including protection from
+                    malware, unauthorized users, and potential data leaks.
+                </p>
+                <h2>Can I trust you?</h2>
+                <p>Yes, and here&apos;s why:</p>
+                <div className="how-it-works__features">
+                    <div>
+                        🙈 <strong>We don&apos;t see your data</strong>
+                    </div>
+                    <div>
+                        We don&apos;t collect or store passwords, keys, or files. All data
+                        processing happens in your browser.
+                    </div>
+                    <div>
+                        🧪 <strong>Verify it yourself</strong>
+                    </div>
+                    <div>
+                        In your browser, open Developer Tools → Network: files and passwords
+                        aren&apos;t sent, only basic service data.
+                    </div>
+                    <div>
+                        🔍 <strong>No local storage of sensitive info</strong>
+                    </div>
+                    <div>
+                        No sensitive data is saved in cookies, localStorage, or sessionStorage.
+                        Check under Application → Storage.
+                    </div>
+                    <div>
+                        🧩 <strong>Open source</strong>
+                    </div>
+                    <div>
+                        {APP_NAME} is fully open on{' '}
+                        <Link href={GITHUB_URL} target="_blank" rel="noopener">
+                            GitHub
+                        </Link>{' '}
+                        — anyone can verify it works as stated.
+                    </div>
+                </div>
+                <h2>What else should I know?</h2>
+                <p>
+                    Before using the app, please read our{' '}
+                    <Link component={'button'} onClick={handleClickTermsOfUse}>
+                        Terms of Use
+                    </Link>{' '}
+                    and{' '}
+                    <Link component={'button'} onClick={handleClickPrivacyPolicy}>
+                        Privacy Policy
+                    </Link>
+                    . Do not modify or compress files processed with the app, as this may make them
+                    unrecoverable. This instance of the app is intended for personal, individual use
+                    only. Any illegal activities are strictly forbidden.
+                </p>
+            </div>
+        </>
+    );
+};
 
 HowItWorks.displayName = 'HowItWorks';
 

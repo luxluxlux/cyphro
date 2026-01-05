@@ -1,7 +1,8 @@
 import About from 'windows/About';
 import FAQ from 'windows/FAQ';
 import HowItWorks from 'windows/HowItWorks';
-import LicenseAgreement from 'windows/LicenseAgreement';
+import TermsOfUse from 'windows/TermsOfUse';
+import PrivacyPolicy from 'windows/PrivacyPolicy';
 import { IWindow } from './interfaces';
 
 /**
@@ -11,7 +12,8 @@ export enum WINDOW {
     ABOUT = 'about',
     FAQ = 'faq',
     HOW_IT_WORKS = 'how-it-works',
-    LICENSE_AGREEMENT = 'license-agreement',
+    TERMS_OF_USE = 'terms-of-use',
+    PRIVACY_POLICY = 'privacy-policy',
 }
 
 /**
@@ -30,8 +32,12 @@ export const WINDOW_DATA: Record<WINDOW, IWindow> = {
         path: 'how-it-works',
         content: <HowItWorks />,
     },
-    [WINDOW.LICENSE_AGREEMENT]: {
-        path: 'license-agreement',
-        content: <LicenseAgreement />,
+    [WINDOW.TERMS_OF_USE]: {
+        path: 'terms-of-use',
+        content: <TermsOfUse />,
+    },
+    [WINDOW.PRIVACY_POLICY]: {
+        path: 'privacy-policy',
+        content: <PrivacyPolicy />,
     },
 };
