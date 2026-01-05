@@ -3,6 +3,13 @@ import { FILE_EXTENSION_SIZE_SIZE_BYTES, FILE_NAME_SIZE_SIZE_BYTES, VERSION_SIZE
 import { FixedBodyFormat, FixedFileFormat } from './interfaces';
 
 /**
+ * File marker (magic bytes).
+ * @remarks ASCII "CYPHR".
+ * @see https://en.wikipedia.org/wiki/File_format#Magic_number
+ */
+export const SIGNATURE = new Uint8Array([67, 89, 80, 72, 82]);
+
+/**
  * Salt size in bytes.
  * @remarks The selected value is based on the recommended params.
  * @see https://en.wikipedia.org/wiki/PBKDF2
@@ -83,6 +90,7 @@ export const BODY_FORMAT: FixedBodyFormat = [
  *    64 | HMAC (HmacSHA512)
  *    16 | Salt
  *     3 | Version (major, minor, revision)
+ *     5 | Signature
  * ```
  */
 export const FILE_FORMAT: FixedFileFormat = [
@@ -105,6 +113,10 @@ export const FILE_FORMAT: FixedFileFormat = [
     {
         type: 'Uint8Array',
         size: VERSION_SIZE
+    },
+    {
+        type: 'Uint8Array',
+        size: SIGNATURE.byteLength
     },
 ];
 

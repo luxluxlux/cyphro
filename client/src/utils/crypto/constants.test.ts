@@ -1,5 +1,12 @@
 import { AES, lib } from 'crypto-js';
-import { DEFAULT_CIPHER_PARAMS } from './constants';
+import { DEFAULT_CIPHER_PARAMS, SIGNATURE } from './constants';
+
+describe('SIGNATURE', () => {
+    it('SIGNATURE should not be modified', () => {
+        const originalSignature = new Uint8Array([67, 89, 80, 72, 82]);
+        expect(SIGNATURE).toEqual(originalSignature);
+    });
+});
 
 describe('DEFAULT_CIPHER_PARAMS', () => {
     it('Should have correct properties', () => {
