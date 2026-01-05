@@ -323,7 +323,7 @@ const Secure = () => {
                         component={'button'}
                         onClick={handleClickTermsOfUse}
                     >
-                        Terms of Use
+                        terms of use
                     </Link>
                     <span> and the </span>
                     <Link
@@ -331,7 +331,7 @@ const Secure = () => {
                         component={'button'}
                         onClick={handleClickPrivacyPolicy}
                     >
-                        Privacy Policy
+                        privacy policy
                     </Link>
                     <span>.</span>
                 </div>

@@ -83,7 +83,7 @@ const Menu = () => {
                             className="menu__list-item-button"
                             onClick={handleHowItWorksClick}
                         >
-                            <ListItemText primary="How&nbsp;it&nbsp;works" />
+                            <ListItemText primary="How&nbsp;It&nbsp;Works" />
                         </ListItemButton>
                     </ListItem>
                     <ListItem className="menu__list-item">

@@ -91,7 +91,7 @@ const TermsOfUse = () => {
                     your parent or guardian read and agree to these Terms of Use prior to you using
                     the Services.{' '}
                 </p>
-                <h3>1. Our services</h3>
+                <h3>1. Our Services</h3>
                 <p>
                     The information provided when using the Services is not intended for
                     distribution to or use by any person or entity in any jurisdiction or country
@@ -106,7 +106,7 @@ const TermsOfUse = () => {
                     the user&apos;s device. We do not receive, store, transmit, back up, or have
                     access to any such files or data.
                 </p>
-                <h3>2. Intellectual property rights</h3>
+                <h3>2. Intellectual Property Rights</h3>
                 <h4>Our intellectual property</h4>
                 <p>
                     The{' '}
@@ -201,7 +201,7 @@ const TermsOfUse = () => {
                     processing occurs entirely on your device and no files are uploaded to our
                     servers.{' '}
                 </p>
-                <h3>3. User representations</h3>
+                <h3>3. User Representations</h3>
                 <p>
                     By using the Services, you represent and warrant that: (1) you have the legal
                     capacity and you agree to comply with these Terms of Use; (2) you are not a
@@ -212,7 +212,7 @@ const TermsOfUse = () => {
                     purpose; and (5) your use of the Services will not violate any applicable law or
                     regulation.{' '}
                 </p>
-                <h3>4. Prohibited activities</h3>
+                <h3>4. Prohibited Activities</h3>
                 <p>
                     You may not access or use the Services for any purpose other than that for which
                     we make the Services available.
@@ -280,7 +280,7 @@ const TermsOfUse = () => {
                         restrict access to the Services, or any portion of the Services.
                     </li>
                 </ul>
-                <h3>5. Third-party websites and content</h3>
+                <h3>5. Third-party Websites and Content</h3>
                 <p>
                     The Services may contain (or you may be sent via the Site or App) links to other
                     websites (&quot;Third-Party Websites&quot;) as well as articles, photographs,
@@ -311,7 +311,7 @@ const TermsOfUse = () => {
                     resulting in any way from any Third-Party Content or any contact with
                     Third-Party Websites.
                 </p>
-                <h3>6. Services management</h3>
+                <h3>6. Services Management</h3>
                 <p>
                     We reserve the right, but not the obligation, to: (1) monitor the Services for
                     violations of these Terms of Use, solely through limited technical and
@@ -324,7 +324,7 @@ const TermsOfUse = () => {
                     protect our rights and property and to facilitate the proper functioning of the
                     Services.
                 </p>
-                <h3>7. Privacy policy</h3>
+                <h3>7. Privacy Policy</h3>
                 <p>
                     We care about data privacy and security. By using the Services, you agree to be
                     bound by our{' '}
@@ -339,7 +339,7 @@ const TermsOfUse = () => {
                     transferring limited technical data to {APP_COUNTRY}, and you expressly consent
                     to have your data transferred to and processed in {APP_COUNTRY}.
                 </p>
-                <h3>8. Term and termination</h3>
+                <h3>8. Term and Termination</h3>
                 <p>
                     These Terms of Use shall remain in full force and effect while you use the
                     Services. WITHOUT LIMITING ANY OTHER PROVISION OF THESE TERMS OF USE, WE RESERVE
@@ -356,7 +356,7 @@ const TermsOfUse = () => {
                     of these Terms of Use, including without limitation pursuing civil, criminal,
                     and injunctive redress.
                 </p>
-                <h3>9. Modifications and interruptions</h3>
+                <h3>9. Modifications and Interruptions</h3>
                 <p>
                     We reserve the right to change, modify, or remove the contents of the Services
                     at any time or for any reason at our sole discretion without notice. However, we
@@ -376,7 +376,7 @@ const TermsOfUse = () => {
                     be construed to obligate us to maintain and support the Services or to supply
                     any corrections, updates, or releases in connection therewith.
                 </p>
-                <h3>10. Dispute resolution</h3>
+                <h3>10. Dispute Resolution</h3>
                 <p>
                     If you have any complaints or concerns about the Services, you may contact us
                     directly. For EU residents, the European Commission provides an{' '}
@@ -419,7 +419,7 @@ const TermsOfUse = () => {
                     OR DAMAGE OF ANY KIND INCURRED AS A RESULT OF THE USE OF ANY CONTENT POSTED,
                     TRANSMITTED, OR OTHERWISE MADE AVAILABLE VIA THE SERVICES.
                 </p>
-                <h3>13. Limitations of liability</h3>
+                <h3>13. Limitations of Liability</h3>
                 <p>
                     IN NO EVENT WILL WE OR OUR CONTRIBUTORS BE LIABLE TO YOU OR ANY THIRD PARTY FOR
                     ANY DIRECT, INDIRECT, CONSEQUENTIAL, EXEMPLARY, INCIDENTAL, SPECIAL, OR PUNITIVE
@@ -447,7 +447,7 @@ const TermsOfUse = () => {
                     efforts to notify you of any such claim, action, or proceeding which is subject
                     to this indemnification upon becoming aware of it.
                 </p>
-                <h3>15. User data</h3>
+                <h3>15. User Data</h3>
                 <p>
                     We do not store, back up, or have access to any content or data processed
                     through the Services. All content and data processed by the Services remain
@@ -458,7 +458,7 @@ const TermsOfUse = () => {
                     </MuiLink>
                     .
                 </p>
-                <h3>16. Electronic communications, transactions, and signatures</h3>
+                <h3>16. Electronic Communications, Transactions, and Signatures</h3>
                 <p>
                     You agree that any notices or communications related to the Services may be
                     provided electronically, including through updates posted on the Services or via
@@ -484,7 +484,7 @@ const TermsOfUse = () => {
                     these Terms of Use will not be construed against us by virtue of having drafted
                     them.
                 </p>
-                <h3>18. Contact us</h3>
+                <h3>18. Contact Us</h3>
                 <p>
                     In order to resolve a complaint regarding the Services or to receive further
                     information regarding use of the Services, please contact us by email at{' '}
