@@ -22,4 +22,3 @@ describe('PARSED_VERSION', () => {
         expect(PARSED_VERSION.length).toEqual(VERSION_SIZE);
     });
 });
-

@@ -20,7 +20,8 @@ import {
     SALT_SIZE,
     DEFAULT_CIPHER_PARAMS,
     FILE_FORMAT,
-    BODY_FORMAT
+    BODY_FORMAT,
+    SIGNATURE
 } from './constants';
 
 /**
@@ -122,6 +123,7 @@ export function buildFile({
             hmac,
             salt,
             new Uint8Array(PARSED_VERSION),
+            SIGNATURE
         ],
         disguise,
         true
@@ -212,7 +214,12 @@ export async function parseFile(data: Uint8Array, password: string): Promise<{
     cipher: lib.CipherParams;
     key: lib.WordArray;
 }> {
-    const { formattedData: [ciphertext, iv, hmac, salt, _version] } = disassemble(FILE_FORMAT, data, true);
+    const { formattedData: [ciphertext, iv, hmac, salt, _version, signature] } = disassemble(FILE_FORMAT, data, true);
+
+    if (!compareUint8Arrays(signature, SIGNATURE)) {
+        throw new Error('Invalid file signature');
+    }
+
     const key = getKey(password, salt);
     const cipher = lib.CipherParams.create({
         ciphertext,

@@ -60,5 +60,9 @@ export type FixedFileFormat = [
     {
         type: 'Uint8Array',
         size: number
+    },
+        {
+        type: 'Uint8Array',
+        size: number
     }
 ]
