@@ -85,6 +85,111 @@ export const FILE_EXTENSION_SIZE_SIZE_BYTES = 2;
 export const FILE_EXTENSION_MAX_LENGTH = 2 ** (8 * FILE_EXTENSION_SIZE_SIZE_BYTES) / 4 - 1;
 
 /**
+ * Forbidden file extensions.
+ * @remarks Executable file formats that may contain malicious scripts and programs.
+ */
+export const FORBIDDEN_FILE_EXTENSIONS = [
+    // Windows executables & system files
+    'exe', 'msi', 'msp', 'dll', 'sys', 'scr', 'cpl', 'drv',
+
+    // Windows script-based executables
+    'bat', 'cmd', 'ps1', 'psm1', 'vbs', 'vbe', 'js', 'jse', 'wsf', 'wsh',
+
+    // macOS executables & installers
+    'app', 'pkg', 'dmg', 'command',
+
+    // Linux / Unix executables
+    'elf', 'bin', 'run', 'out', 'so',
+
+    // Java & cross-platform executables
+    'jar', 'jnlp',
+
+    // Mobile / embedded
+    'apk', 'aab', 'ipa',
+
+    // Firmware / low-level binaries
+    'img', 'iso', 'rom',
+
+    // Legacy / uncommon but dangerous
+    'pif', 'gadget'
+];
+
+/**
+ * Forbidden disguise extensions.
+ * @remarks Non-executable file formats for which writing bytes to the end is not critical.
+ */
+export const ALLOWED_DISGUISE_EXTENSIONS = [
+    // Audio formats (stream-based, tolerant to trailing data)
+    'mp3',        // ignoring ID3v1 edge case
+    'wav',
+    'flac',
+    'ogg', 'oga',
+    'opus',
+    'aac',
+    'm4a',        // if moov atom is at the beginning
+    'aiff',
+    'alac',
+
+    // Video formats (container-based, index not strictly at EOF)
+    'mp4',        // faststart / moov at beginning
+    'm4v',
+    'mov',        // faststart
+    'mkv',
+    'webm',
+    'avi',
+    'flv',
+    'ogv',
+
+    // Image formats (size defined in headers)
+    'jpg', 'jpeg',
+    'png',
+    'gif',
+    'bmp',
+    'tiff', 'tif',
+    'webp',
+    'ico',
+    'heic',
+
+    // Document formats (not intended for plain-text reading)
+    'rtf',
+    'tex', 'latex',
+    'epub',
+    'djvu',
+    'pdf',
+
+    // Scientific & structured binary data
+    'dat',
+    'raw',
+    'npy', 'npz',
+    'mat',
+    'hdf5', 'h5',
+    'parquet',
+    'avro',
+
+    // Databases & database dumps
+    'sqlite',
+    'db', 'db3',
+    'sqlitedb',
+    'dump',
+
+    // Archive / compression formats tolerant to trailing bytes
+    'tar',
+    'gz', 'tgz',
+    'bz2',
+    'xz',
+    'lz', 'lzma',
+    'zst',
+
+    // Capture, trace & binary log formats
+    'pcap',
+    'pcapng',
+
+    // Other non-executable binary formats
+    'wasm',
+    'swf'
+];
+
+/**
  * Maximum length of the file name inside the alert.
  */
 export const MAX_ALERT_FILENAME_LENGTH = 30;

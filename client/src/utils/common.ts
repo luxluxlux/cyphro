@@ -1,5 +1,11 @@
 import { ParsedVersion, ValidationResult, Version } from './interfaces';
-import { FILE_EXTENSION_MAX_LENGTH, FILE_NAME_MAX_LENGTH, MAX_FILES_SIZE_MB } from './constants';
+import {
+    ALLOWED_DISGUISE_EXTENSIONS,
+    FILE_EXTENSION_MAX_LENGTH,
+    FILE_NAME_MAX_LENGTH,
+    FORBIDDEN_FILE_EXTENSIONS,
+    MAX_FILES_SIZE_MB
+} from './constants';
 
 /**
  * Parses a version string into a tuple.
@@ -88,6 +94,10 @@ export function validateFile(file: File): ValidationResult {
         return 'File extension is too long.';
     }
 
+    if (extension && FORBIDDEN_FILE_EXTENSIONS.includes(extension.toLowerCase())) {
+        return 'Forbidden file extension. See FAQ for allowed formats.';
+    }
+
     if (file.size === 0) {
         return 'Folders and empty files are not allowed.';
     }
@@ -126,7 +136,7 @@ export function validateFiles(files: FileList): ValidationResult {
  * @returns True if the disguise file is valid, or an error message if it's not.
  */
 export function validateDisguise(disguiseFile: File, sourceFile: File): ValidationResult {
-    const { name: disguiseFileName } = parseFileName(disguiseFile.name);
+    const { name: disguiseFileName, extension: disguiseFileExtension } = parseFileName(disguiseFile.name);
 
     if (!disguiseFileName.length) {
         return 'File name is required.';
@@ -134,6 +144,16 @@ export function validateDisguise(disguiseFile: File, sourceFile: File): Validati
 
     if (disguiseFile.size === 0) {
         return 'Folders and empty files are not allowed.';
+    }
+
+    // Files without an extension are in most cases opened by text editors,
+    // which can lead to the disclosure of the disguise
+    if (!disguiseFileExtension) {
+        return 'File extension is required.';
+    }
+
+    if (!ALLOWED_DISGUISE_EXTENSIONS.includes(disguiseFileExtension.toLowerCase())) {
+        return 'Forbidden file extension. See FAQ for allowed formats.';
     }
 
     if (disguiseFile.size > MAX_FILES_SIZE_MB * 1024 * 1024) {

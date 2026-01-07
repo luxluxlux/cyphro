@@ -104,6 +104,12 @@ describe('validateFile', () => {
         const result = validateFile(file);
         expect(typeof result === 'string').toEqual(true);
     });
+
+    it('Should return an error message for a file with a forbidden extension', () => {
+        const file = new File(['Hello'], 'test.exe', { type: 'application/x-msdownload' });
+        const result = validateFile(file);
+        expect(typeof result === 'string').toEqual(true);
+    });
 });
 
 describe('validateFiles', () => {
@@ -136,35 +142,35 @@ describe('validateFiles', () => {
 describe('validateDisguise', () => {
     it('Should return true for a valid disguise file', () => {
         const file = new File(['Hello'], 'test.txt', { type: 'text/plain' });
-        const disguise = new File(['Hello'], 'test.html', { type: 'text/html' });
+        const disguise = new File(['iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGNgYAAAAAMAASsJTYQAAAAASUVORK5CYII='], 'test.png', { type: 'image/png' });
         const result = validateDisguise(disguise, file);
         expect(result).toEqual(true);
     });
 
-    it('Should return true for a valid disguise file without an extension', () => {
+    it('Should return an error message for a disguise file without an extension', () => {
         const file = new File(['Hello'], 'test.txt', { type: 'text/plain' });
-        const disguise = new File(['Hello'], 'test', { type: 'text/html' });
+        const disguise = new File(['iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGNgYAAAAAMAASsJTYQAAAAASUVORK5CYII='], 'test', { type: 'image/png' });
         const result = validateDisguise(disguise, file);
-        expect(result).toEqual(true);
+        expect(typeof result === 'string').toEqual(true);
     });
 
     it('Should return an error message for a disguise file without a name', () => {
         const file = new File(['Hello'], '.txt', { type: 'text/plain' });
-        const disguise = new File(['Hello'], '.html', { type: 'text/html' });
+        const disguise = new File(['iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGNgYAAAAAMAASsJTYQAAAAASUVORK5CYII='], '.png', { type: 'image/png' });
         const result = validateDisguise(disguise, file);
         expect(typeof result === 'string').toEqual(true);
     });
 
     it('Should return an error message for an empty disguise file', () => {
         const file = new File(['Hello'], 'test.txt', { type: 'text/plain' });
-        const result = validateDisguise(new File([], 'empty.txt', { type: 'text/plain' }), file);
+        const result = validateDisguise(new File([], 'empty.png', { type: 'image/png' }), file);
         expect(typeof result === 'string').toEqual(true);
     });
 
     it('Should return an error message for a disguise file larger than MAX_FILE_SIZE_MB', () => {
         const largeContent = new Uint8Array((MAX_FILES_SIZE_MB + 1) * 1024 * 1024);
         const file = new File(['Hello'], 'test.txt', { type: 'text/plain' });
-        const disguise = new File([largeContent], 'large.txt', { type: 'text/plain' });
+        const disguise = new File([largeContent], 'large.png', { type: 'image/png' });
         const result = validateDisguise(disguise, file);
         expect(typeof result === 'string').toEqual(true);
     });
@@ -172,7 +178,14 @@ describe('validateDisguise', () => {
     it('Should return an error message for a file and a disguise file larger than MAX_FILES_SIZE_MB', () => {
         const largeContent = new Uint8Array((MAX_FILES_SIZE_MB + 1) * 1024 * 1024);
         const file = new File([largeContent], 'large.txt', { type: 'text/plain' });
-        const disguise = new File([largeContent], 'large.txt', { type: 'text/plain' });
+        const disguise = new File([largeContent], 'large.png', { type: 'image/png' });
+        const result = validateDisguise(disguise, file);
+        expect(typeof result === 'string').toEqual(true);
+    });
+
+    it('Should return an error message for a disguise file with an disallowed extension', () => {
+        const file = new File(['Hello'], 'test.txt', { type: 'text/plain' });
+        const disguise = new File(['Hello'], 'test.txt', { type: 'text/plain' });
         const result = validateDisguise(disguise, file);
         expect(typeof result === 'string').toEqual(true);
     });
