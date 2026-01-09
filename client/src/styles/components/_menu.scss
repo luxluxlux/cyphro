@@ -1,17 +1,21 @@
 .menu {
     &__list {
-        list-style-type: none;
+        list-style: none;
         display: flex;
-        padding: unset;
         gap: var(--offset_2xl);
+        margin: unset;
+        padding: unset;
 
         &-item {
-            padding: unset;
+            margin-bottom: unset;
+            flex-shrink: 0;
 
             &-button {
-                padding: 6px 17px;
-                margin: -6px -17px;
-                border-radius: var(--border-radius-infinite);
+                min-width: unset;
+                padding-left: 17px;
+                padding-right: 17px;
+                margin-left: -17px;
+                margin-right: -17px;
             }
         }
     }

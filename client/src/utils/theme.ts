@@ -56,6 +56,20 @@ export default createTheme({
                     return {
                         variants: [
                             {
+                                props: { variant: 'text' },
+                                style: {
+                                    ...common,
+                                    // Compensation for the border
+                                    border: '1px solid transparent',
+                                    "&:hover": {
+                                        backgroundColor: 'var(--button-translucent-hover-color)',
+                                    },
+                                    '&:focus-visible': {
+                                        backgroundColor: 'var(--button-translucent-focus-color)',
+                                    },
+                                },
+                            },
+                            {
                                 props: { variant: 'outlined' },
                                 style: {
                                     ...common,
@@ -197,12 +211,5 @@ export default createTheme({
                 },
             },
         },
-        MuiListItem: {
-            styleOverrides: {
-                root: {
-                    marginBottom: 'unset',
-                },
-            },
-        }
     },
 });

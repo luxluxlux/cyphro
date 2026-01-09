@@ -318,19 +318,11 @@ const Secure = () => {
                 <div className="secure__agreement">
                     <span>By continuing, you agree to the </span>
                     {/* Avoid word wrap on narrow screens */}
-                    <Link
-                        className="secure__agreement-link"
-                        component={'button'}
-                        onClick={handleClickTermsOfUse}
-                    >
+                    <Link component={'button'} onClick={handleClickTermsOfUse}>
                         terms of use
                     </Link>
                     <span> and the </span>
-                    <Link
-                        className="secure__agreement-link"
-                        component={'button'}
-                        onClick={handleClickPrivacyPolicy}
-                    >
+                    <Link component={'button'} onClick={handleClickPrivacyPolicy}>
                         privacy policy
                     </Link>
                     <span>.</span>
