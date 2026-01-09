@@ -1,6 +1,13 @@
 import { Helmet } from 'react-helmet-async';
 import Link from '@mui/material/Link';
-import { APP_EMAIL, APP_NAME, GITHUB_URL, MAX_FILES_SIZE_MB } from 'utils/constants';
+import {
+    ALLOWED_DISGUISE_EXTENSIONS,
+    APP_EMAIL,
+    APP_NAME,
+    FORBIDDEN_FILE_EXTENSIONS,
+    GITHUB_URL,
+    MAX_FILES_SIZE_MB,
+} from 'utils/constants';
 import { WINDOW_DATA, WINDOW } from 'components/WindowManager';
 import { Header } from 'components/Page';
 
@@ -49,14 +56,20 @@ const FAQ = () => (
             </p>
             <h3>📁 What File Types Are Supported?</h3>
             <p>
-                You can use almost <strong>any file type</strong>, including documents, images,
-                audio, and video files. Folder uploads are not supported at the moment.
+                You can use almost any file type, including documents, images, audio, and video
+                files. For security reasons, executable or system-related files and folder uploads
+                are currently not supported.
+            </p>
+            <p>
+                <strong>Forbidden file extensions:</strong>{' '}
+                {FORBIDDEN_FILE_EXTENSIONS.map((value) => `*.${value}`).join(', ')}.
             </p>
             <h3>📂 Can I Process Multiple Files or Folders?</h3>
             <p>
                 Currently, <strong>only one file can be processed at a time</strong>. Native support
                 for multiple files and folders may be added in future versions.
             </p>
+
             <h3>🎭 Can I Disguise a Protected File as Another File Type?</h3>
             <p>
                 <strong>Yes.</strong> The app allows you to disguise a processed file so it appears
@@ -67,6 +80,23 @@ const FAQ = () => (
             <p>
                 <strong>Yes.</strong> Simply open the disguised file in {APP_NAME}. The app will
                 detect the protected content and ask for the correct password to restore access.
+            </p>
+
+            <h3>📏 Is There a Size Limit for Disguise Files?</h3>
+            <p>
+                Yes. The file used as a disguise must be no larger than{' '}
+                <strong>{MAX_FILES_SIZE_MB}MB</strong>. This limit helps ensure stable processing
+                and prevents issues when restoring the original data.
+            </p>
+            <h3>🏷️ What File Types Are Supported for Disguise?</h3>
+            <p>
+                Disguise files must use non-executable formats that are technically tolerant to
+                additional embedded data. The supported formats are based on technical constraints
+                and may be expanded in future versions.
+            </p>
+            <p>
+                <strong>Allowed disguise extensions:</strong>{' '}
+                {ALLOWED_DISGUISE_EXTENSIONS.map((value) => `*.${value}`).join(', ')}.
             </p>
             <h3>🚫 I Can&apos;t Process a File. What Should I Do?</h3>
             <p>Please check the following:</p>

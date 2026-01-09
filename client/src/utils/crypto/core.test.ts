@@ -114,7 +114,7 @@ describe('buildFile', () => {
 describe('checkBack', () => {
     it('Should return true if the decrypted data matches the original data', async () => {
         const file = new File(['Hello World'], 'test.txt', { type: 'text/plain' });
-        const disguise = new File(['<html><body>Disguise</body></html>'], 'disguise.html', { type: 'text/html' });
+        const disguise = new File(['iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGNgYAAAAAMAASsJTYQAAAAASUVORK5CYII='], 'test.png', { type: 'image/png' });
         const password = 'testPassword';
 
         const encrypted = await encryptFile(file, password, disguise);
@@ -139,7 +139,7 @@ describe('encryptFile', () => {
     it('Should return an encrypted Uint8Array with the correct format', async () => {
         const file = new File(['Hello World'], 'test.txt', { type: 'text/plain' });
         const password = 'testPassword';
-        const disguise = new File(['<html><body>Disguise</body></html>'], 'disguise.html', { type: 'text/html' });
+        const disguise = new File(['iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGNgYAAAAAMAASsJTYQAAAAASUVORK5CYII='], 'test.png', { type: 'image/png' });
 
         const encrypted = await encryptFile(file, password, disguise);
         const { formattedData: [ciphertext, iv, hmac, salt, version] } = disassemble(FILE_FORMAT, encrypted, true);
@@ -183,7 +183,7 @@ describe('decryptFile', () => {
     it('Should return the decrypted Uint8Array', async () => {
         const extension = 'txt';
         const file = new File(['Hello World'], 'test.' + extension, { type: 'text/plain' });
-        const disguise = new File(['<html><body>Disguise</body></html>'], 'disguise.html', { type: 'text/html' });
+        const disguise = new File(['iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGNgYAAAAAMAASsJTYQAAAAASUVORK5CYII='], 'test.png', { type: 'image/png' });
         const password = 'testPassword';
 
         const encrypted = new File([await encryptFile(file, password, disguise)], 'test.txt', { type: 'text/plain' });
@@ -227,10 +227,10 @@ describe('encrypt/decrypt', () => {
         const fileTypes = [
             { content: 'Hello World', name: 'text.txt', type: 'text/plain', extension: 'txt' },
             { content: '<html><body>Hello World</body></html>', name: 'index.html', type: 'text/html', extension: 'html' },
-            { content: 'iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAApgAAAKYB3X3/OAAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAANCSURBVEiJtZZPbBtFFMZ/M7ubXdtdb1xSFyeilBapySVU8h8OoFaooFSqiihIVIpQBKci6KEg9Q6H9kovIHoCIVQJJCKE1ENFjnAgcaSGC6rEnxBwA04Tx43t2FnvDAfjkNibxgHxnWb2e/u992bee7tCa00YFsffekFY+nUzFtjW0LrvjRXrCDIAaPLlW0nHL0SsZtVoaF98mLrx3pdhOqLtYPHChahZcYYO7KvPFxvRl5XPp1sN3adWiD1ZAqD6XYK1b/dvE5IWryTt2udLFedwc1+9kLp+vbbpoDh+6TklxBeAi9TL0taeWpdmZzQDry0AcO+jQ12RyohqqoYoo8RDwJrU+qXkjWtfi8Xxt58BdQuwQs9qC/afLwCw8tnQbqYAPsgxE1S6F3EAIXux2oQFKm0ihMsOF71dHYx+f3NND68ghCu1YIoePPQN1pGRABkJ6Bus96CutRZMydTl+TvuiRW1m3n0eDl0vRPcEysqdXn+jsQPsrHMquGeXEaY4Yk4wxWcY5V/9scqOMOVUFthatyTy8QyqwZ+kDURKoMWxNKr2EeqVKcTNOajqKoBgOE28U4tdQl5p5bwCw7BWquaZSzAPlwjlithJtp3pTImSqQRrb2Z8PHGigD4RZuNX6JYj6wj7O4TFLbCO/Mn/m8R+h6rYSUb3ekokRY6f/YukArN979jcW+V/S8g0eT/N3VN3kTqWbQ428m9/8k0P/1aIhF36PccEl6EhOcAUCrXKZXXWS3XKd2vc/TRBG9O5ELC17MmWubD2nKhUKZa26Ba2+D3P+4/MNCFwg59oWVeYhkzgN/JDR8deKBoD7Y+ljEjGZ0sosXVTvbc6RHirr2reNy1OXd6pJsQ+gqjk8VWFYmHrwBzW/n+uMPFiRwHB2I7ih8ciHFxIkd/3Omk5tCDV1t+2nNu5sxxpDFNx+huNhVT3/zMDz8usXC3ddaHBj1GHj/As08fwTS7Kt1HBTmyN29vdwAw+/wbwLVOJ3uAD1wi/dUH7Qei66PfyuRj4Ik9is+hglfbkbfR3cnZm7chlUWLdwmprtCohX4HUtlOcQjLYCu+fzGJH2QRKvP3UNz8bWk1qMxjGTOMThZ3kvgLI5AzFfo379UAAAAASUVORK5CYII=', name: 'image.png', type: 'image/png', extension: 'png', isBase64: true },
+            { content: 'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGNgYAAAAAMAASsJTYQAAAAASUVORK5CYII=', name: 'image.png', type: 'image/png', extension: 'png', isBase64: true },
             // TODO: Add more file types
         ];
-        const disguise = new File(['<html><body>Disguise</body></html>'], 'disguise.html', { type: 'text/html' });
+        const disguise = new File(['iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGNgYAAAAAMAASsJTYQAAAAASUVORK5CYII='], 'test.png', { type: 'image/png' });
         const password = 'testPassword';
 
         for (const fileType of fileTypes) {

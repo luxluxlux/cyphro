@@ -11,7 +11,6 @@ import CachedIcon from '@mui/icons-material/Cached';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import CloseIcon from '@mui/icons-material/Close';
-import AutoFixHighIcon from '@mui/icons-material/AutoFixHigh';
 import { Action, ValidationResult } from 'utils/interfaces';
 import {
     MIN_PASSWORD_LENGTH,
@@ -34,6 +33,7 @@ import {
 } from 'utils/common';
 import { encryptFile, decryptFile } from 'utils/crypto/core';
 import { WindowManagerContext, WINDOW } from 'components/WindowManager';
+import DisguiseIcon from 'components/icons/DisguiseIcon';
 import Loading from 'windows/Loading';
 
 /**
@@ -242,8 +242,8 @@ const Secure = () => {
                                         aria-label="Disguise as another file"
                                         onClick={handleUploadDisguiseClick}
                                     >
-                                        {/* TODO: Try to find a more appropriate icon */}
-                                        <AutoFixHighIcon fontSize="small" />
+                                        {/* Put emphasis on it */}
+                                        <DisguiseIcon fontSize="medium" />
                                     </IconButton>
                                 )}
                                 <IconButton
