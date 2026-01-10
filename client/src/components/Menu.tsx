@@ -1,13 +1,10 @@
 import { useContext, useCallback, useState, MouseEvent } from 'react';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemText from '@mui/material/ListItemText';
 import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
 import MuiMenu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
+import Button from '@mui/material/Button';
+import MenuIcon from '@mui/icons-material/Menu';
 import SettingsSuggestIcon from '@mui/icons-material/SettingsSuggest';
 import QuizIcon from '@mui/icons-material/Quiz';
 import InfoIcon from '@mui/icons-material/Info';
@@ -77,29 +74,23 @@ const Menu = () => {
                     </MuiMenu>
                 </>
             ) : (
-                <List className="menu__list">
-                    <ListItem className="menu__list-item">
-                        <ListItemButton
-                            className="menu__list-item-button"
-                            onClick={handleHowItWorksClick}
-                        >
-                            <ListItemText primary="How&nbsp;It&nbsp;Works" />
-                        </ListItemButton>
-                    </ListItem>
-                    <ListItem className="menu__list-item">
-                        <ListItemButton className="menu__list-item-button" onClick={handleFAQClick}>
-                            <ListItemText primary="FAQ" />
-                        </ListItemButton>
-                    </ListItem>
-                    <ListItem className="menu__list-item">
-                        <ListItemButton
-                            className="menu__list-item-button"
-                            onClick={handleAboutClick}
-                        >
-                            <ListItemText primary="About" />
-                        </ListItemButton>
-                    </ListItem>
-                </List>
+                <ul className="menu__list">
+                    <li className="menu__list-item">
+                        <Button className="menu__list-item-button" onClick={handleHowItWorksClick}>
+                            How It Works
+                        </Button>
+                    </li>
+                    <li className="menu__list-item">
+                        <Button className="menu__list-item-button" onClick={handleFAQClick}>
+                            FAQ
+                        </Button>
+                    </li>
+                    <li className="menu__list-item">
+                        <Button className="menu__list-item-button" onClick={handleAboutClick}>
+                            About
+                        </Button>
+                    </li>
+                </ul>
             )}
         </nav>
     );

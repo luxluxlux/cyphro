@@ -75,11 +75,10 @@
 
         &-footer {
             z-index: 1;
-            align-self: end;
-            padding: var(--offset_l) var(--offset_xl);
+            padding: var(--offset_xl);
 
             &_mobile {
-                padding: var(--offset_m);
+                padding: var(--offset_l) var(--offset_m);
             }
         }
     }

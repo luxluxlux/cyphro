@@ -1,0 +1,40 @@
+@import 'styles/abstracts/breakpoints';
+
+.footer {
+    &__list {
+        width: 100%;
+        list-style: none;
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--offset_l);
+        margin: unset;
+        padding: unset;
+        font-size: var(--font-size_xs);
+
+        @media (width >= $breakpoint-s) {
+            justify-content: end;
+        }
+
+        @media (width < $breakpoint-s) {
+            justify-content: center;
+        }
+
+        &-item {
+            margin-bottom: unset;
+
+            &-action {
+                color: var(--text-unaccented-color);
+                text-decoration: none;
+
+                &:hover {
+                    text-decoration: underline;
+                }
+
+                &:focus-visible {
+                    padding: var(--offset_2xs) var(--offset_s);
+                    margin: calc(-1 * var(--offset_2xs)) calc(-1 * var(--offset_s));
+                }
+            }
+        }
+    }
+}

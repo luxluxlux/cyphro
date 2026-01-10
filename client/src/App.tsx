@@ -18,7 +18,7 @@ import { SnackbarProvider } from 'components/Snackbar';
 import { Page } from 'components/Page';
 import Logo from 'components/Logo';
 import Menu from 'components/Menu';
-import Credits from 'components/Credits';
+import Footer from 'components/Footer';
 import './App.scss';
 import '@fontsource/inter/400.css';
 import '@fontsource/inter/700.css';
@@ -51,7 +51,7 @@ const App = () => (
                     <Page
                         logo={<Logo />}
                         menu={<Menu />}
-                        footer={<Credits />}
+                        footer={<Footer />}
                         content={
                             <Routes>
                                 <Route path={STAGE_DATA[STAGE.UPLOAD].path} Component={Upload} />

@@ -11,8 +11,8 @@
 
     &__about {
         &:focus-visible {
-            padding: var(--offset_2xs) var(--offset_xs);
-            margin: calc(-1 * var(--offset_2xs)) calc(-1 * var(--offset_xs));
+            padding: 0 var(--offset_xs);
+            margin: 0 calc(-1 * var(--offset_xs));
         }
     }
 
