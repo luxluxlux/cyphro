@@ -44,3 +44,41 @@ export interface IStep {
      */
     color: string;
 }
+
+/**
+ * File serialized to transferable object
+ * @see https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Transferable_objects
+ */
+export interface ITransferableFile {
+    /**
+     * File name.
+     */
+    name: string;
+    /**
+     * File type (MIME type).
+     */
+    type: string;
+    /**
+     * File data as ArrayBuffer.
+     */
+    buffer: ArrayBuffer;
+};
+
+/**
+ * Uint8Array serialized to transferable object.
+ * @see https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Transferable_objects
+ */
+export interface ITransferableUint8Array {
+    /**
+     * ArrayBuffer buffer.
+     */
+    buffer: ArrayBufferLike;
+    /**
+     * Byte offset.
+     */
+    byteOffset: number;
+    /**
+     * Size in bytes.
+     */
+    byteLength: number;
+};

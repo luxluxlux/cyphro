@@ -59,7 +59,7 @@ export const DragNDrop = (props: IProps) => {
             <div className="drag-n-drop__content">
                 <FileUploadIcon fontSize="large" />
                 <div className="drag-n-drop__content-title">{'Drop file here'}</div>
-                <div>One file of any extension no more than {MAX_FILES_SIZE_MB}&nbsp;MB</div>
+                <div>One file no more than {MAX_FILES_SIZE_MB}&nbsp;MB</div>
             </div>
         </div>
     );

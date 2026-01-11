@@ -1,7 +1,6 @@
 import { useCallback, useState, useContext, ChangeEvent } from 'react';
 import { useLocation, useNavigate, Navigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
-import { useSnackbar } from 'components/Snackbar';
 import Button from '@mui/material/Button';
 import Link from '@mui/material/Link';
 import Input from '@mui/material/Input';
@@ -31,7 +30,9 @@ import {
     validateFile,
     wait,
 } from 'utils/common';
-import { encryptFile, decryptFile } from 'utils/crypto/core';
+import { deserializeUint8Array, serializeFile } from 'utils/workers';
+import type { IRestored } from 'utils/crypto/interfaces';
+import { useSnackbar } from 'components/Snackbar';
 import { WindowManagerContext, WINDOW } from 'components/WindowManager';
 import DisguiseIcon from 'components/icons/DisguiseIcon';
 import Loading from 'windows/Loading';
@@ -148,12 +149,11 @@ const Secure = () => {
             const disguise = location.state.disguise;
             try {
                 const result = await Promise.allSettled([
-                    action === 'encode'
-                        ? encryptFile(file, password!, disguise)
-                        : decryptFile(file, password!),
+                    crypt(action, file, password!, disguise),
                     // Give the user some time to think about the universe
                     wait(1000),
                 ]);
+
                 if (result[0].status === 'rejected') {
                     throw result[0].reason;
                 }
@@ -365,6 +365,62 @@ function validateBlob(action: Action, blob: Blob): ValidationResult {
     }
 
     return true;
+}
+
+async function crypt(
+    action: Action,
+    source: File,
+    password: string,
+    disguise?: File
+): Promise<Uint8Array | IRestored> {
+    const serializedSource = await serializeFile(source);
+    const serializedDisguise = disguise ? await serializeFile(disguise) : undefined;
+
+    return new Promise((resolve, reject) => {
+        const worker = new Worker(new URL('workers/crypto', import.meta.url));
+
+        worker.onmessage = (event) => {
+            const data = event.data;
+
+            if (data?.ok) {
+                const result = data.result;
+                const value =
+                    'buffer' in result
+                        ? deserializeUint8Array(result)
+                        : {
+                              name: result.name,
+                              extension: result.extension,
+                              data: deserializeUint8Array(result.data),
+                          };
+                resolve(value);
+            } else {
+                reject(new Error(data?.error ?? 'Worker error'));
+            }
+
+            worker.terminate();
+        };
+
+        worker.onerror = (error) => {
+            reject(error);
+            worker.terminate();
+        };
+
+        const message = {
+            action,
+            source: serializedSource,
+            password,
+            disguise: serializedDisguise,
+        };
+
+        // To avoid copying, the contents of the files are stored in a transferable object
+        // https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Transferable_objects
+        const transfer = [
+            serializedSource.buffer,
+            ...(serializedDisguise ? [serializedDisguise.buffer] : []),
+        ];
+
+        worker.postMessage(message, transfer);
+    });
 }
 
 Secure.displayName = 'Secure';
