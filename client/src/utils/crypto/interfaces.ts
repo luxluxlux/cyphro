@@ -24,7 +24,25 @@ export type ExtractArrTypes<T extends FileFormat> = {
 };
 
 /**
- * Just a workaround to hide "as const satisfies ..." bug in react-error-overlay.
+ * Interface representing parsed or decrypted file data.
+ */
+export interface IRestored {
+    /**
+     * File name.
+     */
+    name?: string;
+    /**
+     * File extension.
+     */
+    extension?: string;
+    /**
+     * File data.
+     */
+    data: Uint8Array;
+}
+
+/**
+ * Workaround to hide error in react-error-overlay.
  */
 export type FixedBodyFormat = [
     {
@@ -38,7 +56,7 @@ export type FixedBodyFormat = [
 ]
 
 /**
- * Just a workaround to hide "as const satisfies ..." bug in react-error-overlay.
+ * Workaround to hide error in react-error-overlay.
  */
 export type FixedFileFormat = [
     {
@@ -61,7 +79,7 @@ export type FixedFileFormat = [
         type: 'Uint8Array',
         size: number
     },
-        {
+    {
         type: 'Uint8Array',
         size: number
     }

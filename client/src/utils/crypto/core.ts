@@ -2,6 +2,7 @@ import { AES, PBKDF2, HmacSHA512, lib } from 'crypto-js';
 import { ValidationResult } from 'utils/interfaces';
 import { MAX_FILES_SIZE_MB, PARSED_VERSION } from 'utils/constants';
 import { parseFileName, validateDisguise, validateFile } from 'utils/common';
+import { IRestored } from './interfaces';
 import {
     assemble,
     disassemble,
@@ -147,7 +148,7 @@ export async function checkBack(source: Uint8Array, encrypted: Uint8Array, passw
  * @param sourceFile File to be encrypted.
  * @param password Password used for encryption.
  * @param disguiseFile File as a disguise.
- * @returns A promise that resolves to the encrypted file as a Uint8Array.
+ * @returns A promise that resolves to the encrypted file.
  */
 export async function encryptFile(sourceFile: File, password: string, disguiseFile?: File): Promise<Uint8Array> {
     const sourceFileValidation = validateFile(sourceFile);
@@ -241,11 +242,7 @@ export async function parseFile(data: Uint8Array, password: string): Promise<{
  * @param body The body of the encrypted file to parse.
  * @returns A promise that resolves to an object containing the parsed body.
  */
-export async function parseBody(body: Uint8Array): Promise<{
-    name?: string;
-    extension?: string;
-    data: Uint8Array;
-}> {
+export async function parseBody(body: Uint8Array): Promise<IRestored> {
     const { formattedData: [extension, name], additionalData: data } = disassemble(BODY_FORMAT, body);
     return {
         name: name.length ? uint8ArrayToString(name) : undefined,
@@ -258,13 +255,9 @@ export async function parseBody(body: Uint8Array): Promise<{
  * Decrypts a file data with password.
  * @param data Processed file data.
  * @param password Password.
- * @returns A promise that resolves to the decrypted file data as a Uint8Array.
+ * @returns A promise that resolves to the decrypted file data.
  */
-export async function decryptData(data: Uint8Array, password: string): Promise<{
-    name?: string;
-    extension?: string;
-    data: Uint8Array;
-}> {
+export async function decryptData(data: Uint8Array, password: string): Promise<IRestored> {
     const validation = validateDecryptedData(data);
     if (validation !== true) {
         throw new Error(validation);
@@ -282,13 +275,9 @@ export async function decryptData(data: Uint8Array, password: string): Promise<{
  * Decrypts a file with password.
  * @param file Processed file.
  * @param password Password.
- * @returns A promise that resolves to the decrypted file as a Uint8Array.
+ * @returns A promise that resolves to the decrypted file.
  */
-export async function decryptFile(file: File, password: string): Promise<{
-    name?: string;
-    extension?: string;
-    data: Uint8Array;
-}> {
+export async function decryptFile(file: File, password: string): Promise<IRestored> {
     const validation = validateFile(file);
     if (validation !== true) {
         throw new Error(validation);
