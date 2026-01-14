@@ -1,5 +1,5 @@
 import { lib } from 'crypto-js';
-import { XOR } from 'utils/interfaces';
+import { XOR } from 'utils/types';
 
 /**
  * Type of the data array.

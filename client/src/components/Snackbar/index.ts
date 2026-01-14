@@ -6,4 +6,4 @@
 export { default as SnackbarProvider } from './SnackbarProvider';
 export { useSnackbar } from './hooks';
 
-export type { ISnackbarProviderProps } from './interfaces';
+export type { ISnackbarProviderProps } from './types';

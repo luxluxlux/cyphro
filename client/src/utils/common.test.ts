@@ -2,16 +2,19 @@ import {
     addExtension,
     changeExtension,
     ellipse,
+    isEnumValue,
+    joinWithAnd,
     parseFileName,
     parseVersion,
     removeTrailingSlashes,
     validateDisguise,
     validateFile,
     validateFiles,
-    wait,
+    waitReject,
+    waitResolve,
 } from './common';
 import { FILE_EXTENSION_MAX_LENGTH, FILE_NAME_MAX_LENGTH, MAX_FILES_SIZE_MB } from './constants';
-import { Version } from './interfaces';
+import { Version } from './types';
 
 describe('parseVersion', () => {
     it('Should parse a version string into a tuple', () => {
@@ -191,10 +194,26 @@ describe('validateDisguise', () => {
     });
 });
 
-describe('wait', () => {
+describe('waitResolve', () => {
     it('Should resolve after given interval', async () => {
         const startTime = performance.now();
-        await wait(100);
+        await waitResolve(100);
+        const endTime = performance.now();
+        expect(endTime - startTime).toBeGreaterThanOrEqual(100);
+    });
+});
+
+describe('waitReject', () => {
+    it('Should reject after given interval', async () => {
+        const startTime = performance.now();
+        await expect(waitReject(100)).rejects.toThrow();
+        const endTime = performance.now();
+        expect(endTime - startTime).toBeGreaterThanOrEqual(100);
+    });
+
+    it('Should reject with an error message', async () => {
+        const startTime = performance.now();
+        await expect(waitReject(100, 'Timeout')).rejects.toEqual('Timeout');
         const endTime = performance.now();
         expect(endTime - startTime).toBeGreaterThanOrEqual(100);
     });
@@ -250,5 +269,41 @@ describe('removeTrailingSlashes', () => {
         expect(removeTrailingSlashes('/test')).toEqual('/test');
         expect(removeTrailingSlashes('/test/test/')).toEqual('/test/test');
         expect(removeTrailingSlashes('/')).toEqual('/');
+    });
+});
+
+describe('joinWithAnd', () => {
+    it('Should return an empty string if an empty array is passed', () => {
+        expect(joinWithAnd([])).toEqual('');
+    });
+
+    it('Should return a string with a single element if an array with one element is passed', () => {
+        expect(joinWithAnd(['test'])).toEqual('test');
+    });
+
+    it('Should return a string with two elements separated by "and" if an array with two elements is passed', () => {
+        expect(joinWithAnd(['test1', 'test2'])).toEqual('test1 and test2');
+    });
+
+    it('Should return a string with multiple elements separated by commas and "and" if an array with more than two elements is passed', () => {
+        expect(joinWithAnd(['test1', 'test2', 'test3'])).toEqual('test1, test2, and test3');
+    });
+});
+
+describe('isEnumValue', () => {
+    it('Should return true for an enum value', () => {
+        enum ENUM {
+            FIRST = 'first',
+            SECOND = 'second',
+        }
+        expect(isEnumValue(ENUM, 'first')).toEqual(true);
+    });
+
+    it('Should return false for a non-enum value', () => {
+        enum ENUM {
+            FIRST = 'first',
+            SECOND = 'second',
+        }
+        expect(isEnumValue(ENUM, 'third')).toEqual(false);
     });
 });

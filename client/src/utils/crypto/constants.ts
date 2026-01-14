@@ -1,6 +1,6 @@
 import { algo, mode, pad, format, lib } from 'crypto-js';
 import { FILE_EXTENSION_SIZE_SIZE_BYTES, FILE_NAME_SIZE_SIZE_BYTES, VERSION_SIZE } from 'utils/constants';
-import { FixedBodyFormat, FixedFileFormat } from './interfaces';
+import { FixedBodyFormat, FixedFileFormat } from './types';
 
 /**
  * File marker (magic bytes).
@@ -39,7 +39,7 @@ export const KEY_SIZE = 16;
  * clients.
  * @see https://en.wikipedia.org/wiki/PBKDF2
  */
-export const KEY_ITERATIONS = 5000;
+export const KEY_ITERATIONS = 5_000;
 
 /**
  * Default cipher parameters.

@@ -1,4 +1,4 @@
-import { useCallback, useState, useContext, ChangeEvent } from 'react';
+import { useCallback, useState, useContext, ChangeEvent, useRef, useEffect } from 'react';
 import { useLocation, useNavigate, Navigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import Button from '@mui/material/Button';
@@ -10,7 +10,7 @@ import CachedIcon from '@mui/icons-material/Cached';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import CloseIcon from '@mui/icons-material/Close';
-import { Action, ValidationResult } from 'utils/interfaces';
+import { Action, ValidationResult } from 'utils/types';
 import {
     MIN_PASSWORD_LENGTH,
     MAX_PASSWORD_LENGTH,
@@ -25,13 +25,17 @@ import {
     addExtension,
     changeExtension,
     ellipse,
+    joinWithAnd,
     upload,
     validateDisguise,
     validateFile,
-    wait,
+    waitReject,
+    waitResolve,
 } from 'utils/common';
 import { deserializeUint8Array, serializeFile } from 'utils/workers';
-import type { IRestored } from 'utils/crypto/interfaces';
+import type { IRestored } from 'utils/crypto/types';
+import { ModerationService, ModerationSlot, ModerationResult } from 'services/moderation';
+import { CryptoRequest, CryptoResponse } from 'workers/crypto/types';
 import { useSnackbar } from 'components/Snackbar';
 import { WindowManagerContext, WINDOW } from 'components/WindowManager';
 import DisguiseIcon from 'components/icons/DisguiseIcon';
@@ -46,6 +50,8 @@ const Secure = () => {
     const navigate = useNavigate();
     const { enqueueSnackbar } = useSnackbar();
     const windowContext = useContext(WindowManagerContext);
+
+    const moderationServiceRef = useRef<ModerationService | null>(null);
 
     const [password, setPassword] = useState<string | null>(null);
     const [passwordIsVisible, setPasswordIsVisible] = useState<boolean>(false);
@@ -148,26 +154,43 @@ const Secure = () => {
             const file = location.state.file;
             const disguise = location.state.disguise;
             try {
-                const result = await Promise.allSettled([
-                    crypt(action, file, password!, disguise),
+                const results = await Promise.allSettled([
+                    // TODO: Check moderation service state and init it if needed
+                    process(moderationServiceRef.current, action, file, password!, disguise),
                     // Give the user some time to think about the universe
-                    wait(1000),
+                    waitResolve(1_000),
                 ]);
 
-                if (result[0].status === 'rejected') {
-                    throw result[0].reason;
+                if (results[0].status === 'rejected') {
+                    throw results[0].reason;
                 }
 
-                const value = result[0].value;
+                const value = results[0].value;
+                if (!value.ok) {
+                    const failed = joinWithAnd(value.failed);
+                    const str = value.failed.length
+                        ? value.failed.length > 1
+                            ? `${failed} files`
+                            : `${failed} file`
+                        : 'files';
+                    enqueueSnackbar({
+                        variant: 'warning',
+                        title: `Unable to ${action} file`,
+                        message: `Uploaded ${str} must not contain inappropriate content.`,
+                    });
+                    return;
+                }
+
+                const result = value.result;
                 const fileName =
-                    'data' in value
-                        ? value.name
-                            ? addExtension(value.name, value.extension)
-                            : changeExtension(file.name, value.extension)
+                    'data' in result
+                        ? result.name
+                            ? addExtension(result.name, result.extension)
+                            : changeExtension(file.name, result.extension)
                         : disguise
                           ? disguise.name
                           : changeExtension(file.name, FILE_EXTENSION);
-                const data = 'data' in value ? value.data : value;
+                const data = 'data' in result ? result.data : result;
                 const blob = new Blob([data]);
 
                 const blobValidation = validateBlob(action, blob);
@@ -207,6 +230,33 @@ const Secure = () => {
     const handleEncodeClick = useCallback(() => handleCode('encode'), [handleCode]);
 
     const handleDecodeClick = useCallback(() => handleCode('decode'), [handleCode]);
+
+    useEffect(() => {
+        return () => {
+            moderationServiceRef.current?.dispose();
+            moderationServiceRef.current = null;
+        };
+    }, []);
+
+    useEffect(() => {
+        const file = location.state.file;
+        if (file.type.startsWith('image/')) {
+            moderationServiceRef.current ??= new ModerationService();
+            moderationServiceRef.current.start('source', file);
+        }
+    }, [location.state.file]);
+
+    useEffect(() => {
+        const disguise = location.state.disguise;
+        if (disguise) {
+            if (disguise.type.startsWith('image/')) {
+                moderationServiceRef.current ??= new ModerationService();
+                moderationServiceRef.current.start('disguise', disguise);
+            }
+        } else {
+            moderationServiceRef.current?.abort('disguise');
+        }
+    }, [location.state.disguise]);
 
     if (!location.state) {
         return (
@@ -327,7 +377,7 @@ const Secure = () => {
                     </Link>
                     <span>.</span>
                 </div>
-                {/* TODO: Add hints for empty password or key */}
+                {/* TODO: Add hints for empty password */}
                 <div className="secure__actions">
                     <Button variant="contained" disabled={!password} onClick={handleEncodeClick}>
                         Encode
@@ -367,6 +417,65 @@ function validateBlob(action: Action, blob: Blob): ValidationResult {
     return true;
 }
 
+async function process(
+    // TODO: Make moderationService a required parameter
+    service: ModerationService | null,
+    action: Action,
+    source: File,
+    password: string,
+    disguise?: File
+): Promise<{ ok: true; result: Uint8Array | IRestored } | { ok: false; failed: ModerationSlot[] }> {
+    if (action === 'encode' && service) {
+        // To ensure stable UX, we do not temporarily interrupt processing
+        // if the moderation process ends with an error
+        const moderation = await moderate(service, !!disguise).catch(() => true as const);
+        if (Array.isArray(moderation)) {
+            return { ok: false, failed: moderation };
+        }
+    }
+
+    const result = await Promise.race([
+        crypt(action, source, password, disguise),
+        waitReject(30_000),
+    ]);
+
+    return { ok: true, result };
+}
+
+async function moderate(
+    service: ModerationService,
+    disguise?: boolean
+): Promise<true | ModerationSlot[]> {
+    const result = await Promise.race([
+        service.wait(disguise ? ['source', 'disguise'] : ['source']),
+        waitResolve(60_000),
+    ]);
+
+    if (!result) {
+        throw new Error('Moderation error');
+    }
+
+    const results = 'state' in result ? { source: result } : result;
+    const entries = Object.entries(results) as [ModerationSlot, ModerationResult][];
+
+    const failed: ModerationSlot[] = [];
+
+    // TODO: Handle multiple errors
+    for (const [slot, entry] of entries) {
+        switch (entry.state) {
+            case 'error':
+                throw new Error(`Moderation error for slot "${slot}": ${entry.error}`);
+            case 'aborted':
+                throw new Error(`Moderation for slot "${slot}" was aborted`);
+            case 'unsafe':
+                failed.push(slot);
+                break;
+        }
+    }
+
+    return failed.length ? failed : true;
+}
+
 async function crypt(
     action: Action,
     source: File,
@@ -379,10 +488,10 @@ async function crypt(
     return new Promise((resolve, reject) => {
         const worker = new Worker(new URL('workers/crypto', import.meta.url));
 
-        worker.onmessage = (event) => {
+        worker.onmessage = (event: MessageEvent<CryptoResponse>) => {
             const data = event.data;
 
-            if (data?.ok) {
+            if ('result' in data) {
                 const result = data.result;
                 const value =
                     'buffer' in result
@@ -400,12 +509,20 @@ async function crypt(
             worker.terminate();
         };
 
-        worker.onerror = (error) => {
+        const handleWorkerError = (event: ErrorEvent | MessageEvent) => {
+            const error =
+                event instanceof ErrorEvent
+                    ? event.error || new Error(event.message || 'Crypto worker subscription error')
+                    : new Error('Crypto worker subscription message error');
+
             reject(error);
             worker.terminate();
         };
 
-        const message = {
+        worker.onerror = handleWorkerError;
+        worker.onmessageerror = handleWorkerError;
+
+        const message: CryptoRequest = {
             action,
             source: serializedSource,
             password,

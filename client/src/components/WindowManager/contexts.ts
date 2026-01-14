@@ -1,5 +1,5 @@
 import { createContext } from 'react';
-import { IWindowManagerContext } from './interfaces';
+import { IWindowManagerContext } from './types';
 
 // TODO: Create special hooks for contexts
 /**

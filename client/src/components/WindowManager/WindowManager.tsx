@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom';
 import clsx from 'clsx';
 import Backdrop from '@mui/material/Backdrop';
 import { TransitionProps } from '@mui/material/transitions';
-import { isEnumValue } from 'utils/types';
+import { isEnumValue } from 'utils/common';
 import { getUserAgent, isMobile } from 'utils/device';
 import { useUpdateSearchParams } from 'utils/hooks';
 import {
@@ -11,7 +11,7 @@ import {
     IWindowManagerOptions,
     IWindowManagerProps,
     IWindowManagerState,
-} from './interfaces';
+} from './types';
 import { WINDOW, WINDOW_DATA } from './constants';
 import { WindowManagerContext } from './contexts';
 

@@ -1,6 +1,6 @@
 import { WINDOW_DATA } from 'components/WindowManager';
 import { parseVersion } from './common';
-import { IStep, Version } from './interfaces';
+import { IStep, Version } from './types';
 
 /**
  * Name of the application.
@@ -109,6 +109,12 @@ export const FORBIDDEN_FILE_EXTENSIONS = [
 
     // Firmware / low-level binaries
     'img', 'iso', 'rom',
+
+    // Archives & compressed containers
+    'zip', 'rar', '7z', 'tar',
+    'gz', 'tgz', 'bz2', 'xz', 'lz', 'lzma', 'zst',
+    'cab', 'arj', 'ace', 'sit', 'sitx',
+    'cpio', 'deb', 'rpm',
 
     // Legacy / uncommon but dangerous
     'pif', 'gadget'
