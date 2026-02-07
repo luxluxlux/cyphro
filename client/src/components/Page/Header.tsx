@@ -1,7 +1,7 @@
 import { memo } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { APP_URL } from 'utils/constants';
-import { IHeaderProps } from './interfaces';
+import { IHeaderProps } from './types';
 
 /**
  * Page header content. Renders HTML meta tags required for SEO.

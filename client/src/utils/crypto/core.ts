@@ -1,8 +1,8 @@
 import { AES, PBKDF2, HmacSHA512, lib } from 'crypto-js';
-import { ValidationResult } from 'utils/interfaces';
+import { ValidationResult } from 'utils/types';
 import { MAX_FILES_SIZE_MB, PARSED_VERSION } from 'utils/constants';
 import { parseFileName, validateDisguise, validateFile } from 'utils/common';
-import { IRestored } from './interfaces';
+import { IRestored } from './types';
 import {
     assemble,
     disassemble,

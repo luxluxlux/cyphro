@@ -1,4 +1,4 @@
-import { ITransferableFile, ITransferableUint8Array } from './interfaces';
+import { ITransferableFile, ITransferableUint8Array } from './types';
 
 /**
  * Serializes a File to a transferable object.

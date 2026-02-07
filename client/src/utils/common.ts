@@ -1,4 +1,4 @@
-import { ParsedVersion, ValidationResult, Version } from './interfaces';
+import { ParsedVersion, ValidationResult, Version } from './types';
 import {
     ALLOWED_DISGUISE_EXTENSIONS,
     FILE_EXTENSION_MAX_LENGTH,
@@ -168,14 +168,27 @@ export function validateDisguise(disguiseFile: File, sourceFile: File): Validati
 }
 
 /**
- * Waits for a certain amount of time.
- * @param interval Time interval in ms.
- * @returns A promise that resolves after the specified interval.
+ * Waits for a specified interval of time and resolves the Promise.
+ * @param interval The time interval in milliseconds.
+ * @return A Promise that resolves after the specified interval.
  */
-export function wait(interval: number): Promise<void> {
-    return new Promise((resolve) => {
-        setTimeout(resolve, interval);
-    });
+export function waitResolve(interval: number): Promise<void> {
+    return new Promise((resolve) => setTimeout(resolve, interval));
+};
+
+/**
+ * Waits for a specified interval of time and rejects the Promise with an error.
+ * @param interval The time interval in milliseconds.
+ * @param error The error to be rejected with.
+ * @return A Promise that rejects after the specified interval.
+ */
+export function waitReject(
+    interval: number,
+    error: unknown = new Error('Wait timeout')
+): Promise<never> {
+    return new Promise((_, reject) =>
+        setTimeout(reject, interval, error)
+    );
 }
 
 /**
@@ -222,4 +235,31 @@ export function changeExtension(name: string, extension?: string): string {
  */
 export function removeTrailingSlashes(path: string) {
     return path.replace(/(?<=.)\/+$/g, '');
+}
+
+/**
+ * Joins an array of words into a string, using "and" to separate the last two words.
+ * @remarks Uses to the Oxford comma.
+ * @param words An array of words to be joined.
+ * @return The joined string with the last two words separated by "and".
+ */
+export function joinWithAnd(words: string[]): string {
+    if (words.length <= 2) {
+        return words.join(' and ');
+    }
+
+    return `${words.slice(0, -1).join(', ')}, and ${words.at(-1)}`;
+}
+
+/**
+ * Checks if a value is present in an enum object.
+ * @param enumObj The enum object to check against.
+ * @param value The value to check.
+ * @returns Returns true if the value is present in the enum object, false otherwise.
+ */
+export function isEnumValue<T extends Record<string, string | number>>(
+    enumObj: T,
+    value: unknown
+): value is T[keyof T] {
+    return Object.values(enumObj).includes(value as T[keyof T]);
 }

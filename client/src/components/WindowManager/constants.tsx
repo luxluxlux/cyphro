@@ -3,7 +3,7 @@ import FAQ from 'windows/FAQ';
 import HowItWorks from 'windows/HowItWorks';
 import TermsOfUse from 'windows/TermsOfUse';
 import PrivacyPolicy from 'windows/PrivacyPolicy';
-import { IWindow } from './interfaces';
+import { IWindow } from './types';
 
 /**
  * Pop-up windows.

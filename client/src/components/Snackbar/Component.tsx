@@ -6,7 +6,7 @@ import AlertTitle from '@mui/material/AlertTitle';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import { isMobile } from 'utils/device';
-import { IComponentProps } from './interfaces';
+import { IComponentProps } from './types';
 
 /**
  * Snackback notice pop-up.

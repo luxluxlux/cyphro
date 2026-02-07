@@ -1,5 +1,5 @@
 import { useSnackbar as useNotistack } from 'notistack';
-import { ProviderContext } from './interfaces';
+import { ProviderContext } from './types';
 
 /**
  * Controls the visibility of snackbars.

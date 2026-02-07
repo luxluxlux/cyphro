@@ -1,5 +1,5 @@
 import { lib } from 'crypto-js';
-import { ArrType, FileFormat } from './interfaces';
+import { ArrType, FileFormat } from './types';
 import {
     assemble,
     compareUint8Arrays,

@@ -44,7 +44,7 @@ const Download = () => {
         // Give the user some time to read the result
         const timeout = setTimeout(() => {
             downloadFile();
-        }, 2000);
+        }, 2_000);
         return () => clearTimeout(timeout);
     }, [location]);
 

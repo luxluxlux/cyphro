@@ -1,5 +1,5 @@
 import { lib } from 'crypto-js';
-import { ArrType, ExtractArrTypes, FileFormat, GetArrType } from './interfaces';
+import { ArrType, ExtractArrTypes, FileFormat, GetArrType } from './types';
 
 /**
  * Reads file as Uint8Array.

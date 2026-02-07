@@ -3,7 +3,7 @@ import clsx from 'clsx';
 import { isMobile } from 'utils/device';
 import { WindowManager } from 'components/WindowManager';
 import DropArea from 'components/DropArea';
-import { IPageProps } from './interfaces';
+import { IPageProps } from './types';
 import { usePrimaryColor } from './hooks';
 
 /**
