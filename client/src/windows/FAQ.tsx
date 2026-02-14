@@ -4,12 +4,12 @@ import {
     ALLOWED_DISGUISE_EXTENSIONS,
     APP_EMAIL,
     APP_NAME,
+    APP_URL,
     FORBIDDEN_FILE_EXTENSIONS,
     GITHUB_URL,
     MAX_FILES_SIZE_MB,
 } from 'utils/constants';
 import { WINDOW_DATA, WINDOW } from 'components/WindowManager';
-import { Header } from 'components/Page';
 
 /**
  * Frequently asked questions (FAQ).
@@ -18,16 +18,60 @@ import { Header } from 'components/Page';
 const FAQ = () => (
     <>
         <Helmet>
-            <title>{APP_NAME} | FAQ</title>
+            <title>Frequently Asked Questions (FAQ) — File Protection & Disguise | {APP_NAME}</title>
+            <link rel="canonical" href={`${APP_URL}?popup=${WINDOW_DATA[WINDOW.FAQ].path}`} />
+            <meta
+                name="description"
+                content={`Find answers to common questions about ${APP_NAME} — a free, open source web app to encode, decode, and disguise a file with a password directly in your browser. Learn about supported formats, file size limits, and how to contribute.`}
+            />
+            <meta
+                name="keywords"
+                content={`faq, ${APP_NAME}, help, support, questions, free, is safe, encrypt file, decrypt file, encode file, decode file, disguise file, file password, bug report, data privacy, partnership`}
+            />
+            <meta property="og:title" content={`${APP_NAME} — Frequently asked questions (FAQ)`} />
+            <meta
+                property="og:description"
+                content="Find answers to common questions about the project. Learn about supported formats, file size limits, and how to contribute."
+            />
+            <meta property="og:url" content={`${APP_URL}?popup=${WINDOW_DATA[WINDOW.FAQ].path}`} />
+            <meta name="twitter:title" content={`${APP_NAME} — Frequently asked questions (FAQ)`} />
+            <meta
+                name="twitter:description"
+                content="Find answers to common questions about the project. Learn about supported formats, file size limits, and how to contribute."
+            />
+            <script type="application/ld+json">
+                {JSON.stringify({
+                    '@context': 'https://schema.org',
+                    '@type': 'FAQPage',
+                    mainEntity: [
+                        {
+                            '@type': 'Question',
+                            name: `How much does ${APP_NAME} cost?`,
+                            acceptedAnswer: {
+                                '@type': 'Answer',
+                                text: `${APP_NAME} is completely free to use. There are no subscriptions, payments, or hidden fees.`,
+                            },
+                        },
+                        {
+                            '@type': 'Question',
+                            name: `Does ${APP_NAME} upload my files to a server?`,
+                            acceptedAnswer: {
+                                '@type': 'Answer',
+                                text: 'No. All file processing happens locally in the browser. Files are never uploaded, stored, or transmitted to a server.',
+                            },
+                        },
+                        {
+                            '@type': 'Question',
+                            name: `Can I use ${APP_NAME} without registration?`,
+                            acceptedAnswer: {
+                                '@type': 'Answer',
+                                text: `Yes. ${APP_NAME} does not require registration or personal information.`,
+                            },
+                        },
+                    ],
+                })}
+            </script>
         </Helmet>
-        <Header
-            path={`?popup=${WINDOW_DATA[WINDOW.FAQ].path}`}
-            metaTitle={`${APP_NAME} FAQ — File Protection, Password Security, and Troubleshooting`}
-            metaDescription={`Find answers to common questions about ${APP_NAME} — a free, open source web app to encode, decode, and disguise a file with a password directly in your browser. Learn about supported formats, file size limits, and how to contribute.`}
-            metaKeywords={`faq, ${APP_NAME}, help, support, questions, free, is safe, encrypt file, decrypt file, encode file, decode file, disguise file, file password, bug report, data privacy, partnership`}
-            ogTitle={`${APP_NAME} — Frequently asked questions (FAQ)`}
-            ogDescription="Find answers to common questions about the project. Learn about supported formats, file size limits, and how to contribute."
-        />
         <div>
             <h2>Frequently Asked Questions (FAQ)</h2>
             <h3>💰 How Much Does It Cost?</h3>
@@ -35,6 +79,18 @@ const FAQ = () => (
                 {APP_NAME} is <strong>completely free</strong> to use. There are no subscriptions,
                 hidden fees, or payments required. The project is open source and created to make
                 file protection accessible to everyone.
+            </p>
+            <h3>🔒 Are My Files Sent Anywhere?</h3>
+            <p>
+                No. All file processing happens entirely in your browser. Files are{' '}
+                <strong>never uploaded, stored, or transmitted</strong> to any server, which means
+                your data always stays on your device and remains under your full control.
+            </p>
+            <h3>👤 Do I Need an Account To Use the App?</h3>
+            <p>
+                No registration is required. You can start protecting files immediately without
+                creating an account or sharing any personal information — no sign-ups, logins, or
+                tracking involved.
             </p>
             <h3>🗝️ Where Can I Open Protected Files?</h3>
             <p>
@@ -81,7 +137,6 @@ const FAQ = () => (
                 <strong>Yes.</strong> Simply open the disguised file in {APP_NAME}. The app will
                 detect the protected content and ask for the correct password to restore access.
             </p>
-
             <h3>📏 Is There a Size Limit for Disguise Files?</h3>
             <p>
                 Yes. The file used as a disguise must be no larger than{' '}

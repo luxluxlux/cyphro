@@ -1,9 +1,8 @@
 import { useCallback, useContext, MouseEvent } from 'react';
 import { Helmet } from 'react-helmet-async';
 import Link from '@mui/material/Link';
-import { APP_EMAIL, APP_NAME, GITHUB_URL, VERSION } from 'utils/constants';
+import { APP_EMAIL, APP_NAME, APP_URL, GITHUB_URL, VERSION } from 'utils/constants';
 import { WindowManagerContext, WINDOW, WINDOW_DATA } from 'components/WindowManager';
-import { Header } from 'components/Page';
 
 /**
  * Information, goals and benefits of the project.
@@ -33,16 +32,49 @@ const About = () => {
     return (
         <>
             <Helmet>
-                <title>{APP_NAME} | About</title>
+                <title>
+                    About the Project — Open-Source File Protection in Your Browser | {APP_NAME}
+                </title>
+                <link rel="canonical" href={`${APP_URL}?popup=${WINDOW_DATA[WINDOW.ABOUT].path}`} />
+                <meta
+                    name="description"
+                    content={`${APP_NAME} is an open-source web app for protecting and disguising files directly in your browser. Learn how we make file safety simple, private, and fully local — no installation or registration required.`}
+                />
+                <meta
+                    name="keywords"
+                    content={`${APP_NAME}, about project, free, no registration, online, open source, encryption, enoding, file password, password protect, file disguise, collaboration, contacts, author`}
+                />
+                <meta property="og:title" content={`${APP_NAME} — About the Project`} />
+                <meta
+                    property="og:description"
+                    content="Protecting and disguising files directly in your browser. Learn how we make file safety simple, private, and fully local — no installation or registration required."
+                />
+                <meta
+                    property="og:url"
+                    content={`${APP_URL}?popup=${WINDOW_DATA[WINDOW.ABOUT].path}`}
+                />
+                <meta name="twitter:title" content={`${APP_NAME} — About the Project`} />
+                <meta
+                    name="twitter:description"
+                    content="Protecting and disguising files directly in your browser. Learn how we make file safety simple, private, and fully local — no installation or registration required."
+                />
+                <script type="application/ld+json">
+                    {JSON.stringify({
+                        '@context': 'https://schema.org',
+                        '@type': 'AboutPage',
+                        name: `About ${APP_NAME}`,
+                        url: `${APP_URL}?popup=${WINDOW_DATA[WINDOW.ABOUT].path}`,
+                        description: `Learn about the ${APP_NAME} project, its mission, values, and approach to private and accessible file protection.`,
+                        mainEntity: {
+                            '@type': 'SoftwareApplication',
+                            name: APP_NAME,
+                            operatingSystem: 'Web',
+                            applicationCategory: 'SecurityApplication',
+                            isAccessibleForFree: true,
+                        },
+                    })}
+                </script>
             </Helmet>
-            <Header
-                path={`?popup=${WINDOW_DATA[WINDOW.ABOUT].path}`}
-                metaTitle={`About ${APP_NAME} — Open Source File Security and Disguise Tool`}
-                metaDescription={`${APP_NAME} is an open-source web app for protecting and disguising files directly in your browser. Learn how we make file safety simple, private, and fully local — no installation or registration required.`}
-                metaKeywords={`${APP_NAME}, about project, free, no registration, online, open source, encryption, enoding, file password, password protect, file disguise, collaboration, contacts, author`}
-                ogTitle={`${APP_NAME} — About the Project`}
-                ogDescription="Protecting and disguising files directly in your browser. Learn how we make file safety simple, private, and fully local — no installation or registration required."
-            />
             <div>
                 <h2>About the Project</h2>
                 <p>

@@ -2,9 +2,16 @@ import { useCallback, useContext, MouseEvent } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import MuiLink from '@mui/material/Link';
-import { APP_COUNTRY, APP_EMAIL, APP_NAME, GITHUB_URL, STAGE, STAGE_DATA } from 'utils/constants';
+import {
+    APP_COUNTRY,
+    APP_EMAIL,
+    APP_NAME,
+    APP_URL,
+    GITHUB_URL,
+    STAGE,
+    STAGE_DATA,
+} from 'utils/constants';
 import { WINDOW_DATA, WINDOW, WindowManagerContext } from 'components/WindowManager';
-import { Header } from 'components/Page';
 
 // TODO: Add anchors to sections
 /**
@@ -26,16 +33,34 @@ const TermsOfUse = () => {
     return (
         <>
             <Helmet>
-                <title>{APP_NAME} | Terms Of Use</title>
+                <title>Terms of Use — User Agreement and Guidelines | {APP_NAME}</title>
+                <link
+                    rel="canonical"
+                    href={`${APP_URL}?popup=${WINDOW_DATA[WINDOW.TERMS_OF_USE].path}`}
+                />
+                <meta
+                    name="description"
+                    content={`Read the ${APP_NAME} Terms of Use to understand your rights and responsibilities when using this open-source file encoding tool. Learn about privacy, permitted usage, and legal compliance.`}
+                />
+                <meta
+                    name="keywords"
+                    content={`terms of use, ${APP_NAME}, terms and conditions, privacy policy, user agreement, legal notice, disclaimer, open source, data privacy, password protection, file encryption, file encoding, file disguise`}
+                />
+                <meta property="og:title" content={`${APP_NAME} — Terms of Use`} />
+                <meta
+                    property="og:description"
+                    content="Read the Terms of Use to understand your rights and responsibilities when using this open-source file encoding tool. Learn about privacy, permitted usage, and legal compliance."
+                />
+                <meta
+                    property="og:url"
+                    content={`${APP_URL}?popup=${WINDOW_DATA[WINDOW.TERMS_OF_USE].path}`}
+                />
+                <meta name="twitter:title" content={`${APP_NAME} — Terms of Use`} />
+                <meta
+                    name="twitter:description"
+                    content="Read the Terms of Use to understand your rights and responsibilities when using this open-source file encoding tool. Learn about privacy, permitted usage, and legal compliance."
+                />
             </Helmet>
-            <Header
-                path={`?popup=${WINDOW_DATA[WINDOW.TERMS_OF_USE].path}`}
-                metaTitle={`${APP_NAME} Terms of Use - User Agreement and Guidelines`}
-                metaDescription={`Read the ${APP_NAME} Terms of Use to understand your rights and responsibilities when using this open-source file encoding tool. Learn about privacy, permitted usage, and legal compliance.`}
-                metaKeywords={`terms of use, ${APP_NAME}, terms and conditions, privacy policy, user agreement, legal notice, disclaimer, open source, data privacy, password protection, file encryption, file encoding, file disguise`}
-                ogTitle={`${APP_NAME} — Terms of Use`}
-                ogDescription="Read the Terms of Use to understand your rights and responsibilities when using this open-source file encoding tool. Learn about privacy, permitted usage, and legal compliance."
-            />
             <div>
                 <h2>Terms of Use</h2>
                 <p>

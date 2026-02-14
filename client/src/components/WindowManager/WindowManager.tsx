@@ -70,10 +70,11 @@ export function WindowManager(props: IWindowManagerProps) {
 
     const stateContextValue = useMemo<IWindowManagerContext>(
         () => ({
+            isOpened: !!state.content,
             open,
             close,
         }),
-        [open, close]
+        [open, close, state.content]
     );
 
     const handleClose = useCallback(() => {

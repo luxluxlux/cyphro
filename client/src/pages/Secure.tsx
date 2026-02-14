@@ -273,7 +273,7 @@ const Secure = () => {
     return (
         <>
             <Helmet>
-                <title>{APP_NAME} | Secure</title>
+                <title>Secure | {APP_NAME}</title>
                 <meta name="robots" content="noindex" />
             </Helmet>
             <div className="secure">

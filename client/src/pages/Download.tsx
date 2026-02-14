@@ -63,7 +63,7 @@ const Download = () => {
     return (
         <>
             <Helmet>
-                <title>{APP_NAME} | Download</title>
+                <title>Download | {APP_NAME}</title>
                 <meta name="robots" content="noindex" />
             </Helmet>
             <div className="download">

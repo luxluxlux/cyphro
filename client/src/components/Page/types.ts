@@ -21,33 +21,3 @@ export interface IPageProps {
      */
     content: ReactNode;
 }
-
-/**
- * Page header properties.
- */
-export interface IHeaderProps {
-    /**
-     * Relative path to the page.
-     */
-    path?: string;
-    /**
-     * Meta title.
-     */
-    metaTitle: string;
-    /**
-     * Meta description.
-     */
-    metaDescription: string;
-    /**
-     * Meta keywords.
-     */
-    metaKeywords?: string;
-    /**
-     * Open Graph title.
-     */
-    ogTitle?: string;
-    /**
-     * Open Graph description.
-     */
-    ogDescription?: string;
-}
