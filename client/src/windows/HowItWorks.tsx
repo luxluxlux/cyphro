@@ -1,8 +1,7 @@
 import { useCallback, useContext, MouseEvent } from 'react';
 import { Helmet } from 'react-helmet-async';
 import Link from '@mui/material/Link';
-import { APP_NAME, GITHUB_URL } from 'utils/constants';
-import { Header } from 'components/Page';
+import { APP_NAME, APP_URL, GITHUB_URL } from 'utils/constants';
 import { WINDOW_DATA, WINDOW, WindowManagerContext } from 'components/WindowManager';
 
 /**
@@ -33,16 +32,64 @@ const HowItWorks = () => {
     return (
         <>
             <Helmet>
-                <title>{APP_NAME} | How It Works</title>
+                <title>How It Works — Protect Files Directly in Your Browser | {APP_NAME}</title>
+                <link
+                    rel="canonical"
+                    href={`${APP_URL}?popup=${WINDOW_DATA[WINDOW.HOW_IT_WORKS].path}`}
+                />
+                <meta
+                    name="description"
+                    content={`Learn how ${APP_NAME} protects your data. Encode and disguise a file with a password directly in your browser. No uploads, no tracking, 100% open source and transparent.`}
+                />
+                <meta
+                    name="keywords"
+                    content={`how it works, ${APP_NAME}, safe, secure, online, encrypt file, encode file, disguise file, password protect, pdf password, excel password, zip password, secret key, data privacy, terms of use`}
+                />
+                <meta property="og:title" content={`${APP_NAME} — How It Works`} />
+                <meta
+                    property="og:description"
+                    content="Learn how we protect your data. Encode and disguise a file with a password directly in your browser. No uploads, no tracking, 100% open source and transparent."
+                />
+                <meta
+                    property="og:url"
+                    content={`${APP_URL}?popup=${WINDOW_DATA[WINDOW.HOW_IT_WORKS].path}`}
+                />
+                <meta name="twitter:title" content={`${APP_NAME} — How It Works`} />
+                <meta
+                    name="twitter:description"
+                    content="Learn how we protect your data. Encode and disguise a file with a password directly in your browser. No uploads, no tracking, 100% open source and transparent."
+                />
+                <script type="application/ld+json">
+                    {JSON.stringify({
+                        '@context': 'https://schema.org',
+                        '@type': 'HowTo',
+                        name: `How ${APP_NAME} Works`,
+                        description: `Step-by-step explanation of how users can protect files using ${APP_NAME} directly in the browser.`,
+                        step: [
+                            {
+                                '@type': 'HowToStep',
+                                name: 'Select a file',
+                                text: 'Choose a file from your device that you want to protect.',
+                            },
+                            {
+                                '@type': 'HowToStep',
+                                name: 'Set a password',
+                                text: 'Enter a password that will be required to restore access to the file.',
+                            },
+                            {
+                                '@type': 'HowToStep',
+                                name: 'Optional disguise',
+                                text: 'Optionally select another file type to make the protected file less noticeable.',
+                            },
+                            {
+                                '@type': 'HowToStep',
+                                name: 'Save or share',
+                                text: `The protected file can be safely stored or shared. Access is restored only through ${APP_NAME} with the correct password.`,
+                            },
+                        ],
+                    })}
+                </script>
             </Helmet>
-            <Header
-                path={`?popup=${WINDOW_DATA[WINDOW.HOW_IT_WORKS].path}`}
-                metaTitle={`How ${APP_NAME} Works — Encode and Disguise a File in Your Browser`}
-                metaDescription={`Learn how ${APP_NAME} protects your data. Encode and disguise a file with a password directly in your browser. No uploads, no tracking, 100% open source and transparent.`}
-                metaKeywords={`how it works, ${APP_NAME}, safe, secure, online, encrypt file, encode file, disguise file, password protect, pdf password, excel password, zip password, secret key, data privacy, terms of use`}
-                ogTitle={`${APP_NAME} — How It Works`}
-                ogDescription="Learn how we protect your data. Encode and disguise a file with a password directly in your browser. No uploads, no tracking, 100% open source and transparent."
-            />
             <div>
                 <h2>How Does It Work?</h2>
                 <p>

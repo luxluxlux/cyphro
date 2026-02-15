@@ -42,6 +42,7 @@ export interface IWindowManagerOptions {
  * Context for updating the window manager state
  */
 export interface IWindowManagerContext {
+    isOpened: boolean;
     open: {
         /**
          * Open an existing window

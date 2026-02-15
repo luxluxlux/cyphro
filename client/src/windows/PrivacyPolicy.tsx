@@ -1,8 +1,7 @@
 import { Helmet } from 'react-helmet-async';
 import { Link } from '@mui/material';
-import { APP_COUNTRY, APP_EMAIL, APP_NAME } from 'utils/constants';
+import { APP_COUNTRY, APP_EMAIL, APP_NAME, APP_URL } from 'utils/constants';
 import { WINDOW_DATA, WINDOW } from 'components/WindowManager';
-import { Header } from 'components/Page';
 
 // TODO: Add anchors to sections
 /**
@@ -12,16 +11,34 @@ import { Header } from 'components/Page';
 const PrivacyPolicy = () => (
     <>
         <Helmet>
-            <title>{APP_NAME} | Privacy Policy</title>
+            <title>Privacy Policy — How We Process Your Data | {APP_NAME}</title>
+            <link
+                rel="canonical"
+                href={`${APP_URL}?popup=${WINDOW_DATA[WINDOW.PRIVACY_POLICY].path}`}
+            />
+            <meta
+                name="description"
+                content={`Learn how ${APP_NAME} handles, safeguards, and manages your personal information. Read about data usage, security measures, sharing practices, your rights, and how to contact us.`}
+            />
+            <meta
+                name="keywords"
+                content={`privacy nolicy, ${APP_NAME}, privacy notice, personal data, data protection, data processing, user rights, information security, open source, file encryption, file encoding, file disguise`}
+            />
+            <meta property="og:title" content={`${APP_NAME} — Privacy Policy`} />
+            <meta
+                property="og:description"
+                content="Learn how we handle, safeguard, and manage your personal information. Read about data usage, security measures, sharing practices, your rights, and how to contact us."
+            />
+            <meta
+                property="og:url"
+                content={`${APP_URL}?popup=${WINDOW_DATA[WINDOW.PRIVACY_POLICY].path}`}
+            />
+            <meta name="twitter:title" content={`${APP_NAME} — Privacy Policy`} />
+            <meta
+                name="twitter:description"
+                content="Learn how we handle, safeguard, and manage your personal information. Read about data usage, security measures, sharing practices, your rights, and how to contact us."
+            />
         </Helmet>
-        <Header
-            path={`?popup=${WINDOW_DATA[WINDOW.PRIVACY_POLICY].path}`}
-            metaTitle={`${APP_NAME} Privacy Policy - How We Process Your Data`}
-            metaDescription={`Learn how  ${APP_NAME} handles, safeguards, and manages your personal information. Read about data usage, security measures, sharing practices, your rights, and how to contact us.`}
-            metaKeywords={`privacy nolicy, ${APP_NAME}, privacy notice, personal data, data protection, data processing, user rights, information security, open source, file encryption, file encoding, file disguise`}
-            ogTitle={`${APP_NAME} — Privacy Policy`}
-            ogDescription="Learn how we handle, safeguard, and manage your personal information. Read about data usage, security measures, sharing practices, your rights, and how to contact us."
-        />
         <div>
             <h2>Privacy Policy</h2>
             <p>

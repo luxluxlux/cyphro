@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import Button from '@mui/material/Button';
-import { Header } from 'components/Page';
 import { APP_NAME, STAGE, STAGE_DATA } from 'utils/constants';
 
 /**
@@ -11,13 +10,9 @@ import { APP_NAME, STAGE, STAGE_DATA } from 'utils/constants';
 const NotFound = () => (
     <>
         <Helmet>
-            <title>{APP_NAME} | 404 - Page Not Found</title>
+            <title>404 — Page Not Found | {APP_NAME}</title>
             <meta name="robots" content="noindex" />
         </Helmet>
-        <Header
-            metaTitle={`${APP_NAME} — 404 Page Not Found`}
-            metaDescription={`The page you are looking for could not be found on ${APP_NAME}.`}
-        />
         <div className="not-found">
             <h2 className="not-found__title">Oops! 404 - Page Not Found</h2>
             <p className="not-found__description">

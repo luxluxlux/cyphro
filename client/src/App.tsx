@@ -2,13 +2,7 @@ import { Routes, Route } from 'react-router-dom';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { ThemeProvider, StyledEngineProvider } from '@mui/material/styles';
 import { getUserAgent } from 'utils/device';
-import {
-    APP_NAME,
-    APP_URL,
-    REACT_SNAP_PATHS,
-    STAGE,
-    STAGE_DATA,
-} from 'utils/constants';
+import { APP_NAME, APP_URL, REACT_SNAP_PATHS, STAGE, STAGE_DATA } from 'utils/constants';
 import theme from 'utils/theme';
 import Upload from 'pages/Upload';
 import Secure from 'pages/Secure';
@@ -32,7 +26,7 @@ const OG_IMAGE = `${APP_URL}preview.png`;
 const App = () => (
     <HelmetProvider>
         <Helmet>
-            <title>{APP_NAME}</title>
+            <title>Protect Files with Password & Disguise Them Online | {APP_NAME}</title>
             <meta name="theme-color" content="#070707" />
             <meta property="og:locale" content="en_US" />
             <meta property="og:type" content="website" />
