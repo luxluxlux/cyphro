@@ -7,4 +7,4 @@ export const TRESHOLD = 0.5;
 /**
  * The list of forbidden content classes.
  */
-export const FORBIDDEN_CLASSES = ['Porn', 'Hentai'];
+export const FORBIDDEN_CLASSES = ['Porn', 'Hentai', 'Sexy'];
