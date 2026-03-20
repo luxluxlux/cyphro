@@ -19,7 +19,7 @@ const FAQ = () => (
     <>
         <Helmet>
             <title>Frequently Asked Questions (FAQ) — File Protection & Disguise | {APP_NAME}</title>
-            <link rel="canonical" href={`${APP_URL}?popup=${WINDOW_DATA[WINDOW.FAQ].path}`} />
+            <link rel="canonical" href={`${APP_URL}${WINDOW_DATA[WINDOW.FAQ].path}`} />
             <meta
                 name="description"
                 content={`Find answers to common questions about ${APP_NAME} — a free, open source web app to encode, decode, and disguise a file with a password directly in your browser. Learn about supported formats, file size limits, and how to contribute.`}
@@ -33,7 +33,7 @@ const FAQ = () => (
                 property="og:description"
                 content="Find answers to common questions about the project. Learn about supported formats, file size limits, and how to contribute."
             />
-            <meta property="og:url" content={`${APP_URL}?popup=${WINDOW_DATA[WINDOW.FAQ].path}`} />
+            <meta property="og:url" content={`${APP_URL}${WINDOW_DATA[WINDOW.FAQ].path}`} />
             <meta name="twitter:title" content={`${APP_NAME} — Frequently asked questions (FAQ)`} />
             <meta
                 name="twitter:description"

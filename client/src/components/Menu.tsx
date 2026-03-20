@@ -8,7 +8,6 @@ import MenuIcon from '@mui/icons-material/Menu';
 import SettingsSuggestIcon from '@mui/icons-material/SettingsSuggest';
 import QuizIcon from '@mui/icons-material/Quiz';
 import InfoIcon from '@mui/icons-material/Info';
-import { isMobile } from 'utils/device';
 import { WindowManagerContext, WINDOW } from 'components/WindowManager';
 
 /**
@@ -40,58 +39,56 @@ const Menu = () => {
         setAnchorEl(null);
     };
 
+    // FIXME: Some screen readers may see two menus, fix by adding aria-hidden or removing one of them from the DOM
     return (
         <nav aria-label="Main Menu">
-            {isMobile() ? (
-                <>
-                    <IconButton aria-label="Open main menu" onClick={handleOpenMenu}>
-                        <MenuIcon fontSize="medium" />
-                    </IconButton>
-                    <MuiMenu
-                        anchorEl={anchorEl}
-                        open={!!anchorEl}
-                        onClose={handleCloseMenu}
-                        onClick={handleCloseMenu}
-                    >
-                        <MenuItem divider onClick={handleHowItWorksClick}>
-                            <ListItemIcon>
-                                <SettingsSuggestIcon fontSize="small" />
-                            </ListItemIcon>
-                            How it works
-                        </MenuItem>
-                        <MenuItem divider onClick={handleFAQClick}>
-                            <ListItemIcon>
-                                <QuizIcon fontSize="small" />
-                            </ListItemIcon>
-                            FAQ
-                        </MenuItem>
-                        <MenuItem onClick={handleAboutClick}>
-                            <ListItemIcon>
-                                <InfoIcon fontSize="small" />
-                            </ListItemIcon>
-                            About
-                        </MenuItem>
-                    </MuiMenu>
-                </>
-            ) : (
-                <ul className="menu__list">
-                    <li className="menu__list-item">
-                        <Button className="menu__list-item-button" onClick={handleHowItWorksClick}>
-                            How It Works
-                        </Button>
-                    </li>
-                    <li className="menu__list-item">
-                        <Button className="menu__list-item-button" onClick={handleFAQClick}>
-                            FAQ
-                        </Button>
-                    </li>
-                    <li className="menu__list-item">
-                        <Button className="menu__list-item-button" onClick={handleAboutClick}>
-                            About
-                        </Button>
-                    </li>
-                </ul>
-            )}
+            <div className="menu__dropdown">
+                <IconButton aria-label="Open main menu" onClick={handleOpenMenu}>
+                    <MenuIcon fontSize="medium" />
+                </IconButton>
+                <MuiMenu
+                    anchorEl={anchorEl}
+                    open={!!anchorEl}
+                    onClose={handleCloseMenu}
+                    onClick={handleCloseMenu}
+                >
+                    <MenuItem divider onClick={handleHowItWorksClick}>
+                        <ListItemIcon>
+                            <SettingsSuggestIcon fontSize="small" />
+                        </ListItemIcon>
+                        How it works
+                    </MenuItem>
+                    <MenuItem divider onClick={handleFAQClick}>
+                        <ListItemIcon>
+                            <QuizIcon fontSize="small" />
+                        </ListItemIcon>
+                        FAQ
+                    </MenuItem>
+                    <MenuItem onClick={handleAboutClick}>
+                        <ListItemIcon>
+                            <InfoIcon fontSize="small" />
+                        </ListItemIcon>
+                        About
+                    </MenuItem>
+                </MuiMenu>
+            </div>
+            <ul className="menu__list">
+                <li className="menu__list-item">
+                    <Button className="menu__list-item-button" onClick={handleHowItWorksClick}>
+                        How It Works
+                    </Button>
+                </li>
+                <li className="menu__list-item">
+                    <Button className="menu__list-item-button" onClick={handleFAQClick}>
+                        FAQ
+                    </Button>
+                </li>
+                <li className="menu__list-item">
+                    <Button className="menu__list-item-button" onClick={handleAboutClick}>
+                        About
+                    </Button>
+                </li>
+            </ul>
         </nav>
     );
 };

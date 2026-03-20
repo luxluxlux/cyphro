@@ -1,11 +1,9 @@
 import { forwardRef, memo, useCallback } from 'react';
-import clsx from 'clsx';
 import { closeSnackbar } from 'notistack';
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
-import { isMobile } from 'utils/device';
 import { IComponentProps } from './types';
 
 /**
@@ -17,7 +15,7 @@ export const Component = forwardRef<HTMLDivElement, IComponentProps>((props, ref
     const handleClose = useCallback(() => closeSnackbar(props.id), [props.id]);
     return (
         <Alert
-            className={clsx('snackback-component', isMobile() && 'snackback-component_mobile')}
+            className="snackback-component"
             ref={ref}
             variant="outlined"
             severity={props.variant}

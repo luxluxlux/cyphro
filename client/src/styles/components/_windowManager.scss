@@ -1,3 +1,5 @@
+@import 'styles/abstracts/breakpoints';
+
 .window-manager {
     &_modal {
         z-index: 999;
@@ -9,9 +11,12 @@
         overflow-y: hidden;
         box-sizing: border-box;
         display: flex;
-        padding: 86px var(--offset_xl) 74px;
 
-        &_mobile {
+        @media (min-width: $breakpoint-s) {
+            padding: 86px var(--offset_xl) 74px;
+        }
+
+        @media (max-width: ($breakpoint-s - 1px)) {
             padding: 76px var(--offset_m) 62px;
         }
 

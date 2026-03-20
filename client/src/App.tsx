@@ -1,8 +1,7 @@
 import { Routes, Route } from 'react-router-dom';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { ThemeProvider, StyledEngineProvider } from '@mui/material/styles';
-import { getUserAgent } from 'utils/device';
-import { APP_NAME, APP_URL, REACT_SNAP_PATHS, STAGE, STAGE_DATA } from 'utils/constants';
+import { APP_NAME, APP_URL, WINDOW_PATHS, STAGE, STAGE_DATA } from 'utils/constants';
 import theme from 'utils/theme';
 import Upload from 'pages/Upload';
 import Secure from 'pages/Secure';
@@ -54,14 +53,10 @@ const App = () => (
                                     path={STAGE_DATA[STAGE.DOWNLOAD].path}
                                     Component={Download}
                                 />
-                                {/* 
-                                    These pages are prepared only for react-snap because it don't
-                                    handle URL params
-                                */}
-                                {getUserAgent() === 'ReactSnap' &&
-                                    REACT_SNAP_PATHS.map((path) => (
-                                        <Route key={path} path={path} Component={Upload} />
-                                    ))}
+                                {/* These pages are prepared for indexing by search engines */}
+                                {WINDOW_PATHS.map((path) => (
+                                    <Route key={path} path={path} Component={Upload} />
+                                ))}
                                 <Route path="*" Component={NotFound} />
                             </Routes>
                         }

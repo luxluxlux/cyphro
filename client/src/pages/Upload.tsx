@@ -6,7 +6,6 @@ import Link from '@mui/material/Link';
 import { useSnackbar } from 'components/Snackbar';
 import { APP_NAME, APP_URL, MAX_ALERT_FILENAME_LENGTH, STAGE, STAGE_DATA } from 'utils/constants';
 import { ellipse, upload, validateFile } from 'utils/common';
-import { isMobile } from 'utils/device';
 import { WindowManagerContext, WINDOW } from 'components/WindowManager';
 
 /**
@@ -128,7 +127,7 @@ const Upload = () => {
                     <Button variant="contained" onClick={handleFileClick}>
                         Select file
                     </Button>
-                    {!isMobile() && <div className="upload__actions-hint">or drop it here</div>}
+                    <div className="upload__actions-hint">or drop it here</div>
                 </div>
             </div>
         </>

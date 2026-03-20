@@ -1,10 +1,9 @@
 import { useState, useCallback, useMemo, useRef, useEffect, memo, ReactElement } from 'react';
-import { useLocation } from 'react-router-dom';
-import clsx from 'clsx';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Backdrop from '@mui/material/Backdrop';
 import { TransitionProps } from '@mui/material/transitions';
+import { STAGE, STAGE_DATA } from 'utils/constants';
 import { isEnumValue } from 'utils/common';
-import { getUserAgent, isMobile } from 'utils/device';
 import { useUpdateSearchParams } from 'utils/hooks';
 import {
     IWindowManagerContext,
@@ -22,6 +21,7 @@ import { WindowManagerContext } from './contexts';
  */
 export function WindowManager(props: IWindowManagerProps) {
     const location = useLocation();
+    const navigate = useNavigate();
     const { setParam, removeParam } = useUpdateSearchParams();
 
     const closableRef = useRef(true);
@@ -60,12 +60,21 @@ export function WindowManager(props: IWindowManagerProps) {
     );
 
     const close = useCallback(() => {
+        const pathname = location.pathname.split('/').filter(Boolean).join('/');
+        if (isEnumValue(WINDOW, pathname)) {
+            navigate(STAGE_DATA[STAGE.UPLOAD].path, {
+                state: location.state,
+            });
+            return;
+        }
+
         const params = new URLSearchParams(location.search);
         if (params.has('popup')) {
             removeParam('popup');
-        } else {
-            clearContent();
+            return;
         }
+
+        clearContent();
     }, [location, removeParam, clearContent]);
 
     const stateContextValue = useMemo<IWindowManagerContext>(
@@ -87,26 +96,22 @@ export function WindowManager(props: IWindowManagerProps) {
     // synchronously. The useEffect and useLayoutEffect hooks are asynchronous, and a custom hook
     // will fail during double rendering in dev mode (StrictMode), so we use useMemo.
     useMemo(() => {
-        // React-snap don't handle URL params
-        if (getUserAgent() === 'ReactSnap') {
-            const name = location.pathname.split('/').pop();
-            if (!isEnumValue(WINDOW, name)) {
-                return;
+        const pathname = location.pathname.split('/').filter(Boolean).join('/');
+        const params = new URLSearchParams(location.search);
+
+        const key = isEnumValue(WINDOW, pathname) ? pathname : params.get('popup');
+
+        if (key) {
+            if (!isEnumValue(WINDOW, key)) {
+                throw new Error(`Pop-up component "${key}" not found`);
             }
-            updateContent(WINDOW_DATA[name].content);
-        } else {
-            const params = new URLSearchParams(location.search);
-            if (params.has('popup')) {
-                const name = params.get('popup');
-                if (!isEnumValue(WINDOW, name)) {
-                    throw new Error(`Pop-up component "${name}" not found`);
-                }
-                updateContent(WINDOW_DATA[name].content);
-            } else {
-                if (state.content) {
-                    clearContent();
-                }
-            }
+
+            updateContent(WINDOW_DATA[key].content);
+            return;
+        }
+
+        if (state.content) {
+            clearContent();
         }
     }, [location]);
 
@@ -143,12 +148,7 @@ export function WindowManager(props: IWindowManagerProps) {
                 {state.fullscreen ? (
                     state.content
                 ) : (
-                    <div
-                        className={clsx(
-                            'window-manager__content',
-                            isMobile() && 'window-manager__content_mobile'
-                        )}
-                    >
+                    <div className="window-manager__content">
                         <div className="window-manager__content-container">
                             <div
                                 ref={scrollRef}

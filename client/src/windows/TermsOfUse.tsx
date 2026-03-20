@@ -36,7 +36,7 @@ const TermsOfUse = () => {
                 <title>Terms of Use — User Agreement and Guidelines | {APP_NAME}</title>
                 <link
                     rel="canonical"
-                    href={`${APP_URL}?popup=${WINDOW_DATA[WINDOW.TERMS_OF_USE].path}`}
+                    href={`${APP_URL}${WINDOW_DATA[WINDOW.TERMS_OF_USE].path}`}
                 />
                 <meta
                     name="description"
@@ -53,7 +53,7 @@ const TermsOfUse = () => {
                 />
                 <meta
                     property="og:url"
-                    content={`${APP_URL}?popup=${WINDOW_DATA[WINDOW.TERMS_OF_USE].path}`}
+                    content={`${APP_URL}${WINDOW_DATA[WINDOW.TERMS_OF_USE].path}`}
                 />
                 <meta name="twitter:title" content={`${APP_NAME} — Terms of Use`} />
                 <meta

@@ -1,0 +1,7 @@
+.git
+.vscode
+client/node_modules
+client/build
+docs
+*.md
+.gitinore

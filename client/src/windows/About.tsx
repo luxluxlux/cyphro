@@ -35,7 +35,7 @@ const About = () => {
                 <title>
                     About the Project — Open-Source File Protection in Your Browser | {APP_NAME}
                 </title>
-                <link rel="canonical" href={`${APP_URL}?popup=${WINDOW_DATA[WINDOW.ABOUT].path}`} />
+                <link rel="canonical" href={`${APP_URL}${WINDOW_DATA[WINDOW.ABOUT].path}`} />
                 <meta
                     name="description"
                     content={`${APP_NAME} is an open-source web app for protecting and disguising files directly in your browser. Learn how we make file safety simple, private, and fully local — no installation or registration required.`}
@@ -51,7 +51,7 @@ const About = () => {
                 />
                 <meta
                     property="og:url"
-                    content={`${APP_URL}?popup=${WINDOW_DATA[WINDOW.ABOUT].path}`}
+                    content={`${APP_URL}${WINDOW_DATA[WINDOW.ABOUT].path}`}
                 />
                 <meta name="twitter:title" content={`${APP_NAME} — About the Project`} />
                 <meta
@@ -63,7 +63,7 @@ const About = () => {
                         '@context': 'https://schema.org',
                         '@type': 'AboutPage',
                         name: `About ${APP_NAME}`,
-                        url: `${APP_URL}?popup=${WINDOW_DATA[WINDOW.ABOUT].path}`,
+                        url: `${APP_URL}${WINDOW_DATA[WINDOW.ABOUT].path}`,
                         description: `Learn about the ${APP_NAME} project, its mission, values, and approach to private and accessible file protection.`,
                         mainEntity: {
                             '@type': 'SoftwareApplication',

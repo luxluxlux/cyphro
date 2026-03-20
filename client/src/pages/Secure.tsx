@@ -239,15 +239,15 @@ const Secure = () => {
     }, []);
 
     useEffect(() => {
-        const file = location.state.file;
-        if (file.type.startsWith('image/')) {
+        const file = location.state?.file;
+        if (file?.type.startsWith('image/')) {
             moderationServiceRef.current ??= new ModerationService();
             moderationServiceRef.current.start('source', file);
         }
-    }, [location.state.file]);
+    }, [location]);
 
     useEffect(() => {
-        const disguise = location.state.disguise;
+        const disguise = location.state?.disguise;
         if (disguise) {
             if (disguise.type.startsWith('image/')) {
                 moderationServiceRef.current ??= new ModerationService();
@@ -256,7 +256,7 @@ const Secure = () => {
         } else {
             moderationServiceRef.current?.abort('disguise');
         }
-    }, [location.state.disguise]);
+    }, [location]);
 
     if (!location.state) {
         return (

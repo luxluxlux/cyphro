@@ -14,7 +14,7 @@ const PrivacyPolicy = () => (
             <title>Privacy Policy — How We Process Your Data | {APP_NAME}</title>
             <link
                 rel="canonical"
-                href={`${APP_URL}?popup=${WINDOW_DATA[WINDOW.PRIVACY_POLICY].path}`}
+                href={`${APP_URL}${WINDOW_DATA[WINDOW.PRIVACY_POLICY].path}`}
             />
             <meta
                 name="description"
@@ -31,7 +31,7 @@ const PrivacyPolicy = () => (
             />
             <meta
                 property="og:url"
-                content={`${APP_URL}?popup=${WINDOW_DATA[WINDOW.PRIVACY_POLICY].path}`}
+                content={`${APP_URL}${WINDOW_DATA[WINDOW.PRIVACY_POLICY].path}`}
             />
             <meta name="twitter:title" content={`${APP_NAME} — Privacy Policy`} />
             <meta

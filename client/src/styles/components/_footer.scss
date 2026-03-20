@@ -11,11 +11,11 @@
         padding: unset;
         font-size: var(--font-size_xs);
 
-        @media (width >= $breakpoint-s) {
+        @media (min-width: $breakpoint-s) {
             justify-content: end;
         }
 
-        @media (width < $breakpoint-s) {
+        @media (max-width: ($breakpoint-s - 1px)) {
             justify-content: center;
         }
 

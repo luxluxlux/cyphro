@@ -1,6 +1,6 @@
 import { memo } from 'react';
+import { isMobile } from 'react-device-detect';
 import { SnackbarProvider as NotistackProvider } from 'notistack';
-import { isMobile } from 'utils/device';
 import { getComponentWithVariant } from './utils';
 import { ISnackbarProviderProps } from './types';
 
@@ -20,7 +20,7 @@ const COMPONENTS = {
  */
 export const SnackbarProvider = (props: ISnackbarProviderProps) => (
     <NotistackProvider
-        maxSnack={isMobile() ? 1 : 2}
+        maxSnack={isMobile ? 1 : 2}
         autoHideDuration={5_000}
         disableWindowBlurListener
         preventDuplicate

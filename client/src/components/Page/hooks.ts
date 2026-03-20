@@ -1,7 +1,6 @@
 import { useLocation } from 'react-router-dom';
 import { removeTrailingSlashes } from 'utils/common';
-import { REACT_SNAP_PATHS, STAGE, STAGE_DATA } from 'utils/constants';
-import { getUserAgent } from 'utils/device';
+import { WINDOW_PATHS, STAGE, STAGE_DATA } from 'utils/constants';
 
 /**
  * Gets the primary color for the current page based on the location pathname.
@@ -11,8 +10,8 @@ export function usePrimaryColor(): string | undefined {
     const location = useLocation();
     const pathname = removeTrailingSlashes(location.pathname);
 
-    // Some react-snap pages render as popups from the home page, not stages
-    if (getUserAgent() === 'ReactSnap' && REACT_SNAP_PATHS.includes(pathname)) {
+    // Some pages render as popups from the home page, not stages
+    if (WINDOW_PATHS.includes(pathname)) {
         return STAGE_DATA[STAGE.UPLOAD].color;
     }
 
