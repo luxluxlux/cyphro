@@ -1,5 +1,17 @@
+@import 'styles/abstracts/breakpoints';
+
 .menu {
+    &__dropdown {
+        @media (min-width: $breakpoint-s) {
+            display: none;
+        }
+    }
+
     &__list {
+        @media (max-width: ($breakpoint-s - 1px)) {
+            display: none;
+        }
+
         list-style: none;
         display: flex;
         gap: var(--offset_2xl);

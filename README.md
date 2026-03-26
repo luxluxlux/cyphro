@@ -45,52 +45,36 @@ Users are solely responsible for how they use the application. The service must 
 
 ## Launch
 
-### Python Interpreter
+Choose one of the following methods to run the application.
 
-1. Install requirements:
+### Node.js
 
-   - Python
-   - Node.js
-
-1. Navigate to the project directory.
-
-1. Install server dependencies:
+1. Go to the client directory:
 
    ```
-   pip install -r server/requirements.txt
+   cd client
    ```
 
-1. Install client dependencies:
+1. Install dependencies:
 
    ```
-   npm i --prefix client
+   npm install
    ```
 
-1. Build static files:
+1. Start the development server:
 
    ```
-   npm run --prefix client build
+   npm run start
    ```
 
-1. Run the application:
+1. Open your browser and go to [http://localhost:3000](http://localhost:3000).
+
+### Docker
+
+1. Run Docker Compose:
 
    ```
-   python main.py
+   docker compose up --build
    ```
 
-### Docker Container
-
-1. Install requirements:
-
-   - Python
-   - Node.js
-   - Ubuntu server
-   - Nginx web server
-
-1. Follow steps 2-5 from the section above.
-
-1. Run the startup script:
-
-   ```
-   sudo bash start.sh
-   ```
+1. Open your browser and go to [http://localhost:3000](http://localhost:3000).

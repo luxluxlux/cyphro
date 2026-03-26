@@ -33,10 +33,7 @@ const HowItWorks = () => {
         <>
             <Helmet>
                 <title>How It Works — Protect Files Directly in Your Browser | {APP_NAME}</title>
-                <link
-                    rel="canonical"
-                    href={`${APP_URL}?popup=${WINDOW_DATA[WINDOW.HOW_IT_WORKS].path}`}
-                />
+                <link rel="canonical" href={`${APP_URL}${WINDOW_DATA[WINDOW.HOW_IT_WORKS].path}`} />
                 <meta
                     name="description"
                     content={`Learn how ${APP_NAME} protects your data. Encode and disguise a file with a password directly in your browser. No uploads, no tracking, 100% open source and transparent.`}
@@ -52,7 +49,7 @@ const HowItWorks = () => {
                 />
                 <meta
                     property="og:url"
-                    content={`${APP_URL}?popup=${WINDOW_DATA[WINDOW.HOW_IT_WORKS].path}`}
+                    content={`${APP_URL}${WINDOW_DATA[WINDOW.HOW_IT_WORKS].path}`}
                 />
                 <meta name="twitter:title" content={`${APP_NAME} — How It Works`} />
                 <meta

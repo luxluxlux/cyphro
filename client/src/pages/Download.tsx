@@ -4,12 +4,15 @@ import { Helmet } from 'react-helmet-async';
 import MuiLink from '@mui/material/Link';
 import Button from '@mui/material/Button';
 import TelegramIcon from '@mui/icons-material/Telegram';
-import WhatsAppIcon from '@mui/icons-material/WhatsApp';
+import XIcon from '@mui/icons-material/X';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
-import { APP_NAME, STAGE, STAGE_DATA } from 'utils/constants';
+import { APP_NAME, APP_URL, STAGE, STAGE_DATA } from 'utils/constants';
 import { download, ellipse } from 'utils/common';
 
-const SHARED_TEXT = `I protect my files with a password using ${APP_NAME}. Protect your files too!`;
+const ENCODED_SHARED_URL = encodeURIComponent(APP_URL);
+const ENCODED_SHARED_TEXT = encodeURIComponent(
+    `Sharing files? Protect them with a password using ${APP_NAME} 🔐`
+);
 
 /**
  * File download and share page.
@@ -18,7 +21,6 @@ const SHARED_TEXT = `I protect my files with a password using ${APP_NAME}. Prote
 const Download = () => {
     const location = useLocation();
     const navigate = useNavigate();
-    const hostname = window.location.hostname;
 
     const downloadFile = useCallback(() => {
         download(location.state.data, location.state.fileName);
@@ -93,7 +95,7 @@ const Download = () => {
                     <div className="download__socials-links">
                         <MuiLink
                             className="download__socials-links-link"
-                            href={`https://t.me/share/url?url=${hostname}&text=${SHARED_TEXT}`}
+                            href={`https://t.me/share/url?url=${ENCODED_SHARED_URL}&text=${ENCODED_SHARED_TEXT}`}
                             target="_blank"
                             rel="noopener"
                             title="Telegram"
@@ -102,16 +104,16 @@ const Download = () => {
                         </MuiLink>
                         <MuiLink
                             className="download__socials-links-link"
-                            href={`https://wa.me/?text=${hostname}%0A${SHARED_TEXT}`}
+                            href={`https://x.com/intent/post?url=${ENCODED_SHARED_URL}&text=${ENCODED_SHARED_TEXT}`}
                             target="_blank"
                             rel="noopener"
-                            title="WhatsApp"
+                            title="X (Twitter)"
                         >
-                            <WhatsAppIcon fontSize="small" />
+                            <XIcon fontSize="small" />
                         </MuiLink>
                         <MuiLink
                             className="download__socials-links-link"
-                            href={`https://www.linkedin.com/shareArticle?mini=true&url=${hostname}&text=${SHARED_TEXT}`}
+                            href={`https://www.linkedin.com/shareArticle?mini=true&url=${ENCODED_SHARED_URL}&text=${ENCODED_SHARED_TEXT}`}
                             target="_blank"
                             rel="noopener"
                             title="LinkedIn"

@@ -24,6 +24,10 @@
 
         &-hint {
             font-size: var(--font-size_xs);
+
+            @media (hover: none) or (pointer: coarse) {
+                display: none;
+            }
         }
     }
 }

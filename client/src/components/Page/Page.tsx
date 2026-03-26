@@ -1,6 +1,4 @@
 import { CSSProperties, memo } from 'react';
-import clsx from 'clsx';
-import { isMobile } from 'utils/device';
 import { WindowManager } from 'components/WindowManager';
 import DropArea from 'components/DropArea';
 import { IPageProps } from './types';
@@ -27,26 +25,14 @@ export const Page = (props: IPageProps) => {
                     <div className="page__background" />
                     <div className="page__overlay" />
                     <div className="page__content">
-                        <header
-                            className={clsx(
-                                'page__content-header',
-                                isMobile() && 'page__content-header_mobile'
-                            )}
-                        >
+                        <header className="page__content-header">
                             <div>{props.logo}</div>
                             <div>{props.menu}</div>
                         </header>
                         <main className="page__content-body">
                             <div className="page__content-body-content">{props.content}</div>
                         </main>
-                        <footer
-                            className={clsx(
-                                'page__content-footer',
-                                isMobile() && 'page__content-footer_mobile'
-                            )}
-                        >
-                            {props.footer}
-                        </footer>
+                        <footer className="page__content-footer">{props.footer}</footer>
                     </div>
                 </DropArea>
             </WindowManager>

@@ -8,14 +8,6 @@
     "@fontsource/inter": "^5.2.5",
     "@mui/icons-material": "^6.4.11",
     "@mui/material": "^6.4.11",
-    "@testing-library/jest-dom": "^5.17.0",
-    "@testing-library/react": "^13.4.0",
-    "@testing-library/user-event": "^13.5.0",
-    "@types/jest": "^27.5.2",
-    "@types/node": "^16.18.126",
-    "@types/react": "^18.3.20",
-    "@types/react-dom": "^18.3.6",
-    "clsx": "^2.1.1",
     "crypto-js": "^4.2.0",
     "notistack": "^3.0.2",
     "nsfwjs": "^4.2.1",
@@ -24,9 +16,6 @@
     "react-dom": "^18.3.1",
     "react-helmet-async": "^2.0.5",
     "react-router-dom": "^6.30.0",
-    "react-scripts": "5.0.1",
-    "sass": "^1.87.0",
-    "typescript": "^4.9.5",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
@@ -65,27 +54,35 @@
       "/about",
       "/terms-of-use",
       "/privacy-policy",
-      "/mobile",
-      "/mobile/how-it-works",
-      "/mobile/faq",
-      "/mobile/about",
-      "/mobile/terms-of-use",
-      "/mobile/privacy-policy",
       "/404.html"
+    ],
+    "puppeteerArgs": [
+      "--no-sandbox",
+      "--disable-dev-shm-usage"
     ]
   },
   "devDependencies": {
     "@eslint/js": "^9.25.1",
+    "@types/jest": "^27.5.2",
+    "@types/node": "^16.18.126",
+    "@types/react": "^18.3.20",
+    "@types/react-dom": "^18.3.6",
     "@types/crypto-js": "^4.2.2",
+    "@testing-library/jest-dom": "^5.17.0",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^13.5.0",
     "eslint": "^8.57.1",
     "eslint-plugin-react": "^7.37.5",
     "globals": "^15.15.0",
     "prettier": "3.3.3",
+    "sass": "^1.87.0",
+    "typescript": "^4.9.5",
+    "typescript-eslint": "^8.31.0",
+    "react-scripts": "5.0.1",
     "react-snap": "^1.23.0",
     "stylelint": "^16.19.1",
     "stylelint-config-standard": "^36.0.1",
     "stylelint-config-standard-scss": "^13.1.0",
-    "typedoc": "^0.26.11",
-    "typescript-eslint": "^8.31.0"
+    "typedoc": "^0.26.11"
   }
 }

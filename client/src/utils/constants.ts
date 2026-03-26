@@ -233,9 +233,6 @@ export const STAGE_DATA: Record<STAGE, IStep> = {
 };
 
 /**
- * Artificial rendering paths for react-snap environment.
+ * SEO paths for popup windows.
  */
-export const REACT_SNAP_PATHS = [
-    '/mobile',
-    ...Object.values(WINDOW_DATA).flatMap(({ path }) => [`/${path}`, `/mobile/${path}`]),
-];
+export const WINDOW_PATHS = Object.values(WINDOW_DATA).map(({ path }) => `/${path}`);
