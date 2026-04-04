@@ -32,6 +32,11 @@ export type Action = 'encode' | 'decode';
 export type ValidationResult = true | string;
 
 /**
+ * Color palette for the page.
+ */
+export type Palette = 'blue' | 'cyan' | 'green';
+
+/**
  * Current stage of processing.
  */
 export interface IStep {
@@ -40,9 +45,9 @@ export interface IStep {
      */
     path: string;
     /**
-     * Accent color.
+     * Color palette.
      */
-    color: string;
+    palette: Palette;
 }
 
 /**

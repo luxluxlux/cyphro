@@ -29,7 +29,7 @@ export type CryptoResult =
     | ITransferableUint8Array
     | {
         name: string | undefined;
-        extension: string | undefined;
+        extension: string;
         data: ITransferableUint8Array;
     }
 

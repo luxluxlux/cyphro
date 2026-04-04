@@ -64,7 +64,7 @@ export default createTheme({
                                     "&:hover": {
                                         backgroundColor: 'var(--button-translucent-hover-color)',
                                     },
-                                    '&:focus-visible': {
+                                    '&.Mui-focusVisible': {
                                         backgroundColor: 'var(--button-translucent-focus-color)',
                                     },
                                 },
@@ -77,7 +77,7 @@ export default createTheme({
                                     "&:hover": {
                                         backgroundColor: 'var(--button-translucent-hover-color)',
                                     },
-                                    '&:focus-visible': {
+                                    '&.Mui-focusVisible': {
                                         backgroundColor: 'var(--button-translucent-focus-color)',
                                     },
                                 },
@@ -95,7 +95,7 @@ export default createTheme({
                                         backgroundColor: 'var(--button-contained-hover-color)',
                                         boxShadow: 'unset',
                                     },
-                                    '&:focus-visible': {
+                                    '&.Mui-focusVisible': {
                                         backgroundColor: 'var(--button-contained-focus-color)',
                                         boxShadow: 'unset',
                                     },
@@ -112,7 +112,7 @@ export default createTheme({
                     '&:hover': {
                         backgroundColor: 'var(--button-translucent-hover-color)',
                     },
-                    '&:focus-visible': {
+                    '&.Mui-focusVisible': {
                         backgroundColor: 'var(--button-translucent-focus-color)',
                     },
                 },
@@ -182,7 +182,7 @@ export default createTheme({
                 root: {
                     cursor: 'pointer',
                     verticalAlign: 'unset',
-                    '&:focus-visible': {
+                    '&.Mui-focusVisible': {
                         outline: 'none',
                         border: 'none',
                         borderRadius: 'var(--border-radius-infinite)',

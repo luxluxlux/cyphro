@@ -34,7 +34,7 @@ export interface IRestored {
     /**
      * File extension.
      */
-    extension?: string;
+    extension: string;
     /**
      * File data.
      */

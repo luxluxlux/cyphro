@@ -3,7 +3,7 @@ import { DEFAULT_CIPHER_PARAMS, SIGNATURE } from './constants';
 
 describe('SIGNATURE', () => {
     it('SIGNATURE should not be modified', () => {
-        const originalSignature = new Uint8Array([67, 89, 80, 72, 82]);
+        const originalSignature = new Uint8Array([182, 47, 201, 93, 138]);
         expect(SIGNATURE).toEqual(originalSignature);
     });
 });

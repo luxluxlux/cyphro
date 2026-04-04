@@ -5,3 +5,11 @@ p {
 li {
     margin-bottom: var(--offset_s);
 }
+
+// Remove the focus outline in Firefox
+button:-moz-focusring,
+[type='button']:-moz-focusring,
+[type='reset']:-moz-focusring,
+[type='submit']:-moz-focusring {
+    outline: none;
+}

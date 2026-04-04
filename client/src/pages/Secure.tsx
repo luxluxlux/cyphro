@@ -39,7 +39,7 @@ import { CryptoRequest, CryptoResponse } from 'workers/crypto/types';
 import { useSnackbar } from 'components/Snackbar';
 import { WindowManagerContext, WINDOW } from 'components/WindowManager';
 import DisguiseIcon from 'components/icons/DisguiseIcon';
-import Loading from 'windows/Loading';
+import { Loading } from 'windows/Loading';
 
 /**
  * Security settings page.
@@ -59,7 +59,7 @@ const Secure = () => {
     const handleUploadFileClick = useCallback(async () => {
         try {
             const file = await upload();
-            const validation = validateFile(file);
+            const validation = validateFile(file, location.state.disguise);
             if (validation !== true) {
                 enqueueSnackbar({
                     variant: 'warning',
@@ -147,10 +147,22 @@ const Secure = () => {
                 return;
             }
 
-            windowContext.open(<Loading title="File processing, please wait..." />, {
-                modal: true,
-                closable: false,
-            });
+            windowContext.open(
+                <Loading
+                    title={[
+                        { text: 'Processing file, please wait...', delay: 2500 },
+                        { text: 'Applying required adjustments...', delay: 2500 },
+                        { text: 'Finalizing processing steps...', delay: 3000 },
+                        { text: 'Preparing the final result...', delay: 3000 },
+                        { text: 'Almost there...', delay: 4000 },
+                        { text: 'Wrapping things up...', delay: 5000 },
+                    ]}
+                />,
+                {
+                    modal: true,
+                    closable: false,
+                }
+            );
             const file = location.state.file;
             const disguise = location.state.disguise;
             try {
@@ -240,19 +252,19 @@ const Secure = () => {
 
     useEffect(() => {
         const file = location.state?.file;
-        if (file?.type.startsWith('image/')) {
+        if (file && isModerated(file)) {
             moderationServiceRef.current ??= new ModerationService();
             moderationServiceRef.current.start('source', file);
+        } else {
+            moderationServiceRef.current?.abort('source');
         }
     }, [location]);
 
     useEffect(() => {
         const disguise = location.state?.disguise;
-        if (disguise) {
-            if (disguise.type.startsWith('image/')) {
-                moderationServiceRef.current ??= new ModerationService();
-                moderationServiceRef.current.start('disguise', disguise);
-            }
+        if (disguise && isModerated(disguise)) {
+            moderationServiceRef.current ??= new ModerationService();
+            moderationServiceRef.current.start('disguise', disguise);
         } else {
             moderationServiceRef.current?.abort('disguise');
         }
@@ -279,9 +291,11 @@ const Secure = () => {
             <div className="secure">
                 <div className="secure__inputs">
                     <Input
+                        name="file"
                         value={location.state.file.name}
                         title={location.state.file.name}
                         inputProps={{ tabIndex: -1 }}
+                        autoComplete="off"
                         readOnly
                         endAdornment={
                             <InputAdornment position="end">
@@ -311,10 +325,12 @@ const Secure = () => {
                         <div className="secure__inputs-disguise">
                             <div className="secure__inputs-disguise-title">Disguise as</div>
                             <Input
+                                name="disguise"
                                 className="secure__inputs-disguise-input"
                                 value={location.state.disguise.name}
                                 title={location.state.disguise.name}
                                 inputProps={{ tabIndex: -1 }}
+                                autoComplete="off"
                                 readOnly
                                 endAdornment={
                                     <InputAdornment position="end">
@@ -340,9 +356,12 @@ const Secure = () => {
                         </div>
                     )}
                     <Input
+                        name="secret"
+                        className="secure__inputs-password"
                         type={passwordIsVisible ? 'text' : 'password'}
                         placeholder="Enter the password"
                         value={password}
+                        autoComplete="off"
                         autoFocus
                         endAdornment={
                             <InputAdornment position="end">
@@ -417,6 +436,10 @@ function validateBlob(action: Action, blob: Blob): ValidationResult {
     return true;
 }
 
+function isModerated(file: File): boolean {
+    return !!file.type.startsWith('image/') || file.name.endsWith('.heic');
+}
+
 async function process(
     // TODO: Make moderationService a required parameter
     service: ModerationService | null,
@@ -428,7 +451,7 @@ async function process(
     if (action === 'encode' && service) {
         // To ensure stable UX, we do not temporarily interrupt processing
         // if the moderation process ends with an error
-        const moderation = await moderate(service, !!disguise).catch(() => true as const);
+        const moderation = await moderate(service).catch(() => true as const);
         if (Array.isArray(moderation)) {
             return { ok: false, failed: moderation };
         }
@@ -436,20 +459,14 @@ async function process(
 
     const result = await Promise.race([
         crypt(action, source, password, disguise),
-        waitReject(30_000),
+        waitReject(60_000),
     ]);
 
     return { ok: true, result };
 }
 
-async function moderate(
-    service: ModerationService,
-    disguise?: boolean
-): Promise<true | ModerationSlot[]> {
-    const result = await Promise.race([
-        service.wait(disguise ? ['source', 'disguise'] : ['source']),
-        waitResolve(60_000),
-    ]);
+async function moderate(service: ModerationService): Promise<true | ModerationSlot[]> {
+    const result = await Promise.race([service.wait(), waitResolve(30_000)]);
 
     if (!result) {
         throw new Error('Moderation error');

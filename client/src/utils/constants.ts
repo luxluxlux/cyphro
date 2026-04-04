@@ -17,7 +17,7 @@ export const APP_URL = 'https://cyphro.io/';
 /**
  * Contact email address of the application.
  */
-export const APP_EMAIL = 'cyphroapp@gmail.com';
+export const APP_EMAIL = 'cyphroapp@zohomail.eu';
 
 // TODO: Get it from the app params
 /**
@@ -178,14 +178,6 @@ export const ALLOWED_DISGUISE_EXTENSIONS = [
     'sqlitedb',
     'dump',
 
-    // Archive / compression formats tolerant to trailing bytes
-    'tar',
-    'gz', 'tgz',
-    'bz2',
-    'xz',
-    'lz', 'lzma',
-    'zst',
-
     // Capture, trace & binary log formats
     'pcap',
     'pcapng',
@@ -220,15 +212,15 @@ export enum STAGE {
 export const STAGE_DATA: Record<STAGE, IStep> = {
     [STAGE.UPLOAD]: {
         path: '/',
-        color: '#009dff',
+        palette: 'blue',
     },
     [STAGE.SECURE]: {
         path: '/secure',
-        color: '#00fff0',
+        palette: 'cyan',
     },
     [STAGE.DOWNLOAD]: {
         path: '/download',
-        color: '#4aff90',
+        palette: 'green',
     },
 };
 

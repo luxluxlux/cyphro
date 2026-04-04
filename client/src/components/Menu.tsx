@@ -41,7 +41,7 @@ const Menu = () => {
 
     // FIXME: Some screen readers may see two menus, fix by adding aria-hidden or removing one of them from the DOM
     return (
-        <nav aria-label="Main Menu">
+        <nav aria-label="Main menu">
             <div className="menu__dropdown">
                 <IconButton aria-label="Open main menu" onClick={handleOpenMenu}>
                     <MenuIcon fontSize="medium" />

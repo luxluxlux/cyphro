@@ -15,7 +15,6 @@ Device and browser coverage is defined in [device coverage](https://github.com/l
 Before starting QA, ensure:
 
 - [ ] (R) All code changes merged to release branch
-- [ ] (R) TypeScript compilation passes (`npm run check`)
 - [ ] (R) Unit tests complete successfully (`npm run test`)
 - [ ] (R) Build completes successfully (`npm run build`)
 
@@ -27,73 +26,76 @@ Before starting QA, ensure:
 
 ## 2. Core Flow
 
-### File Protection
+### 2.1 File Protection
 
 - [ ] (D) User can select a file from the device
-- [ ] (D) Password input validation works correctly
-  - Password is required
-  - Minimum length is enforced
-  - Maximum length is enforced
 - [ ] (D) Protected file is generated successfully
 - [ ] (D) Resulting file can be downloaded
 
-### File Unlocking
+### 2.2 File Unlocking
 
 - [ ] (D) Protected file can be uploaded back into the app
-- [ ] (D) Password input validation works correctly
-  - Password is required
-  - Minimum length is enforced
-  - Maximum length is enforced
-- [ ] (D) Correct password restores the original file
 - [ ] (D) Incorrect password is handled gracefully
+- [ ] (D) Correct password restores the original file
 
-### File Disguising
+### 2.3 File Disguising
 
 - [ ] (D) User can select a disguise from the device
 - [ ] (D) Disguised file is generated successfully
 - [ ] (D) Resulting file behaves like the disguise
 
-### File Exposure
+### 2.4 File Exposure
 
 - [ ] (D) Disguised file can be uploaded back into the app
+- [ ] (D) Incorrect password is handled gracefully
 - [ ] (D) The original file is restored successfully
+
+### 2.5 Shared Flow Behavior
+
+- [ ] (D) Password input validation works correctly
+  - Password is required
+  - Minimum length is enforced
+  - Maximum length is enforced
+- [ ] (D) Password visibility toggle works correctly
+- [ ] (D) Processed files are downloaded automatically after completion
 
 ## 3. File Handling
 
-### Protection
+### 3.1 Protection
 
 - [ ] (D) Supports main file types
-  - Documents (pdf, docx, txt)
-  - Images (jpg, png, gif)
-  - Audio (mp3, wav, flac)
-  - Video (mp4, mkv, avi)
+  - Documents (pdf)
+  - Images (jpg, png)
+  - Audio (mp3)
+  - Video (mp4)
 - [ ] (D) Rejects restricted file types
-  - Executable (exe, msi, apk)
-  - Scripts (bat, cmd, js)
-  - Archives (zip, rar, 7z)
+  - Executable (exe, apk)
+  - Scripts (bat, js)
+  - Archives (zip, rar)
 - [ ] (D) File validation works correctly
   - Folders are rejected
   - Empty files are rejected
   - File name is required
-  - File name length is within limits
-  - Files without extension are allowed
-  - File extension length is within limits
+  - File extension is required
   - Files near the size limit are handled correctly
   - Files exceeding the size limit are rejected
+- [ ] (D) File can be uploaded via drag & drop
 - [ ] (D) File can be replaced with another file
+- [ ] (D) File can be replaced via drag & drop
+- [ ] (D) File validation is re-triggered after file replacement
 - [ ] (D) Graceful error handling for corrupted files
 - [ ] (C) Fails gracefully on timeout
 
-### Disguise
+### 3.2 Disguise
 
 - [ ] (D) Supports permitted types
-  - Documents (pdf, rtf, epub)
-  - Images (jpg, png, gif)
-  - Audio (mp3, wav, flac)
-  - Video (mp4, mkv, avi)
+  - Documents (pdf)
+  - Images (jpg, png)
+  - Audio (mp3)
+  - Video (mp4)
 - [ ] (D) Rejects restricted file types
-  - Plain (txt, html, js)
-  - Read from the end (zip, rar, docx)
+  - Plain (txt, html)
+  - Read from the end (zip, rar)
 - [ ] (D) Disguise validation works correctly
   - Folders are rejected
   - Empty files are rejected
@@ -102,16 +104,19 @@ Before starting QA, ensure:
   - Files near the combined size limit (file + disguise) are handled correctly
   - Files exceeding the combined size limit (file + disguise) are rejected
 - [ ] (D) Disguise can be replaced with another file
+- [ ] (D) Disguise can be removed
+- [ ] (D) Disguise validation is re-triggered after file replacement
 
 ## 4. Moderation
 
-- [ ] (D) Supports image types (jpg, png, gif)
+- [ ] (D) Supports image types (jpg, png, webp, gif, heic)
 - [ ] (D) Non-image files are skipped by moderation
-  - Documents (pdf, docx, txt)
-  - Audio (mp3, wav, flac)
-  - Video (mp4, mkv, avi)
+  - Documents (pdf, docx)
+  - Audio (mp3, wav)
+  - Video (mp4, avi)
 - [ ] (C) Porn, sexy or hentai images are detected correctly
 - [ ] (D) Allowed images pass moderation
+- [ ] (D) High resolution image moderation does not slow down the UI
 - [ ] (D) File moderation is triggered on upload
 - [ ] (D) Disguise moderation is triggered on upload
 - [ ] (D) Moderation restarts after file replacement
@@ -150,6 +155,7 @@ Before starting QA, ensure:
 - [ ] (D) App works correctly in private/incognito mode
 - [ ] (D) Reload during processing does not break the app
 - [ ] (D) Rapid file and disguise re-selection does not cause state corruption
+- [ ] (D) Unsupported browsers (Firefox for mobile) show fallback screen
 
 ## 9. Accessibility & UX
 
@@ -160,19 +166,20 @@ Before starting QA, ensure:
 - [ ] (D) Elements without text contain aria-label
 - [ ] (R) No visible grammar or spelling mistakes
 - [ ] (D) Error messages are readable and clear
-- [ ] (D) Works on different screen sizes
+- [ ] (D) Works on different screen sizes and orientations
 - [ ] (D) The file name is shortened correctly
+- [ ] (D) Social buttons open correct social media URLs
 
 ## 10. Web Quality Audit
 
-### Lighthouse
+### 10.1 Lighthouse
 
 - [ ] (R) Lighthouse Performance score acceptable
 - [ ] (R) Lighthouse Accessibility score acceptable
 - [ ] (R) Lighthouse Best Practices score acceptable
 - [ ] (R) Lighthouse SEO score acceptable
 
-### Structured Data
+### 10.2 Structured Data
 
 - [ ] (R) Structured data passes Google Rich Results Test
 - [ ] (R) No critical schema validation errors
@@ -189,9 +196,7 @@ Before starting QA, ensure:
 - [ ] (R) Site map updated
 - [ ] (R) README.md updated
 - [ ] (R) Version number updated and changes documented in CHANGELOG.md
-- [ ] (R) Server requirements frozen (`pip freeze > requirements.txt`)
 - [ ] (R) Client dependencies updated and `npm audit` reviewed
-- [ ] (R) Documentation generated (`npm run docs`)
 
 ## 13. Reporting & Tracking
 

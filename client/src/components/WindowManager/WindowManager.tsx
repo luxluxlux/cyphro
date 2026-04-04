@@ -96,17 +96,21 @@ export function WindowManager(props: IWindowManagerProps) {
     // synchronously. The useEffect and useLayoutEffect hooks are asynchronous, and a custom hook
     // will fail during double rendering in dev mode (StrictMode), so we use useMemo.
     useMemo(() => {
-        const pathname = location.pathname.split('/').filter(Boolean).join('/');
-        const params = new URLSearchParams(location.search);
+        const popup = new URLSearchParams(location.search).get('popup');
 
-        const key = isEnumValue(WINDOW, pathname) ? pathname : params.get('popup');
-
-        if (key) {
-            if (!isEnumValue(WINDOW, key)) {
-                throw new Error(`Pop-up component "${key}" not found`);
+        if (popup) {
+            if (isEnumValue(WINDOW, popup)) {
+                updateContent(WINDOW_DATA[popup].content);
+                return;
             }
 
-            updateContent(WINDOW_DATA[key].content);
+            console.warn(`Pop-up component "${popup}" not found`);
+        }
+
+        const pathname = location.pathname.split('/').filter(Boolean).join('/');
+
+        if (isEnumValue(WINDOW, pathname)) {
+            updateContent(WINDOW_DATA[pathname].content);
             return;
         }
 

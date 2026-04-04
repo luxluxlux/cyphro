@@ -19,7 +19,7 @@ const Footer = () => {
     }, [windowContext.open]);
 
     return (
-        <nav aria-label="Footer Menu">
+        <nav aria-label="Footer menu">
             <ul className="footer__list">
                 <li className="footer__list-item">
                     <Link

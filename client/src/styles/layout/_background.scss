@@ -1,0 +1,141 @@
+@import 'styles/abstracts/breakpoints';
+
+@mixin palette {
+    $position: 100% 100% at 100% 60%;
+
+    background: radial-gradient(
+        $position,
+        #ffe6d9 0%,
+        #ffa879 10%,
+        #ff5900 48%,
+        #9c3700 80%,
+        #6c2600 100%
+    );
+
+    &_palette {
+        &_blue {
+            background: radial-gradient(
+                $position,
+                #dcf2ff 0%,
+                #81cfff 10%,
+                #009dff 53%,
+                #0067a7 80%,
+                #004774 100%
+            );
+        }
+
+        &_cyan {
+            background: radial-gradient(
+                $position,
+                #c4fffb 0%,
+                #27fff2 10%,
+                #00fff0 18%,
+                #00726b 80%,
+                #004e49 100%
+            );
+        }
+
+        &_green {
+            background: radial-gradient(
+                $position,
+                #cdffe1 0%,
+                #4aff90 10%,
+                #03b849 55%,
+                #007d30 80%,
+                #005621 100%
+            );
+        }
+    }
+}
+
+.background {
+    @include palette;
+
+    position: fixed;
+    overflow: hidden;
+    aspect-ratio: 16 / 9;
+    min-width: 100%;
+    min-height: 100%;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+
+    &__transition {
+        @include palette;
+
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        animation: fade-in 1s ease-in-out;
+    }
+
+    &__blob {
+        position: absolute;
+        width: 123.96%;
+        height: 220.37%;
+        // Raster graphics are more effective for animation than geometric shapes
+        background: url('/resources/blob.webp') center / cover no-repeat;
+
+        &_top-left {
+            animation: rotate-clockwise 20s linear infinite;
+
+            @media (min-width: $breakpoint-s) {
+                left: -53.12%;
+                top: -151.85%;
+            }
+
+            @media (max-width: ($breakpoint-s - 1px)) {
+                left: -52.08%;
+                top: -150%;
+            }
+        }
+
+        &_bottom-right {
+            animation: rotate-counterclockwise 20s linear infinite;
+
+            @media (min-width: $breakpoint-s) {
+                left: 29.17%;
+                top: 31.49%;
+            }
+
+            @media (max-width: ($breakpoint-s - 1px)) {
+                left: 28.13%;
+                top: 29.63%;
+            }
+        }
+
+        &_paused {
+            animation-play-state: paused;
+        }
+    }
+}
+
+@keyframes fade-in {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes rotate-clockwise {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(-360deg);
+    }
+}
+
+@keyframes rotate-counterclockwise {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}

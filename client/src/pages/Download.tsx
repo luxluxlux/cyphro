@@ -88,10 +88,6 @@ const Download = () => {
                 </div>
                 <div className="download__socials">
                     <div className="download__socials-title">Tell your friends about us</div>
-                    {/*
-                    Don't use URLSearchParams, it replaces spaces with '+'.
-                    It can cause problems, for example, in Telegram.
-                */}
                     <div className="download__socials-links">
                         <MuiLink
                             className="download__socials-links-link"
@@ -99,6 +95,7 @@ const Download = () => {
                             target="_blank"
                             rel="noopener"
                             title="Telegram"
+                            aria-label="Visit us on Telegram"
                         >
                             <TelegramIcon fontSize="small" />
                         </MuiLink>
@@ -108,15 +105,18 @@ const Download = () => {
                             target="_blank"
                             rel="noopener"
                             title="X (Twitter)"
+                            aria-label="Visit us on X"
                         >
                             <XIcon fontSize="small" />
                         </MuiLink>
                         <MuiLink
                             className="download__socials-links-link"
-                            href={`https://www.linkedin.com/shareArticle?mini=true&url=${ENCODED_SHARED_URL}&text=${ENCODED_SHARED_TEXT}`}
+                            // We need to encode the question mark twice for LinkedIn to work properly, probably a LinkedIn bug
+                            href={`https://www.linkedin.com/shareArticle?mini=true&url=${ENCODED_SHARED_URL}&text=${ENCODED_SHARED_TEXT.replace('%3F', '%253F')}`}
                             target="_blank"
                             rel="noopener"
                             title="LinkedIn"
+                            aria-label="Visit us on LinkedIn"
                         >
                             <LinkedInIcon fontSize="small" />
                         </MuiLink>

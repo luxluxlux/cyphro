@@ -66,26 +66,8 @@ describe('validateFile', () => {
         expect(validateFile(file)).toEqual(true);
     });
 
-    it('Should return true for a valid file without an extension', () => {
-        const file = new File(['Hello'], 'test', { type: 'text/plain' });
-        expect(validateFile(file)).toEqual(true);
-    });
-
     it('Should return an error message for a file without a name', () => {
         const file = new File(['Hello'], '.txt', { type: 'text/plain' });
-        const result = validateFile(file);
-        expect(typeof result === 'string').toEqual(true);
-    });
-
-    it('Should return an error message for an empty file', () => {
-        const file = new File([], 'empty.txt', { type: 'text/plain' });
-        const result = validateFile(file);
-        expect(typeof result === 'string').toEqual(true);
-    });
-
-    it('Should return an error message for a file larger than MAX_FILE_SIZE_MB', () => {
-        const largeContent = new Uint8Array((MAX_FILES_SIZE_MB + 1) * 1024 * 1024);
-        const file = new File([largeContent], 'large.txt', { type: 'text/plain' });
         const result = validateFile(file);
         expect(typeof result === 'string').toEqual(true);
     });
@@ -94,6 +76,12 @@ describe('validateFile', () => {
         const file = new File(['Hello'], new Array(FILE_NAME_MAX_LENGTH + 2).join('a'), {
             type: 'text/plain',
         });
+        const result = validateFile(file);
+        expect(typeof result === 'string').toEqual(true);
+    });
+
+    it('Should return an error message for a file without an extension', () => {
+        const file = new File(['Hello'], 'test', { type: 'text/plain' });
         const result = validateFile(file);
         expect(typeof result === 'string').toEqual(true);
     });
@@ -111,6 +99,27 @@ describe('validateFile', () => {
     it('Should return an error message for a file with a forbidden extension', () => {
         const file = new File(['Hello'], 'test.exe', { type: 'application/x-msdownload' });
         const result = validateFile(file);
+        expect(typeof result === 'string').toEqual(true);
+    });
+
+    it('Should return an error message for an empty file', () => {
+        const file = new File([], 'empty.txt', { type: 'text/plain' });
+        const result = validateFile(file);
+        expect(typeof result === 'string').toEqual(true);
+    });
+
+    it('Should return an error message for a file larger than MAX_FILE_SIZE_MB', () => {
+        const largeContent = new Uint8Array((MAX_FILES_SIZE_MB + 1) * 1024 * 1024);
+        const file = new File([largeContent], 'large.txt', { type: 'text/plain' });
+        const result = validateFile(file);
+        expect(typeof result === 'string').toEqual(true);
+    });
+
+    it('Should return an error message for a file and a disguise file larger than MAX_FILES_SIZE_MB', () => {
+        const largeContent = new Uint8Array((MAX_FILES_SIZE_MB + 1) * 1024 * 1024);
+        const file = new File([largeContent], 'large.txt', { type: 'text/plain' });
+        const disguise = new File([largeContent], 'large.png', { type: 'image/png' });
+        const result = validateFile(file, disguise);
         expect(typeof result === 'string').toEqual(true);
     });
 });
@@ -150,6 +159,13 @@ describe('validateDisguise', () => {
         expect(result).toEqual(true);
     });
 
+    it('Should return an error message for a disguise file without a name', () => {
+        const file = new File(['Hello'], '.txt', { type: 'text/plain' });
+        const disguise = new File(['iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGNgYAAAAAMAASsJTYQAAAAASUVORK5CYII='], '.png', { type: 'image/png' });
+        const result = validateDisguise(disguise, file);
+        expect(typeof result === 'string').toEqual(true);
+    });
+
     it('Should return an error message for a disguise file without an extension', () => {
         const file = new File(['Hello'], 'test.txt', { type: 'text/plain' });
         const disguise = new File(['iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGNgYAAAAAMAASsJTYQAAAAASUVORK5CYII='], 'test', { type: 'image/png' });
@@ -157,9 +173,9 @@ describe('validateDisguise', () => {
         expect(typeof result === 'string').toEqual(true);
     });
 
-    it('Should return an error message for a disguise file without a name', () => {
-        const file = new File(['Hello'], '.txt', { type: 'text/plain' });
-        const disguise = new File(['iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGNgYAAAAAMAASsJTYQAAAAASUVORK5CYII='], '.png', { type: 'image/png' });
+    it('Should return an error message for a disguise file with an disallowed extension', () => {
+        const file = new File(['Hello'], 'test.txt', { type: 'text/plain' });
+        const disguise = new File(['Hello'], 'test.txt', { type: 'text/plain' });
         const result = validateDisguise(disguise, file);
         expect(typeof result === 'string').toEqual(true);
     });
@@ -182,13 +198,6 @@ describe('validateDisguise', () => {
         const largeContent = new Uint8Array((MAX_FILES_SIZE_MB + 1) * 1024 * 1024);
         const file = new File([largeContent], 'large.txt', { type: 'text/plain' });
         const disguise = new File([largeContent], 'large.png', { type: 'image/png' });
-        const result = validateDisguise(disguise, file);
-        expect(typeof result === 'string').toEqual(true);
-    });
-
-    it('Should return an error message for a disguise file with an disallowed extension', () => {
-        const file = new File(['Hello'], 'test.txt', { type: 'text/plain' });
-        const disguise = new File(['Hello'], 'test.txt', { type: 'text/plain' });
         const result = validateDisguise(disguise, file);
         expect(typeof result === 'string').toEqual(true);
     });
@@ -242,10 +251,6 @@ describe('addExtension', () => {
     it('Should add the extension even if the file name contains dots', () => {
         expect(addExtension('test.txt', 'txt')).toEqual('test.txt.txt');
     });
-
-    it('Should not add the extension if it is not passed', () => {
-        expect(addExtension('test')).toEqual('test');
-    });
 });
 
 describe('changeExtension', () => {
@@ -253,12 +258,20 @@ describe('changeExtension', () => {
         expect(changeExtension('test.txt', 'html')).toEqual('test.html');
     });
 
+    it('Should change if the file name is empty', () => {
+        expect(changeExtension('.txt', 'html')).toEqual('.html');
+    });
+        
+    it('Should change only the last extension of the file name', () => {
+        expect(changeExtension('test.txt.html', 'css')).toEqual('test.txt.css');
+    });
+
     it('Should remove the extension if an empty string is passed', () => {
         expect(changeExtension('test.txt', '')).toEqual('test');
     });
 
-    it('Should not change the extension if it is not passed', () => {
-        expect(changeExtension('test')).toEqual('test');
+    it('Should remove the file name ends with a dot', () => {
+        expect(changeExtension('test.', 'txt')).toEqual('test.txt');
     });
 });
 

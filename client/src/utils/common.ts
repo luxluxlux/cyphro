@@ -34,9 +34,30 @@ export async function upload(type?: string): Promise<File> {
         if (type) {
             input.accept = type;
         }
+
+        // Safari sometimes doesn't handle clicks on elements that aren't in the DOM
+        input.style.display = 'none';
+        document.body.appendChild(input);
+
+        input.onchange = () => {
+            const file = input.files?.[0];
+            document.body.removeChild(input);
+            if (file) {
+                resolve(file);
+            } else {
+                reject(new Error('No file selected'));
+            }
+        };
+
+        input.onerror = (error) => {
+            document.body.removeChild(input);
+            reject(error);
+        };
+
+        // Reset the input value to allow selecting the same file again
+        input.value = '';
+
         input.click();
-        input.onchange = (event) => resolve((event.target as HTMLInputElement).files![0]);
-        input.onerror = (error) => reject(error);
     });
 }
 
@@ -46,10 +67,25 @@ export async function upload(type?: string): Promise<File> {
  * @param fileName Name string.
  */
 export function download(data: Blob, fileName: string): void {
+    const url = window.URL.createObjectURL(data);
+
     const anchor = document.createElement('a');
-    anchor.href = window.URL.createObjectURL(data);
+    anchor.href = url;
     anchor.download = fileName;
+
+    // Some browsers don't handle clicks on elements that aren't in the DOM
+    anchor.style.display = 'none';
+    document.body.appendChild(anchor);
+
     anchor.click();
+
+    document.body.removeChild(anchor);
+
+    // Safari doesn't always release the object URL immediately after the download,
+    // so we wait a bit before revoking it
+    setTimeout(() => {
+        URL.revokeObjectURL(url);
+    }, 100);
 }
 
 /**
@@ -76,13 +112,14 @@ export function ellipse(text: string, maxLength: number): string {
 
 /**
  * Validates a file to ensure it meets the required criteria.
- * @param file The file to be validated.
+ * @param sourceFile The source file to be validated.
+ * @param disguiseFile The disguise file associated with the source file.
  * @returns True if the file is valid, or an error message if it's not.
  */
-export function validateFile(file: File): ValidationResult {
-    const { name, extension } = parseFileName(file.name);
+export function validateFile(sourceFile: File, disguiseFile?: File): ValidationResult {
+    const { name, extension } = parseFileName(sourceFile.name);
 
-    if (!name.length) {
+    if (!name) {
         return 'File name is required.';
     }
 
@@ -90,20 +127,30 @@ export function validateFile(file: File): ValidationResult {
         return 'File name is too long.';
     }
 
-    if (extension && extension.length > FILE_EXTENSION_MAX_LENGTH) {
+    // Some browsers may automatically assign a file extension during download
+    // if the original filename has none
+    if (!extension) {
+        return 'File extension is required.';
+    }
+
+    if (extension.length > FILE_EXTENSION_MAX_LENGTH) {
         return 'File extension is too long.';
     }
 
-    if (extension && FORBIDDEN_FILE_EXTENSIONS.includes(extension.toLowerCase())) {
+    if (FORBIDDEN_FILE_EXTENSIONS.includes(extension.toLowerCase())) {
         return 'Forbidden file extension. See FAQ for allowed formats.';
     }
 
-    if (file.size === 0) {
+    if (sourceFile.size === 0) {
         return 'Folders and empty files are not allowed.';
     }
 
-    if (file.size > MAX_FILES_SIZE_MB * 1024 * 1024) {
+    if (sourceFile.size > MAX_FILES_SIZE_MB * 1024 * 1024) {
         return `The file must be no more than ${MAX_FILES_SIZE_MB}MB.`;
+    }
+
+    if (disguiseFile && (sourceFile.size + disguiseFile.size > MAX_FILES_SIZE_MB * 1024 * 1024)) {
+        return `The file and disguise must be no more than ${MAX_FILES_SIZE_MB}MB in total.`;
     }
 
     return true;
@@ -111,11 +158,12 @@ export function validateFile(file: File): ValidationResult {
 
 /**
  * Validates a list of files to ensure it meets the required criteria.
- * @param files The list of files to be validated.
+ * @param sourceFiles The list of files to be validated.
+ * @param disguiseFile The disguise file associated with the source files.
  * @returns An error message if validation fails, or true if validation succeeds.
  */
-export function validateFiles(files: FileList): ValidationResult {
-    const length = files.length;
+export function validateFiles(sourceFiles: FileList, disguiseFile?: File): ValidationResult {
+    const length = sourceFiles.length;
 
     if (length < 1) {
         return 'At least one file is required.';
@@ -125,8 +173,8 @@ export function validateFiles(files: FileList): ValidationResult {
         return 'No more than one file at a time.';
     }
 
-    const file = files[0];
-    return validateFile(file);
+    const sourceFile = sourceFiles[0];
+    return validateFile(sourceFile, disguiseFile);
 }
 
 /**
@@ -138,22 +186,22 @@ export function validateFiles(files: FileList): ValidationResult {
 export function validateDisguise(disguiseFile: File, sourceFile: File): ValidationResult {
     const { name: disguiseFileName, extension: disguiseFileExtension } = parseFileName(disguiseFile.name);
 
-    if (!disguiseFileName.length) {
+    if (!disguiseFileName) {
         return 'File name is required.';
     }
 
-    if (disguiseFile.size === 0) {
-        return 'Folders and empty files are not allowed.';
-    }
-
-    // Files without an extension are in most cases opened by text editors,
-    // which can lead to the disclosure of the disguise
+    // Files without an extension may be automatically treated as text files by browsers or operating systems,
+    // and are often opened by text editors, which can expose the disguise
     if (!disguiseFileExtension) {
         return 'File extension is required.';
     }
 
     if (!ALLOWED_DISGUISE_EXTENSIONS.includes(disguiseFileExtension.toLowerCase())) {
         return 'Forbidden file extension. See FAQ for allowed formats.';
+    }
+
+    if (disguiseFile.size === 0) {
+        return 'Folders and empty files are not allowed.';
     }
 
     if (disguiseFile.size > MAX_FILES_SIZE_MB * 1024 * 1024) {
@@ -197,12 +245,12 @@ export function waitReject(
  * @returns An object containing the name and extension.
  */
 export function parseFileName(fileName: string): {
-    name: string;
+    name?: string;
     extension?: string;
 } {
     const match = fileName.match(/^(.*?)(?:\.([^.]+))?\.?$/);
     return {
-        name: match?.[1] || '',
+        name: match?.[1] || undefined,
         extension: match?.[2] || undefined,
     };
 }
@@ -213,8 +261,8 @@ export function parseFileName(fileName: string): {
  * @param extension The extension to add.
  * @returns The file name with the added extension.
  */
-export function addExtension(name: string, extension?: string): string {
-    return extension ? `${name}.${extension}` : name;
+export function addExtension(name: string, extension: string): string {
+    return `${name}.${extension}`;
 }
 
 /**
@@ -223,8 +271,8 @@ export function addExtension(name: string, extension?: string): string {
  * @param extension The new file extension.
  * @returns The file name with the new extension.
  */
-export function changeExtension(name: string, extension?: string): string {
-    return name.replace(/(\.[^.]*$|$)/, extension ? `.${extension}` : '');
+export function changeExtension(name: string, extension: string): string {
+    return name.replace(/\.[^.]*$|$/, extension ? `.${extension}` : '');
 }
 
 /**
