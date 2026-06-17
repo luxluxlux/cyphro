@@ -198,7 +198,6 @@ Before starting QA, ensure:
 - [ ] (R) Version number updated and changes documented in CHANGELOG.md
 - [ ] (R) Client dependencies updated and `npm audit` reviewed
 
-## 13. Reporting & Tracking
+## 13. Reporting
 
-- [ ] (R) Test results documented in pull request
 - [ ] (R) Bugs reported via GitHub Issues

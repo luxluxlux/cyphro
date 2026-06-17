@@ -109,6 +109,11 @@ const Upload = () => {
                                         '@type': 'Organization',
                                         name: `${APP_NAME} Project`,
                                     },
+                                    offers: {
+                                        '@type': 'Offer',
+                                        price: '0',
+                                        priceCurrency: 'EUR',
+                                    },
                                 },
                             ],
                         })}
