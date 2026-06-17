@@ -8,31 +8,6 @@
     // For old browsers
     height: 100%;
 
-    &__background {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        background-size: cover;
-        background-position: center;
-
-        @media (min-width: $breakpoint-s) {
-            background-image: url('/resources/backgrounds/desktop.svg');
-        }
-
-        @media (max-width: ($breakpoint-s - 1px)) {
-            background-image: url('/resources/backgrounds/mobile.svg');
-        }
-    }
-
-    &__overlay {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        background-color: var(--primary-color);
-        mix-blend-mode: color;
-        transition: background-color 1s ease-in-out;
-    }
-
     &__content {
         position: absolute;
         width: 100%;

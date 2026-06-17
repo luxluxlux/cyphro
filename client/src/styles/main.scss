@@ -2,6 +2,6 @@
 @import 'base/normalize', 'base/base', 'base/typography';
 @import 'components/logo', 'components/menu', 'components/footer', 'components/windowManager',
     'components/loading', 'components/dragNDrop', 'components/snackbarProvider', 'components/about',
-    'components/howItWorks', 'components/dropArea';
-@import 'layout/page';
+    'components/howItWorks', 'components/dropArea', 'components/notice';
+@import 'layout/page', 'layout/background';
 @import 'pages/upload', 'pages/secure', 'pages/download', 'pages/notFound';

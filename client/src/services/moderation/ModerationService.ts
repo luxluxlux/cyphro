@@ -1,6 +1,6 @@
 import { ModerationRequest, ModerationResponse } from 'workers/moderation/types';
 import { ModerationSlot, IModerationTask, ModerationResult } from './types';
-import { fitImage } from './utils';
+import { fileToImageBitmap, fitImageBitmap } from './utils';
 
 /**
  * A service for moderating files using a web worker.
@@ -54,22 +54,11 @@ export class ModerationService {
     }
 
     /**
-     * Waits for specified moderation slots to finish.
-     * @param slot The moderation slot to wait for.
+     * Waits for all moderation tasks to finish.
      * @returns A promise that resolves to an object with moderation slot as key and moderation result as value.
      */
-    async wait(slots: ModerationSlot[]): Promise<Record<ModerationSlot, ModerationResult>> {
-        if (!slots.length) {
-            throw new Error('No moderation slots specified');
-        }
-
-        const tasks = slots.map((slot) => {
-            const task = this.tasks.get(slot);
-            if (!task) {
-                throw new Error(`No moderation started for slot "${slot}"`);
-            }
-            return [slot, task] as const;
-        });
+    async wait(): Promise<Record<ModerationSlot, ModerationResult>> {
+        const tasks = Array.from(this.tasks.entries());
 
         const results = await Promise.all(
             tasks.map(([slot, task]) =>
@@ -133,8 +122,8 @@ export class ModerationService {
         let bitmap: ImageBitmap | null = null;
 
         try {
-            const origin = await createImageBitmap(file);
-            bitmap = await fitImage(origin);
+            const origin = await fileToImageBitmap(file);
+            bitmap = await fitImageBitmap(origin);
             origin.close();
 
             // The second check is required because the state may change

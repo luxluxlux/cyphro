@@ -1,6 +1,7 @@
 /* eslint-disable no-restricted-globals */
 
 import { deserializeFile } from 'utils/workers';
+import { encryptFile, decryptFile } from 'utils/crypto/core';
 import { serializeResult } from './utils';
 import { CryptoRequest, CryptoResponse } from './types';
 
@@ -16,7 +17,6 @@ export async function handleMessage(event: MessageEvent<CryptoRequest>): Promise
         const sourceFile = deserializeFile(source);
         const disguiseFile = disguise && action === 'encode' ? deserializeFile(disguise) : undefined;
 
-        const { encryptFile, decryptFile } = await import('utils/crypto/core');
         const data = action === 'encode'
             ? await encryptFile(sourceFile, password, disguiseFile)
             : await decryptFile(sourceFile, password);

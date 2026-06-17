@@ -8,7 +8,7 @@ import logo from 'resources/logo.svg';
  * @returns Image and name of the app.
  */
 const Logo = () => (
-    <nav aria-label="Website Logo">
+    <nav aria-label="Website logo">
         <MuiLink component={RouterLink} to={STAGE_DATA[STAGE.UPLOAD].path} className="logo">
             <img className="logo__image" src={logo} alt="Emblem" />
             <h1 className="logo__text">{APP_NAME}</h1>

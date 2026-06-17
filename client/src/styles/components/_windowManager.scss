@@ -37,6 +37,10 @@
                 max-height: 100%;
                 overflow-y: scroll;
 
+                // Hide scrollbar for Firefox
+                scrollbar-width: none;
+
+                // Hide scrollbar for Chrome, Safari, Opera and modern Edge
                 &::-webkit-scrollbar {
                     display: none;
                 }

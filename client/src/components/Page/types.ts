@@ -21,3 +21,13 @@ export interface IPageProps {
      */
     content: ReactNode;
 }
+
+/**
+ * Environment gate component properties.
+ */
+export interface IEnvironmentGateProps {
+    /**
+     * The content of the component
+     */
+    children: ReactNode;
+}

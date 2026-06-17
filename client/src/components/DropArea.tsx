@@ -29,7 +29,7 @@ export const DropArea = (props: IProps) => {
 
     const handleDrop = useCallback(
         (files: FileList) => {
-            const validation = validateFiles(files);
+            const validation = validateFiles(files, location.state?.disguise);
             if (validation !== true) {
                 enqueueSnackbar({
                     variant: 'warning',

@@ -12,7 +12,7 @@ let nsfwjsModel: NSFWJS | null = null;
 export async function getModel(): Promise<NSFWJS> {
     if (!nsfwjsModel) {
         const nsfwjs = await import('nsfwjs');
-        nsfwjsModel = await nsfwjs.load();
+        nsfwjsModel = await nsfwjs.load('MobileNetV2');
     }
     return nsfwjsModel;
 }

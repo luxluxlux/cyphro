@@ -1,8 +1,9 @@
-import { CSSProperties, memo } from 'react';
+import { memo } from 'react';
 import { WindowManager } from 'components/WindowManager';
 import DropArea from 'components/DropArea';
 import { IPageProps } from './types';
-import { usePrimaryColor } from './hooks';
+import Background from './Background';
+import EnvironmentGate from './EnvironmentGate';
 
 /**
  * Basic page layout.
@@ -10,30 +11,23 @@ import { usePrimaryColor } from './hooks';
  * @returns Design of page layout with accompanying functionality.
  */
 export const Page = (props: IPageProps) => {
-    const color = usePrimaryColor();
     return (
-        <div
-            className="page"
-            style={
-                {
-                    '--primary-color': color,
-                } as CSSProperties
-            }
-        >
+        <div className="page">
             <WindowManager>
                 <DropArea>
-                    <div className="page__background" />
-                    <div className="page__overlay" />
-                    <div className="page__content">
-                        <header className="page__content-header">
-                            <div>{props.logo}</div>
-                            <div>{props.menu}</div>
-                        </header>
-                        <main className="page__content-body">
-                            <div className="page__content-body-content">{props.content}</div>
-                        </main>
-                        <footer className="page__content-footer">{props.footer}</footer>
-                    </div>
+                    <Background />
+                    <EnvironmentGate>
+                        <div className="page__content">
+                            <header className="page__content-header">
+                                <div>{props.logo}</div>
+                                <div>{props.menu}</div>
+                            </header>
+                            <main className="page__content-body">
+                                <div className="page__content-body-content">{props.content}</div>
+                            </main>
+                            <footer className="page__content-footer">{props.footer}</footer>
+                        </div>
+                    </EnvironmentGate>
                 </DropArea>
             </WindowManager>
         </div>

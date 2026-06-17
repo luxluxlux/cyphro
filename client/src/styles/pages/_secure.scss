@@ -26,6 +26,13 @@
                 flex-grow: 1;
             }
         }
+
+        &-password {
+            // Hide password reveal button in Edge
+            input::-ms-reveal {
+                display: none;
+            }
+        }
     }
 
     &__agreement {

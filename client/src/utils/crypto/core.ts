@@ -82,12 +82,12 @@ export function buildBody({
     data
 }: {
     name?: string,
-    extension?: string,
+    extension: string,
     data: Uint8Array
 }): Uint8Array {
     return assemble(BODY_FORMAT,
         [
-            extension ? stringToUint8Array(extension) : new Uint8Array(),
+            stringToUint8Array(extension),
             name ? stringToUint8Array(name) : new Uint8Array(),
         ],
         data,
@@ -151,7 +151,7 @@ export async function checkBack(source: Uint8Array, encrypted: Uint8Array, passw
  * @returns A promise that resolves to the encrypted file.
  */
 export async function encryptFile(sourceFile: File, password: string, disguiseFile?: File): Promise<Uint8Array> {
-    const sourceFileValidation = validateFile(sourceFile);
+    const sourceFileValidation = validateFile(sourceFile, disguiseFile);
     if (sourceFileValidation !== true) {
         throw new Error(sourceFileValidation);
     }
@@ -169,7 +169,7 @@ export async function encryptFile(sourceFile: File, password: string, disguiseFi
     const body = buildBody({
         // We only store the file name if we mask it
         name: disguiseFile ? fileName : undefined,
-        extension: fileExtension,
+        extension: fileExtension!,
         data: source
     })
     const data = lib.WordArray.create(body);
@@ -246,7 +246,7 @@ export async function parseBody(body: Uint8Array): Promise<IRestored> {
     const { formattedData: [extension, name], additionalData: data } = disassemble(BODY_FORMAT, body);
     return {
         name: name.length ? uint8ArrayToString(name) : undefined,
-        extension: extension.length ? uint8ArrayToString(extension) : undefined,
+        extension: uint8ArrayToString(extension),
         data: data!,
     };
 }

@@ -7,14 +7,14 @@
 
 ## Key Features
 
-| Feature | Description |
-| --- | --- |
-| 🛡️ **Password protection** | Protect a file with a password so that only users who know it can access its contents. |
-| 🌐 **No installation** | Runs entirely in the browser — no installation, plugins, or extensions required. |
-| 🙈 **No registration** | Use the app without creating an account or providing personal information. |
-| 💸 **Completely free** | 100% free to use — no ads, no subscriptions, no usage limits. |
-| 🧩 **Open source** | Transparent and community-driven. Anyone can review, audit, or contribute to the source code. |
-| 🖥️ **Local data processing** | All operations happen locally in the browser. Files never leave the user's device. |
+| Feature                      | Description                                                                                   |
+| ---------------------------- | --------------------------------------------------------------------------------------------- |
+| 🛡️ **Password protection**   | Protect a file with a password so that only users who know it can access its contents.        |
+| 🌐 **No installation**       | Runs entirely in the browser — no installation, plugins, or extensions required.              |
+| 🙈 **No registration**       | Use the app without creating an account or providing personal information.                    |
+| 💸 **Completely free**       | 100% free to use — no ads, no subscriptions, no usage limits.                                 |
+| 🧩 **Open source**           | Transparent and community-driven. Anyone can review, audit, or contribute to the source code. |
+| 🖥️ **Local data processing** | All operations happen locally in the browser. Files never leave the user's device.            |
 
 ## How It Works
 
@@ -39,9 +39,10 @@ Users are solely responsible for how they use the application. The service must 
 ## Documentation
 
 - [Licence](https://github.com/luxluxlux/cyphro/blob/main/LICENSE.md)
-- [QA checklist](https://github.com/luxluxlux/cyphro/blob/main/docs/QA_CHECKLIST.md)
-- [Device coverage](https://github.com/luxluxlux/cyphro/blob/main/docs/DEVICE_COVERAGE.md)
-- [Figma layouts](https://www.figma.com/proto/vJngV2H7MrnI0pt3XD4Bos/Cyphro?t=iBSnFTpCMg47VyAc-0&scaling=contain&content-scaling=fixed&page-id=0%3A1&node-id=1140-161)
+- [Changelog](https://github.com/luxluxlux/cyphro/blob/main/CHANGELOG.md)
+- [Designs](https://www.figma.com/proto/vJngV2H7MrnI0pt3XD4Bos/Cyphro?t=iBSnFTpCMg47VyAc-0&scaling=contain&content-scaling=fixed&page-id=0%3A1&node-id=1140-161)
+- [QA Checklist](https://github.com/luxluxlux/cyphro/blob/main/docs/QA_CHECKLIST.md)
+- [Device Coverage](https://github.com/luxluxlux/cyphro/blob/main/docs/DEVICE_COVERAGE.md)
 
 ## Launch
 
@@ -51,19 +52,19 @@ Choose one of the following methods to run the application.
 
 1. Go to the client directory:
 
-   ```
+   ```bash
    cd client
    ```
 
 1. Install dependencies:
 
-   ```
+   ```bash
    npm install
    ```
 
 1. Start the development server:
 
-   ```
+   ```bash
    npm run start
    ```
 
@@ -73,7 +74,7 @@ Choose one of the following methods to run the application.
 
 1. Run Docker Compose:
 
-   ```
+   ```bash
    docker compose up --build
    ```
 

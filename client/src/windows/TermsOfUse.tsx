@@ -34,10 +34,7 @@ const TermsOfUse = () => {
         <>
             <Helmet>
                 <title>Terms of Use — User Agreement and Guidelines | {APP_NAME}</title>
-                <link
-                    rel="canonical"
-                    href={`${APP_URL}${WINDOW_DATA[WINDOW.TERMS_OF_USE].path}`}
-                />
+                <link rel="canonical" href={`${APP_URL}${WINDOW_DATA[WINDOW.TERMS_OF_USE].path}`} />
                 <meta
                     name="description"
                     content={`Read the ${APP_NAME} Terms of Use to understand your rights and responsibilities when using this open-source file encoding tool. Learn about privacy, permitted usage, and legal compliance.`}
@@ -73,7 +70,7 @@ const TermsOfUse = () => {
                 <p>
                     We operate the website{' '}
                     <MuiLink component={RouterLink} to={STAGE_DATA[STAGE.UPLOAD].path}>
-                        http://www.cyphro.io
+                        {APP_URL}
                     </MuiLink>{' '}
                     (the &quot;Site&quot;) as well as any other related products and services that
                     refer or link to these terms of use (the &quot;Terms of Use&quot;)

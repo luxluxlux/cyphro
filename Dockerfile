@@ -36,14 +36,8 @@ RUN npm run build
 # Runtime stage
 FROM nginx:1.29-alpine
 
-LABEL org.opencontainers.image.title="Cyphro"
-LABEL org.opencontainers.image.description="Privacy-first open-source web app for secure file protection"
-LABEL org.opencontainers.image.source="https://github.com/luxluxlux/cyphro"
-LABEL org.opencontainers.image.url="https://cyphro.io/"
-LABEL org.opencontainers.image.version="1.0.0"
-
-COPY nginx/nginx.conf /etc/nginx/nginx.conf
 COPY nginx/dev.conf /etc/nginx/conf.d/default.conf
+COPY nginx/gzip.conf /etc/nginx/conf.d/gzip.conf
 COPY nginx/common/app.conf /etc/nginx/common/app.conf
 
 COPY --from=build /app/build /usr/share/nginx/html

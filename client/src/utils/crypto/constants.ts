@@ -4,10 +4,11 @@ import { FixedBodyFormat, FixedFileFormat } from './types';
 
 /**
  * File marker (magic bytes).
- * @remarks ASCII "CYPHR".
+ * @remarks Randomly generated sequence of bytes that serves as a signature
+ * for searching file headers.
  * @see https://en.wikipedia.org/wiki/File_format#Magic_number
  */
-export const SIGNATURE = new Uint8Array([67, 89, 80, 72, 82]);
+export const SIGNATURE = new Uint8Array([182, 47, 201, 93, 138]);
 
 /**
  * Salt size in bytes.
