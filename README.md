@@ -1,6 +1,6 @@
 # Cyphro
 
-![GitHub Stable](https://img.shields.io/badge/stable-1.0.0-blue)
+[![GitHub Stable](https://img.shields.io/github/v/release/luxluxlux/cyphro)](https://github.com/luxluxlux/cyphro/releases)
 [![GitHub License](https://img.shields.io/github/license/luxluxlux/cyphro)](https://github.com/luxluxlux/cyphro/blob/main/LICENSE.md)
 
 **Cyphro** is a privacy-first, free, open-source web application that helps users protect personal files from scammers and unauthorized access. Files can be secured with a password or optionally disguised as another file type — all directly in the browser, without relying on external services.
