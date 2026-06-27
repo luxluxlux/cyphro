@@ -49,10 +49,7 @@ const About = () => {
                     property="og:description"
                     content="Protecting and disguising files directly in your browser. Learn how we make file safety simple, private, and fully local — no installation or registration required."
                 />
-                <meta
-                    property="og:url"
-                    content={`${APP_URL}${WINDOW_DATA[WINDOW.ABOUT].path}`}
-                />
+                <meta property="og:url" content={`${APP_URL}${WINDOW_DATA[WINDOW.ABOUT].path}`} />
                 <meta name="twitter:title" content={`${APP_NAME} — About the Project`} />
                 <meta
                     name="twitter:description"
@@ -93,7 +90,7 @@ const About = () => {
                         🛡️ <strong>Password protection</strong>
                     </div>
                     <div>
-                        Secure a file with a password so that only users who know it can access its
+                        Secure files with a password so that only users who know it can access their
                         contents.
                     </div>
                     <div>

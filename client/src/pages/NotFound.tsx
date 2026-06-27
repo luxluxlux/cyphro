@@ -16,7 +16,7 @@ const NotFound = () => (
         <div className="not-found">
             <h2 className="not-found__title">Oops! 404 - Page Not Found</h2>
             <p className="not-found__description">
-                The page packed up its bits and left. We&apos;re still trying to decode its last
+                The page packed up its bits and left. We&apos;re still trying to decrypt its last
                 message.
             </p>
             <Button component={Link} to={STAGE_DATA[STAGE.UPLOAD].path} variant="contained">

@@ -193,7 +193,7 @@ export const ALLOWED_DISGUISE_EXTENSIONS = [
 export const MAX_ALERT_FILENAME_LENGTH = 30;
 
 /**
- * Encoded file extension.
+ * Protected file extension.
  */
 export const FILE_EXTENSION = 'cph';
 

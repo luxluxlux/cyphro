@@ -70,7 +70,7 @@ const Download = () => {
             </Helmet>
             <div className="download">
                 <p className="download__description">
-                    Your file was successfully {location.state.action}d as{' '}
+                    Your file was successfully {location.state.action}ed as{' '}
                     <b title={location.state.fileName}>{ellipse(location.state.fileName, 40)}</b>{' '}
                     and downloaded. If not, use the button below.
                 </p>

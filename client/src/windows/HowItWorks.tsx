@@ -36,7 +36,7 @@ const HowItWorks = () => {
                 <link rel="canonical" href={`${APP_URL}${WINDOW_DATA[WINDOW.HOW_IT_WORKS].path}`} />
                 <meta
                     name="description"
-                    content={`Learn how ${APP_NAME} protects your data. Encode and disguise a file with a password directly in your browser. No uploads, no tracking, 100% open source and transparent.`}
+                    content={`Learn how ${APP_NAME} protects your data. Secure and disguise files with a password directly in your browser. No uploads, no tracking, 100% open source and transparent.`}
                 />
                 <meta
                     name="keywords"
@@ -45,7 +45,7 @@ const HowItWorks = () => {
                 <meta property="og:title" content={`${APP_NAME} — How It Works`} />
                 <meta
                     property="og:description"
-                    content="Learn how we protect your data. Encode and disguise a file with a password directly in your browser. No uploads, no tracking, 100% open source and transparent."
+                    content="Learn how we protect your data. Secure and disguise files with a password directly in your browser. No uploads, no tracking, 100% open source and transparent."
                 />
                 <meta
                     property="og:url"
@@ -54,7 +54,7 @@ const HowItWorks = () => {
                 <meta name="twitter:title" content={`${APP_NAME} — How It Works`} />
                 <meta
                     name="twitter:description"
-                    content="Learn how we protect your data. Encode and disguise a file with a password directly in your browser. No uploads, no tracking, 100% open source and transparent."
+                    content="Learn how we protect your data. Secure and disguise files with a password directly in your browser. No uploads, no tracking, 100% open source and transparent."
                 />
                 <script type="application/ld+json">
                     {JSON.stringify({

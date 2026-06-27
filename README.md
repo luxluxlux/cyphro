@@ -9,7 +9,7 @@
 
 | Feature                      | Description                                                                                   |
 | ---------------------------- | --------------------------------------------------------------------------------------------- |
-| 🛡️ **Password protection**   | Protect a file with a password so that only users who know it can access its contents.        |
+| 🛡️ **Password protection**   | Protect files with a password so that only users who know it can access their contents.       |
 | 🌐 **No installation**       | Runs entirely in the browser — no installation, plugins, or extensions required.              |
 | 🙈 **No registration**       | Use the app without creating an account or providing personal information.                    |
 | 💸 **Completely free**       | 100% free to use — no ads, no subscriptions, no usage limits.                                 |

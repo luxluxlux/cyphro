@@ -15,9 +15,9 @@ export async function handleMessage(event: MessageEvent<CryptoRequest>): Promise
         const { action, source, password, disguise } = event.data;
 
         const sourceFile = deserializeFile(source);
-        const disguiseFile = disguise && action === 'encode' ? deserializeFile(disguise) : undefined;
+        const disguiseFile = disguise && action === 'encrypt' ? deserializeFile(disguise) : undefined;
 
-        const data = action === 'encode'
+        const data = action === 'encrypt'
             ? await encryptFile(sourceFile, password, disguiseFile)
             : await decryptFile(sourceFile, password);
 
@@ -42,6 +42,6 @@ export function handleError(event: Event | string): void {
             : typeof event === 'string'
                 ? event
                 : 'Crypto worker error';
-                
+
     self.postMessage({ error } satisfies CryptoResponse);
 }
