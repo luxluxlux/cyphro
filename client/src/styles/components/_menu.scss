@@ -22,12 +22,25 @@
             margin-bottom: unset;
             flex-shrink: 0;
 
-            &-button {
+            &-text-button {
                 min-width: unset;
                 padding-left: 17px;
                 padding-right: 17px;
                 margin-left: -17px;
                 margin-right: -17px;
+            }
+
+            &-icon-button {
+                height: 100%;
+                aspect-ratio: 1 / 1;
+                margin-left: -17px;
+                margin-right: -7px;
+
+                &-icon {
+                    // Resize to align with other elements on the page
+                    width: 22px;
+                    height: 22px;
+                }
             }
         }
     }

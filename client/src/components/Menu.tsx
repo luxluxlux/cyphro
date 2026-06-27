@@ -6,6 +6,7 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import Button from '@mui/material/Button';
 import MenuIcon from '@mui/icons-material/Menu';
 import SettingsSuggestIcon from '@mui/icons-material/SettingsSuggest';
+import CloseIcon from '@mui/icons-material/Close';
 import QuizIcon from '@mui/icons-material/Quiz';
 import InfoIcon from '@mui/icons-material/Info';
 import { WindowManagerContext, WINDOW } from 'components/WindowManager';
@@ -31,6 +32,10 @@ const Menu = () => {
         windowContext.open(WINDOW.ABOUT);
     }, [windowContext.open]);
 
+    const handleCloseWindow = useCallback(() => {
+        windowContext.close();
+    }, [windowContext.close]);
+
     const handleOpenMenu = useCallback((event: MouseEvent<HTMLElement>) => {
         setAnchorEl(event.currentTarget);
     }, []);
@@ -46,6 +51,11 @@ const Menu = () => {
                 <IconButton aria-label="Open main menu" onClick={handleOpenMenu}>
                     <MenuIcon fontSize="medium" />
                 </IconButton>
+                {windowContext.isOpened && windowContext.isClosable && (
+                    <IconButton aria-label="Close window" onClick={handleCloseWindow}>
+                        <CloseIcon fontSize="medium" />
+                    </IconButton>
+                )}
                 <MuiMenu
                     anchorEl={anchorEl}
                     open={!!anchorEl}
@@ -74,20 +84,36 @@ const Menu = () => {
             </div>
             <ul className="menu__list">
                 <li className="menu__list-item">
-                    <Button className="menu__list-item-button" onClick={handleHowItWorksClick}>
+                    <Button className="menu__list-item-text-button" onClick={handleHowItWorksClick}>
                         How It Works
                     </Button>
                 </li>
                 <li className="menu__list-item">
-                    <Button className="menu__list-item-button" onClick={handleFAQClick}>
+                    <Button className="menu__list-item-text-button" onClick={handleFAQClick}>
                         FAQ
                     </Button>
                 </li>
                 <li className="menu__list-item">
-                    <Button className="menu__list-item-button" onClick={handleAboutClick}>
+                    <Button className="menu__list-item-text-button" onClick={handleAboutClick}>
                         About
                     </Button>
                 </li>
+                {windowContext.isOpened && windowContext.isClosable && (
+                    <li className="menu__list-item">
+                        <IconButton
+                            className="menu__list-item-icon-button"
+                            size="small"
+                            title="Close window"
+                            aria-label="Close window"
+                            onClick={handleCloseWindow}
+                        >
+                            <CloseIcon
+                                className="menu__list-item-icon-button-icon"
+                                fontSize="medium"
+                            />
+                        </IconButton>
+                    </li>
+                )}
             </ul>
         </nav>
     );

@@ -80,17 +80,12 @@ export function WindowManager(props: IWindowManagerProps) {
     const stateContextValue = useMemo<IWindowManagerContext>(
         () => ({
             isOpened: !!state.content,
+            isClosable: closableRef.current,
             open,
             close,
         }),
         [open, close, state.content]
     );
-
-    const handleClose = useCallback(() => {
-        if (closableRef.current) {
-            close();
-        }
-    }, [close]);
 
     // To guarantee correct window rendering with SSG, the component's state must change
     // synchronously. The useEffect and useLayoutEffect hooks are asynchronous, and a custom hook
@@ -128,7 +123,7 @@ export function WindowManager(props: IWindowManagerProps) {
     useEffect(() => {
         const handleKeyDown = (event: KeyboardEvent) => {
             if (event.key === 'Escape' && closableRef.current) {
-                handleClose();
+                close();
             }
         };
 
@@ -136,17 +131,15 @@ export function WindowManager(props: IWindowManagerProps) {
         return () => {
             window.removeEventListener('keydown', handleKeyDown);
         };
-    }, [handleClose]);
+    }, [close]);
 
     return (
         <WindowManagerContext.Provider value={stateContextValue}>
             {props.children}
-            {/* TODO: Use cross button for close */}
             <Backdrop
                 className={state.modal ? 'window-manager_modal' : undefined}
                 open={!!state.content}
                 transitionDuration={transitionRef.current}
-                onClick={handleClose}
             >
                 {/* TODO: Adapt fullscreen to non-modal mode */}
                 {state.fullscreen ? (

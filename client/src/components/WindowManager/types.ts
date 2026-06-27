@@ -43,6 +43,7 @@ export interface IWindowManagerOptions {
  */
 export interface IWindowManagerContext {
     isOpened: boolean;
+    isClosable: boolean;
     open: {
         /**
          * Open an existing window
