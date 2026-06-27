@@ -220,6 +220,7 @@ const Secure = () => {
                         fileName,
                         data: blob,
                         action,
+                        disguised: !!disguise,
                     },
                 });
             } catch (error) {
@@ -399,7 +400,7 @@ const Secure = () => {
                 {/* TODO: Add hints for empty password */}
                 <div className="secure__actions">
                     <Button variant="contained" disabled={!password} onClick={handleEncryptClick}>
-                        Encrypt
+                        {location.state.disguise ? 'Disguise' : 'Encrypt'}
                     </Button>
                     {!location.state.disguise && (
                         <Button

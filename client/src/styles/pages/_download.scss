@@ -9,6 +9,13 @@
         margin: 0;
     }
 
+    &__notice {
+        font-size: var(--font-size_s);
+        display: flex;
+        align-items: center;
+        gap: var(--offset_s);
+    }
+
     &__actions {
         max-width: 100%;
         display: flex;

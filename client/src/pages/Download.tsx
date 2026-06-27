@@ -3,6 +3,7 @@ import { Link as RouterLink, useLocation, Navigate, useNavigate } from 'react-ro
 import { Helmet } from 'react-helmet-async';
 import MuiLink from '@mui/material/Link';
 import Button from '@mui/material/Button';
+import ErrorIcon from '@mui/icons-material/Error';
 import TelegramIcon from '@mui/icons-material/Telegram';
 import XIcon from '@mui/icons-material/X';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
@@ -70,10 +71,19 @@ const Download = () => {
             </Helmet>
             <div className="download">
                 <p className="download__description">
-                    Your file was successfully {location.state.action}ed as{' '}
-                    <b title={location.state.fileName}>{ellipse(location.state.fileName, 40)}</b>{' '}
+                    Your file was successfully{' '}
+                    {location.state.action === 'encrypt' && location.state.disguised
+                        ? 'disguised'
+                        : `${location.state.action}ed`}{' '}
+                    as <b title={location.state.fileName}>{ellipse(location.state.fileName, 40)}</b>{' '}
                     and downloaded. If not, use the button below.
                 </p>
+                {location.state.action === 'encrypt' && location.state.disguised && (
+                    <div className="download__notice">
+                        <ErrorIcon fontSize="small" />
+                        <div>Don&apos;t modify or compress this file.</div>
+                    </div>
+                )}
                 <div className="download__actions">
                     <Button variant="contained" onClick={downloadFile}>
                         Download
