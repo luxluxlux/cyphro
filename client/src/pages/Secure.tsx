@@ -226,7 +226,7 @@ const Secure = () => {
                 enqueueSnackbar({
                     variant: 'error',
                     message:
-                        action === 'encode'
+                        action === 'encrypt'
                             ? 'Check if the file is damaged or replace it with another one.'
                             : 'Check that the password or key is correct and make sure the file is not damaged.',
                     title: `Failed to ${action} file`,
@@ -239,9 +239,9 @@ const Secure = () => {
         [location, enqueueSnackbar, windowContext.open, windowContext.close, password]
     );
 
-    const handleEncodeClick = useCallback(() => handleCode('encode'), [handleCode]);
+    const handleEncryptClick = useCallback(() => handleCode('encrypt'), [handleCode]);
 
-    const handleDecodeClick = useCallback(() => handleCode('decode'), [handleCode]);
+    const handleDecryptClick = useCallback(() => handleCode('decrypt'), [handleCode]);
 
     useEffect(() => {
         return () => {
@@ -398,12 +398,16 @@ const Secure = () => {
                 </div>
                 {/* TODO: Add hints for empty password */}
                 <div className="secure__actions">
-                    <Button variant="contained" disabled={!password} onClick={handleEncodeClick}>
-                        Encode
+                    <Button variant="contained" disabled={!password} onClick={handleEncryptClick}>
+                        Encrypt
                     </Button>
                     {!location.state.disguise && (
-                        <Button variant="outlined" disabled={!password} onClick={handleDecodeClick}>
-                            Decode
+                        <Button
+                            variant="outlined"
+                            disabled={!password}
+                            onClick={handleDecryptClick}
+                        >
+                            Decrypt
                         </Button>
                     )}
                 </div>
@@ -429,8 +433,8 @@ function validatePassword(password: string | null): ValidationResult {
 }
 
 function validateBlob(action: Action, blob: Blob): ValidationResult {
-    if (action === 'encode' && blob.size > MAX_FILES_SIZE_MB * 1024 * 1024) {
-        return `The encoded file size exceeds the maximum allowed size of ${MAX_FILES_SIZE_MB}MB.`;
+    if (action === 'encrypt' && blob.size > MAX_FILES_SIZE_MB * 1024 * 1024) {
+        return `The protected file size exceeds the maximum allowed size of ${MAX_FILES_SIZE_MB}MB.`;
     }
 
     return true;
@@ -448,7 +452,7 @@ async function process(
     password: string,
     disguise?: File
 ): Promise<{ ok: true; result: Uint8Array | IRestored } | { ok: false; failed: ModerationSlot[] }> {
-    if (action === 'encode' && service) {
+    if (action === 'encrypt' && service) {
         // To ensure stable UX, we do not temporarily interrupt processing
         // if the moderation process ends with an error
         const moderation = await moderate(service).catch(() => true as const);

@@ -22,7 +22,7 @@ const FAQ = () => (
             <link rel="canonical" href={`${APP_URL}${WINDOW_DATA[WINDOW.FAQ].path}`} />
             <meta
                 name="description"
-                content={`Find answers to common questions about ${APP_NAME} — a free, open source web app to encode, decode, and disguise a file with a password directly in your browser. Learn about supported formats, file size limits, and how to contribute.`}
+                content={`Find answers to common questions about ${APP_NAME} — a free, open source web app to secure and disguise files with a password directly in your browser. Learn about supported formats, file size limits, and how to contribute.`}
             />
             <meta
                 name="keywords"
@@ -99,7 +99,7 @@ const FAQ = () => (
                 experience. Offline and mobile versions may be available in the future, but
                 currently this web app is the only supported option.
             </p>
-            <h3>🔓 Can I Open Files Encoded by Another App?</h3>
+            <h3>🔓 Can I Open Files Encrypted by Another App?</h3>
             <p>
                 <strong>No.</strong> {APP_NAME} works with its own file format and does not support
                 files processed by other tools. This limitation helps avoid compatibility issues and
