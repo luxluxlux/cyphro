@@ -313,7 +313,7 @@ const Secure = () => {
                                 )}
                                 <IconButton
                                     size="small"
-                                    title="Change the file"
+                                    title="Change file"
                                     aria-label="Change file"
                                     onClick={handleUploadFileClick}
                                 >
@@ -337,16 +337,16 @@ const Secure = () => {
                                     <InputAdornment position="end">
                                         <IconButton
                                             size="small"
-                                            title="Change the disguise"
-                                            aria-label="Change the disguise"
+                                            title="Change disguise"
+                                            aria-label="Change disguise"
                                             onClick={handleUploadDisguiseClick}
                                         >
                                             <CachedIcon fontSize="small" />
                                         </IconButton>
                                         <IconButton
                                             size="small"
-                                            title="Remove the disguise"
-                                            aria-label="Remove the disguise"
+                                            title="Remove disguise"
+                                            aria-label="Remove disguise"
                                             onClick={handleRemoveDisguiseClick}
                                         >
                                             <CloseIcon fontSize="small" />
