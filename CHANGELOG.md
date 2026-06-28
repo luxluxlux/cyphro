@@ -4,7 +4,13 @@ All notable changes to **Cyphro** will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and the project follows [Semantic Versioning](https://semver.org/).
 
-## [1.0.0] — 2026-06-18
+## [1.0.1] - 2026-06-28
+
+### Added
+- Close button for pop-up windows.
+- Notice advising users not to modify disguised files.
+
+## [1.0.0] - 2026-06-18
 
 ### Added
 - Client-side file protection with password-based access.
@@ -16,4 +22,5 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - Clear user warnings for unsupported or restricted files.
 - Open-source project structure with MIT license.
 
+[1.0.1]: https://github.com/luxluxlux/cyphro/releases/tag/v1.0.1
 [1.0.0]: https://github.com/luxluxlux/cyphro/releases/tag/v1.0.0
