@@ -2,6 +2,8 @@
 
 .menu {
     &__dropdown {
+        display: flex;
+
         @media (min-width: $breakpoint-s) {
             display: none;
         }
