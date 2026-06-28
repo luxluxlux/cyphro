@@ -40,7 +40,7 @@ export const VERSION_SIZE = 3;
  * @remarks No letters! Only numbers! No greater than 1 byte (0-255) for each number. Don't forget
  * to sync it with the package.json.
  */
-export const VERSION: Version = '1.0.0';
+export const VERSION: Version = '1.0.1';
 
 /**
  * Version parsed into the tuple ([major, minor, revision]).
