@@ -1,7 +1,7 @@
 import { AES, lib } from 'crypto-js';
 import { PARSED_VERSION } from 'utils/constants';
-import { FILE_FORMAT, IV_SIZE, KEY_SIZE, SALT_SIZE } from './constants';
-import { disassemble, readAsUint8Array } from './utils';
+import { FILE_FORMAT, IV_SIZE, KEY_SIZE, SALT_SIZE, SIGNATURE, MAX_TRAILING_BYTES } from './constants';
+import { concatUint8Arrays, disassemble, readAsUint8Array } from './utils';
 import {
     buildFile,
     calcHMAC,
@@ -9,6 +9,7 @@ import {
     decryptData,
     decryptFile,
     encryptFile,
+    findSignature,
     generateIV,
     generateSalt,
     getKey,
@@ -201,7 +202,56 @@ describe('decryptFile', () => {
     });
 });
 
+describe('findSignature', () => {
+    it.each([0, 1, MAX_TRAILING_BYTES - 1, MAX_TRAILING_BYTES])(
+        'Should find the signature with %i trailing bytes', (trailingBytes) => {
+            const prefix = new Uint8Array([1, 2, 3]);
+            const input = concatUint8Arrays(prefix, SIGNATURE, new Uint8Array(trailingBytes).fill(SIGNATURE[0]));
+            const original = input.slice();
+
+            expect(findSignature(input)).toBe(prefix.length);
+            expect(input).toEqual(original);
+        }
+    );
+
+    it('Should find the signature at the start of the array', () => {
+        const input = concatUint8Arrays(SIGNATURE, new Uint8Array(MAX_TRAILING_BYTES));
+
+        expect(findSignature(input)).toBe(0);
+    });
+
+    it('Should return the signature closest to the end', () => {
+        const input = concatUint8Arrays(SIGNATURE, new Uint8Array(3), SIGNATURE, new Uint8Array(2));
+
+        expect(findSignature(input)).toBe(SIGNATURE.length + 3);
+    });
+
+    it('Should reject a signature beyond the trailing byte allowance', () => {
+        const input = concatUint8Arrays(SIGNATURE, new Uint8Array(MAX_TRAILING_BYTES + 1));
+
+        expect(() => findSignature(input)).toThrow('Invalid file signature');
+    });
+
+    it.each([new Uint8Array(), SIGNATURE.subarray(0, SIGNATURE.length - 1), new Uint8Array(128)])(
+        'Should reject data without a complete signature (%p)', (input) => {
+            expect(() => findSignature(input)).toThrow('Invalid file signature');
+        }
+    );
+});
+
 describe('parse', () => {
+    it('Should decrypt a file with trailing bytes', async () => {
+        const file = new File(['Hello World'], 'test.txt', { type: 'text/plain' });
+        const password = 'testPassword';
+        const encrypted = await encryptFile(file, password);
+        const input = concatUint8Arrays(encrypted, new Uint8Array([1, 2, 3]));
+
+        const restored = await decryptData(input, password);
+
+        expect(restored.data).toEqual(await readAsUint8Array(file));
+        expect(restored.extension).toBe('txt');
+    });
+
     it('Should return a promise that resolves to an object containing the key, hmac, iv and cipher', async () => {
         const file = new File(['Hello World'], 'test.txt', { type: 'text/plain' });
         const password = 'testPassword';
@@ -213,12 +263,6 @@ describe('parse', () => {
         expect(hmac).toHaveProperty('words');
         expect(iv).toHaveProperty('words');
         expect(cipher).toHaveProperty('ciphertext');
-    });
-
-    it('Should throw an error if the data is empty', async () => {
-        const arr = new Uint8Array(0);
-        const password = 'testPassword';
-        await expect(parseFile(arr, password)).rejects.toThrow();
     });
 });
 

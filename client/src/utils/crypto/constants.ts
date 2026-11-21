@@ -11,6 +11,12 @@ import { FixedBodyFormat, FixedFileFormat } from './types';
 export const SIGNATURE = new Uint8Array([182, 47, 201, 93, 138]);
 
 /**
+ * Maximum number of appended bytes allowed after the file signature.
+ * @remarks An allowance bounds the search while leaving room for trailing metadata.
+ */
+export const MAX_TRAILING_BYTES = 64 * 1024;
+
+/**
  * Salt size in bytes.
  * @remarks The selected value is based on the recommended params.
  * @see https://en.wikipedia.org/wiki/PBKDF2

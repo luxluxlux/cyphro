@@ -22,7 +22,8 @@ import {
     DEFAULT_CIPHER_PARAMS,
     FILE_FORMAT,
     BODY_FORMAT,
-    SIGNATURE
+    SIGNATURE,
+    MAX_TRAILING_BYTES
 } from './constants';
 
 /**
@@ -204,6 +205,24 @@ export function validateDecryptedData(data: Uint8Array): ValidationResult {
 }
 
 /**
+ * Finds the file signature by searching backwards within the trailing byte allowance.
+ * @param data File data.
+ * @returns Index of the first byte of the signature closest to the end.
+ */
+export function findSignature(data: Uint8Array): number {
+    const maxIndex = data.length - SIGNATURE.length;
+    const minIndex = Math.max(0, maxIndex - MAX_TRAILING_BYTES);
+
+    for (let index = maxIndex; index >= minIndex; index--) {
+        if (compareUint8Arrays(data.subarray(index, index + SIGNATURE.length), SIGNATURE)) {
+            return index;
+        }
+    }
+    
+    throw new Error('Invalid file signature');
+}
+
+/**
  * Parses file data with password.
  * @param data File data.
  * @param password Password used for encryption.
@@ -215,11 +234,9 @@ export async function parseFile(data: Uint8Array, password: string): Promise<{
     cipher: lib.CipherParams;
     key: lib.WordArray;
 }> {
-    const { formattedData: [ciphertext, iv, hmac, salt, _version, signature] } = disassemble(FILE_FORMAT, data, true);
-
-    if (!compareUint8Arrays(signature, SIGNATURE)) {
-        throw new Error('Invalid file signature');
-    }
+    const index = findSignature(data);
+    const fileData = data.subarray(0, index + SIGNATURE.length);
+    const { formattedData: [ciphertext, iv, hmac, salt] } = disassemble(FILE_FORMAT, fileData, true);
 
     const key = getKey(password, salt);
     const cipher = lib.CipherParams.create({
