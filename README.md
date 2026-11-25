@@ -1,5 +1,7 @@
 # Cyphro
 
+> Development and support for Cyphro have been paused indefinitely. Users who need to unlock files protected with Cyphro can run the application locally by following the instructions in the [Launch](#launch) section below.
+
 [![GitHub Stable](https://img.shields.io/github/v/release/luxluxlux/cyphro)](https://github.com/luxluxlux/cyphro/releases)
 [![GitHub License](https://img.shields.io/github/license/luxluxlux/cyphro)](https://github.com/luxluxlux/cyphro/blob/main/LICENSE.md)
 
